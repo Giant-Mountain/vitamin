@@ -18,7 +18,13 @@
             :placeholder="value.placeholder"
             :range.sync="form[value.name]"
           >
-            <el-option v-for="(v, k) in value.options" :key="k" :label="v.label" :value="v.value" />
+            <el-option
+              v-for="(v, k) in gradeLevel"
+              v-show="value.name==='vip'"
+              :key="k"
+              :label="v.label"
+              :value="v.value"
+            />
           </component>
         </el-form-item>
       </div>
@@ -32,15 +38,28 @@
 
 <script>
 import RangeInput from './components/RangInput'
+import { mapState } from 'vuex'
+
 export default {
   name: 'CustormerFrom',
   components: {
     RangeInput
   },
-  props: ['froms', 'form'],
+  // props: ['froms', 'form'],
+  props: {
+    froms: {
+      type: Array
+    },
+    form: {
+      type: Array
+    }
+  },
   data() {
     return {}
   },
+  computed: mapState({
+    gradeLevel: store => store.custormer.gradeLevel
+  }),
   methods: {
     search() {
       console.log(123)

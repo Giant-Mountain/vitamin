@@ -3,10 +3,10 @@ import { MessageBox, Message } from 'element-ui'
 import store from '@/store'
 import { getToken } from '@/utils/auth'
 
-document.cookie = 'Authorization=Bearer DgZcRu7p9X2bkMrTseNpc3Wa2Df00ovN; org_id=61500; userId=963245015; org_type=5; avatar=https://img.weitaming.com/test/base_user/avatar/20180912/4ba047689c360d2ff846332892edfd05.jpg; userName=方超管; roleType=3; logo=https://img.weitaming.com/test/vm_mall/logo/20191010/2050ba08f6a773eb996f104dec6cb8a8.jpg; name=测试国芳百货广场店; mallId=61500; alias=betalzgf; menuList=[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]; selectedKeys=#/customer/list'
-document.cookie = 'org_id=61500; userId=963245015; org_type=5; avatar=https://img.weitaming.com/test/base_user/avatar/20180912/4ba047689c360d2ff846332892edfd05.jpg; userName=方超管; roleType=3; logo=https://img.weitaming.com/test/vm_mall/logo/20191010/2050ba08f6a773eb996f104dec6cb8a8.jpg; name=测试国芳百货广场店; mallId=61500; alias=betalzgf; menuList=[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]; selectedKeys=#/customer/list'
-document.cookie = 'userId=963245015; org_type=5; avatar=https://img.weitaming.com/test/base_user/avatar/20180912/4ba047689c360d2ff846332892edfd05.jpg; userName=方超管; roleType=3; logo=https://img.weitaming.com/test/vm_mall/logo/20191010/2050ba08f6a773eb996f104dec6cb8a8.jpg; name=测试国芳百货广场店; mallId=61500; alias=betalzgf; menuList=[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]; selectedKeys=#/customer/list'
-document.cookie = 'org_type=5; avatar=https://img.weitaming.com/test/base_user/avatar/20180912/4ba047689c360d2ff846332892edfd05.jpg; userName=方超管; roleType=3; logo=https://img.weitaming.com/test/vm_mall/logo/20191010/2050ba08f6a773eb996f104dec6cb8a8.jpg; name=测试国芳百货广场店; mallId=61500; alias=betalzgf; menuList=[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]; selectedKeys=#/customer/list'
+// document.cookie = 'Authorization=Bearer DgZcRu7p9X2bkMrTseNpc3Wa2Df00ovN; org_id=61500; userId=963245015; org_type=5; avatar=https://img.weitaming.com/test/base_user/avatar/20180912/4ba047689c360d2ff846332892edfd05.jpg; userName=方超管; roleType=3; logo=https://img.weitaming.com/test/vm_mall/logo/20191010/2050ba08f6a773eb996f104dec6cb8a8.jpg; name=测试国芳百货广场店; mallId=61500; alias=betalzgf; menuList=[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]; selectedKeys=#/customer/list'
+// document.cookie = 'org_id=61500; userId=963245015; org_type=5; avatar=https://img.weitaming.com/test/base_user/avatar/20180912/4ba047689c360d2ff846332892edfd05.jpg; userName=方超管; roleType=3; logo=https://img.weitaming.com/test/vm_mall/logo/20191010/2050ba08f6a773eb996f104dec6cb8a8.jpg; name=测试国芳百货广场店; mallId=61500; alias=betalzgf; menuList=[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]; selectedKeys=#/customer/list'
+// document.cookie = 'userId=963245015; org_type=5; avatar=https://img.weitaming.com/test/base_user/avatar/20180912/4ba047689c360d2ff846332892edfd05.jpg; userName=方超管; roleType=3; logo=https://img.weitaming.com/test/vm_mall/logo/20191010/2050ba08f6a773eb996f104dec6cb8a8.jpg; name=测试国芳百货广场店; mallId=61500; alias=betalzgf; menuList=[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]; selectedKeys=#/customer/list'
+// document.cookie = 'org_type=5; avatar=https://img.weitaming.com/test/base_user/avatar/20180912/4ba047689c360d2ff846332892edfd05.jpg; userName=方超管; roleType=3; logo=https://img.weitaming.com/test/vm_mall/logo/20191010/2050ba08f6a773eb996f104dec6cb8a8.jpg; name=测试国芳百货广场店; mallId=61500; alias=betalzgf; menuList=[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]; selectedKeys=#/customer/list'
 
 // create an axios instance
 const service = axios.create({
@@ -16,8 +16,8 @@ const service = axios.create({
   headers: {
     'Authorization': 'Bearer DgZcRu7p9X2bkMrTseNpc3Wa2Df00ovN',
     'x-org-id': '61500',
-    'x-org-type': '963245015',
-    'x-user-id': '5'
+    'x-org-type': '5',
+    'x-user-id': '963245015'
   }
 })
 
@@ -54,10 +54,19 @@ service.interceptors.response.use(
    * You can also judge the status by HTTP Status Code
    */
   response => {
+    console.log(response)
     const res = response.data
-
+    if (res.code === 200) {
+      // Message({
+      //   message: res.message || 'success',
+      //   type: 'success',
+      //   duration: 5 * 1000
+      // })
+      return res
+    }
     // if the custom code is not 20000, it is judged as an error.
     if (res.code !== 20000) {
+      console.log(1)
       Message({
         message: res.message || 'Error',
         type: 'error',
@@ -79,6 +88,7 @@ service.interceptors.response.use(
       }
       return Promise.reject(new Error(res.message || 'Error'))
     } else {
+      console.log(2)
       return res
     }
   },
