@@ -46,7 +46,7 @@ export default {
   data() {
     return {
       current: 0,
-      flag: false
+      flag: true
     }
   },
   methods: {

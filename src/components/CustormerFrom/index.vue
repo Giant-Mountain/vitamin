@@ -47,8 +47,6 @@ export default {
   components: {
     RangeInput
   },
-  // eslint-disable-next-line vue/require-prop-types
-  //   props: ['froms', 'form'],
   // props: ['froms', 'form'],
   //   props: {
   //     froms: {
