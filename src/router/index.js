@@ -202,6 +202,14 @@ export const asyncRoutes = [
         meta: {
           title: '会员卡'
         }
+      },
+      {
+        path: 'CodeManage',
+        component: () => import('@/views/member/CodeManage'),
+        name: 'CodeManage',
+        meta: {
+          title: '自拓二维码管理'
+        }
       }
     ]
   },

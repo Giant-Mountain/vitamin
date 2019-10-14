@@ -14,10 +14,14 @@
       </div>
     </div>
     <div class="card-group">
-      <CustormerFrom :froms="froms[currentIndex]" :form="form" />
+      <CustormerFrom
+        :froms="froms[currentIndex]"
+        :form="form"
+        :grade-level="gradeLevel"
+      />
     </div>
     <div class="customer-list">
-      <CustormerTable :table-column="tableColumn[currentIndex]" />
+      <CustormerTable :table-column="tableColumn[currentIndex]" :table-list="tableList.list" />
     </div>
     <el-pagination
       :current-page="currentPage4"
@@ -207,7 +211,8 @@ export default {
   },
   computed: mapState({
     tableList: store => store.custormer.tableList,
-    pagination: store => store.custormer.pagination
+    pagination: store => store.custormer.pagination,
+    gradeLevel: store => store.custormer.gradeLevel
   }),
   mounted() {
     this.$store.dispatch('custormer/getTableList', {

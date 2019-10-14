@@ -38,31 +38,38 @@
 
 <script>
 import RangeInput from './components/RangInput'
-import { mapState } from 'vuex'
 
 export default {
   name: 'CustormerFrom',
   components: {
     RangeInput
   },
-  // props: ['froms', 'form'],
   props: {
     froms: {
-      type: Array
+      type: Array,
+      default: function() {
+        return {}
+      }
     },
     form: {
-      type: Object
+      type: Object,
+      default: function() {
+        return {}
+      }
+    },
+    gradeLevel: {
+      type: Array,
+      default: function() {
+        return {}
+      }
     }
   },
   data() {
     return {}
   },
-  computed: mapState({
-    gradeLevel: store => store.custormer.gradeLevel
-  }),
   methods: {
     search() {
-      console.log(123)
+      this.$emit('handSearch', this.form)
     },
     reset() {
       console.log('重置')
@@ -99,7 +106,7 @@ export default {
   margin-left: 10px;
   font-size: 12px;
 }
-.form-label /deep/ .el-form-item__content .el-range-separator{
+.form-label /deep/ .el-form-item__content .el-range-separator {
   font-size: 12px;
 }
 .form-btns {

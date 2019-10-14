@@ -1,6 +1,6 @@
 <template>
   <div class="table-content">
-    <el-table :data="tableList.list" style="width: 100%;height:100%">
+    <el-table :data="tableList" style="width: 100%;height:100%">
       <el-table-column
         v-for="(table,index) in tableColumn"
         :key="index"
@@ -17,20 +17,22 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
 export default {
   name: 'CustormerTable',
   props: {
     tableColumn: {
-      type: Array
+      type: Array,
+      default: function() {
+        return {}
+      }
+    },
+    tableList: {
+      type: Array,
+      default: function() {
+        return {}
+      }
     }
-  },
-  data() {
-    return {}
-  },
-  computed: mapState({
-    tableList: store => store.custormer.tableList
-  })
+  }
 }
 </script>
 <style lang="scss" scoped>
