@@ -11,7 +11,6 @@
 
 <script>
 import TeamManger from '@/components/TeamManger'
-import { tableData } from '@/api/team.js'
 export default {
   name: 'MemberManger',
   components: {
@@ -20,7 +19,7 @@ export default {
   data() {
     return {
       navList: ['员工管理', '邀请中', '角色描述'],
-      title: '员工管理',
+      title: '导购管理',
       form: {
         tel: '',
         shop: '',
@@ -98,79 +97,95 @@ export default {
       tableColumn: [
         [
           {
-            lable: '头像',
-            prop: 'img'
+            lable: '日期',
+            prop: 'date'
           },
           {
             lable: '姓名',
-            prop: 'create_user_name'
+            prop: 'name'
           },
           {
-            lable: '手机号',
-            prop: 'mobile'
+            lable: '省份',
+            prop: 'province'
           },
           {
-            lable: '角色',
-            prop: 'role'
+            lable: '市区',
+            prop: 'city'
           },
           {
-            lable: '所属店铺',
-            prop: 'store_name'
+            lable: '地址',
+            prop: 'address'
           },
           {
-            lable: '',
-            prop: ''
-          },
-          {
-            lable: '',
-            prop: ''
-          },
-          {
-            lable: '顾客账号',
-            prop: 'relation_user'
-          },
-          {
-            lable: '状态',
-            prop: 'status'
-          },
-          {
-            lable: '操作',
-            prop: 'option',
-            render(record, text) {
-              return <div>查看</div>
-            }
+            lable: '邮编',
+            prop: 'zip'
           }
         ]
       ],
       tableLists: [
         [
           {
-            img: '',
-            create_user_name: '',
-            mobile: '',
-            role: '',
-            store_name: '',
-            relation_user: '',
-            status: ''
+            date: '2016-05-03',
+            name: '王小虎',
+            province: '上海',
+            city: '普陀区',
+            address: '上海市普陀区金沙江路 1518 弄',
+            zip: 200333
+          },
+          {
+            date: '2016-05-02',
+            name: '王小虎',
+            province: '上海',
+            city: '普陀区',
+            address: '上海市普陀区金沙江路 1518 弄',
+            zip: 200333
+          },
+          {
+            date: '2016-05-04',
+            name: '王小虎',
+            province: '上海',
+            city: '普陀区',
+            address: '上海市普陀区金沙江路 1518 弄',
+            zip: 200333
+          },
+          {
+            date: '2016-05-01',
+            name: '王小虎',
+            province: '上海',
+            city: '普陀区',
+            address: '上海市普陀区金沙江路 1518 弄',
+            zip: 200333
+          },
+          {
+            date: '2016-05-08',
+            name: '王小虎',
+            province: '上海',
+            city: '普陀区',
+            address: '上海市普陀区金沙江路 1518 弄',
+            zip: 200333
+          },
+          {
+            date: '2016-05-06',
+            name: '王小虎',
+            province: '上海',
+            city: '普陀区',
+            address: '上海市普陀区金沙江路 1518 弄',
+            zip: 200333
+          },
+          {
+            date: '2016-05-07',
+            name: '王小虎',
+            province: '上海',
+            city: '普陀区',
+            address: '上海市普陀区金沙江路 1518 弄',
+            zip: 200333
           }
         ]
       ]
     }
-  },
-  mounted() {
-    tableData({ type: 1,
-      status: 3,
-      page: 1 }).then(res => {
-    //   const img = res.data.list.map(item => {
-    //     return <img src=${item.img}  alt />
-    //   })
-      this.tableLists = [res.data.list]
-      console.log(this.tableLists)
-    })
   }
 }
 </script>
 
 <style>
 </style>
-

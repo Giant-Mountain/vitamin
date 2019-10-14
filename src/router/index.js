@@ -244,6 +244,14 @@ export const asyncRoutes = [
         meta: {
           title: '员工管理'
         }
+      },
+      {
+        path: 'soldManger',
+        component: () => import('@/views/team/soldManger'),
+        name: 'soldManger',
+        meta: {
+          title: '导购管理'
+        }
       }
     ]
   },

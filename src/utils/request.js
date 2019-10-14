@@ -19,9 +19,9 @@ const service = axios.create({
   timeout: 5000, // request timeout
   headers: {
     Authorization: 'Bearer DgZcRu7p9X2bkMrTseNpc3Wa2Df00ovN',
-    'x-org-id': '61500',
-    'x-org-type': '963245015',
-    'x-user-id': '5'
+    'x-org-id': 61500,
+    'x-org-type': 5,
+    'x-user-id': 963245015
   }
 })
 
@@ -62,6 +62,9 @@ service.interceptors.response.use(
 
     // if the custom code is not 20000, it is judged as an error.
     if (res.code !== 20000) {
+      if (res.code === 200) {
+        return res
+      }
       Message({
         message: res.message || 'Error',
         type: 'error',

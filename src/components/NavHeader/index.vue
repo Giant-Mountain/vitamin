@@ -42,7 +42,7 @@ export default {
     height: 180px;
     padding: 48px 0 0 48px;
     border-bottom: 4px solid #f5f5f5;
-    font-size: 22px;
+    font-size: 16px;
     display: flex;
     flex-direction: column;
     div {
@@ -51,7 +51,7 @@ export default {
             color: #000;
         }
         &:last-child {
-            font-size: 20px;
+            font-size: 14px;
             span {
                 margin: 0 40px 0 0;
                 cursor: pointer;
