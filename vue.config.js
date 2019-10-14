@@ -45,6 +45,14 @@ module.exports = {
         pathRewrite: {
           ['^' + process.env.VUE_APP_BASE_API]: ''
         }
+      },
+      "/api": {
+        //使用"/api"来代替"http://f.apiplus.c"
+        target: "https://betapartnerapi.weitaming.com", //源地址
+        changeOrigin: true, //改变源
+        pathRewrite: {
+          "^/api": "" //路径重写
+        }
       }
     },
     after: require('./mock/mock-server.js')
