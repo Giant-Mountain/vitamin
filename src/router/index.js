@@ -229,7 +229,7 @@ export const asyncRoutes = [
   {
     path: '/team',
     component: Layout,
-    redirect: '/team/team',
+    redirect: '/team/memberManger',
     alwaysShow: true, // will always show the root menu
     name: 'team',
     meta: {
@@ -238,11 +238,19 @@ export const asyncRoutes = [
     },
     children: [
       {
-        path: 'team',
-        component: () => import('@/views/team/team'),
-        name: 'team',
+        path: 'memberManger',
+        component: () => import('@/views/team/memberManger'),
+        name: 'memberManger',
         meta: {
           title: '员工管理'
+        }
+      },
+      {
+        path: 'soldManger',
+        component: () => import('@/views/team/soldManger'),
+        name: 'soldManger',
+        meta: {
+          title: '导购管理'
         }
       }
     ]
@@ -273,11 +281,12 @@ export const asyncRoutes = [
   { path: '*', redirect: '/404', hidden: true }
 ]
 
-const createRouter = () => new Router({
-  // mode: 'history', // require service support
-  scrollBehavior: () => ({ y: 0 }),
-  routes: constantRoutes
-})
+const createRouter = () =>
+  new Router({
+    // mode: 'history', // require service support
+    scrollBehavior: () => ({ y: 0 }),
+    routes: constantRoutes
+  })
 
 const router = createRouter()
 

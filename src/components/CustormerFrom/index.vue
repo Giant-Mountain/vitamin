@@ -1,6 +1,9 @@
 <template>
   <div>
-    <el-form ref="form" :model="form">
+    <el-form
+      ref="form"
+      :model="form"
+    >
       <div class="from-content">
         <el-form-item
           v-for="(value,key) in froms"
@@ -73,52 +76,56 @@ export default {
 
 <style lang="scss" scoped>
 .from-content {
-  display: flex;
-  flex-wrap: wrap;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 46px 46px 20px 46px;
 }
 
 .from-content /deep/ .el-form-item {
-  display: flex;
+    display: flex;
+    width: 500px;
+    height: 40px;
+    line-height: 40px;
+    display: inline-block;
 }
 .form-label /deep/ .el-form-item__label {
-  font-size: 12px;
-  display: inline-block;
-  width: 120px !important;
-  font-weight: normal;
+    font-size: 12px;
+    display: inline-block;
+    width: 120px;
+    font-weight: normal;
 }
+
 .form-label /deep/ .el-input__inner {
-  width: 175px;
-}
-.form-label /deep/ .el-form-item__content {
-  margin-left: 0 !important;
+    width: 250px;
 }
 .form-label /deep/ .el-form-item__content .el-input {
-  font-size: 12px;
+    font-size: 12px;
+    width: 250px;
 }
 .form-label /deep/ .el-form-item__content .el-range-input {
-  margin-left: 10px;
-  font-size: 12px;
+    margin-left: 10px;
+    font-size: 12px;
 }
-.form-label /deep/ .el-form-item__content .el-range-separator{
-  font-size: 12px;
+.form-label /deep/ .el-form-item__content .el-range-separator {
+    font-size: 12px;
 }
 .form-btns {
-  display: flex;
-  justify-content: flex-end;
-  button {
-    margin-right: 15px;
-    display: inline-block;
-    background: #3ec6b6;
-    border: 1px solid #3ec6b6;
-    color: #fff;
-    border-radius: 4px;
-    padding: 6px 15px;
-  }
-  button:nth-child(2) {
-    color: #3c3c3c;
-    border-radius: 4px;
-    border: 1px solid #e8e8e8;
-    background-color: #fff;
-  }
+    display: flex;
+    justify-content: flex-end;
+    button {
+        margin-right: 15px;
+        display: inline-block;
+        background: #3ec6b6;
+        border: 1px solid #3ec6b6;
+        color: #fff;
+        border-radius: 4px;
+        padding: 6px 15px;
+    }
+    button:nth-child(2) {
+        color: #3c3c3c;
+        border-radius: 4px;
+        border: 1px solid #e8e8e8;
+        background-color: #fff;
+    }
 }
 </style>
