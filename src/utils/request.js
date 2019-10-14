@@ -78,7 +78,7 @@ service.interceptors.response.use(
         // to re-login
         MessageBox.confirm('You have been logged out, you can cancel to stay on this page, or log in again', 'Confirm logout', {
           confirmButtonText: 'Re-Login',
-          cancelButtonText: 'Cancel',
+          cancelButtonText: 'Canceo',
           type: 'warning'
         }).then(() => {
           store.dispatch('user/resetToken').then(() => {
