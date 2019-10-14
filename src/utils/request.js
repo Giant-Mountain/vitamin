@@ -3,11 +3,22 @@ import { MessageBox, Message } from 'element-ui'
 import store from '@/store'
 import { getToken } from '@/utils/auth'
 
+document.cookie = 'Authorization=Bearer DgZcRu7p9X2bkMrTseNpc3Wa2Df00ovN; org_id=61500; userId=963245015; org_type=5; avatar=https://img.weitaming.com/test/base_user/avatar/20180912/4ba047689c360d2ff846332892edfd05.jpg; userName=方超管; roleType=3; logo=https://img.weitaming.com/test/vm_mall/logo/20191010/2050ba08f6a773eb996f104dec6cb8a8.jpg; name=测试国芳百货广场店; mallId=61500; alias=betalzgf; menuList=[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]; selectedKeys=#/customer/list'
+document.cookie = 'org_id=61500; userId=963245015; org_type=5; avatar=https://img.weitaming.com/test/base_user/avatar/20180912/4ba047689c360d2ff846332892edfd05.jpg; userName=方超管; roleType=3; logo=https://img.weitaming.com/test/vm_mall/logo/20191010/2050ba08f6a773eb996f104dec6cb8a8.jpg; name=测试国芳百货广场店; mallId=61500; alias=betalzgf; menuList=[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]; selectedKeys=#/customer/list'
+document.cookie = 'userId=963245015; org_type=5; avatar=https://img.weitaming.com/test/base_user/avatar/20180912/4ba047689c360d2ff846332892edfd05.jpg; userName=方超管; roleType=3; logo=https://img.weitaming.com/test/vm_mall/logo/20191010/2050ba08f6a773eb996f104dec6cb8a8.jpg; name=测试国芳百货广场店; mallId=61500; alias=betalzgf; menuList=[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]; selectedKeys=#/customer/list'
+document.cookie = 'org_type=5; avatar=https://img.weitaming.com/test/base_user/avatar/20180912/4ba047689c360d2ff846332892edfd05.jpg; userName=方超管; roleType=3; logo=https://img.weitaming.com/test/vm_mall/logo/20191010/2050ba08f6a773eb996f104dec6cb8a8.jpg; name=测试国芳百货广场店; mallId=61500; alias=betalzgf; menuList=[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]; selectedKeys=#/customer/list'
+
 // create an axios instance
 const service = axios.create({
   baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
   // withCredentials: true, // send cookies when cross-domain requests
-  timeout: 5000 // request timeout
+  timeout: 5000, // request timeout
+  headers: {
+    'Authorization': 'Bearer DgZcRu7p9X2bkMrTseNpc3Wa2Df00ovN',
+    'x-org-id': '61500',
+    'x-org-type': '963245015',
+    'x-user-id': '5'
+  }
 })
 
 // request interceptor

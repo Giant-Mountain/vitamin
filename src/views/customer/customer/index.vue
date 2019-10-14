@@ -22,7 +22,7 @@
 <script>
 import CustormerFrom from '@/components/CustormerFrom/index.vue'
 import CustormerTable from '@/components/CustermerTable/index.vue'
-
+import { MergerList } from '@/api/custormer.js'
 export default {
   components: {
     CustormerFrom,
@@ -219,6 +219,11 @@ export default {
         ]
       ]
     }
+  },
+  mounted() {
+    MergerList().then(res => {
+      console.log(res)
+    })
   },
   methods: {
     handIndex(index) {

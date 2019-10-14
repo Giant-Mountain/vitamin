@@ -62,7 +62,7 @@ export const constantRoutes = [
         meta: { title: '概况', icon: 'documentation', affix: true }
       }
     ]
-  },
+  }
 ]
 
 /**
@@ -75,10 +75,10 @@ export const asyncRoutes = [
     component: Layout,
     redirect: '/shop/management',
     alwaysShow: true, // will always show the root menu
-    name:'shop',
+    name: 'shop',
     meta: {
       title: '店铺',
-      icon: 'lock',
+      icon: 'lock'
     },
     children: [
       {
@@ -86,7 +86,7 @@ export const asyncRoutes = [
         component: () => import('@/views/shop/management'),
         name: 'management',
         meta: {
-          title: '店铺管理',
+          title: '店铺管理'
         }
       },
       {
@@ -97,7 +97,7 @@ export const asyncRoutes = [
           title: '专业导航管理'
           // if do not set roles, means: this page does not require permission
         }
-      },
+      }
     ]
   },
   {
@@ -105,10 +105,10 @@ export const asyncRoutes = [
     component: Layout,
     redirect: '/page/page',
     alwaysShow: true, // will always show the root menu
-    name:'page',
+    name: 'page',
     meta: {
       title: '页面',
-      icon: 'lock',
+      icon: 'lock'
     },
     children: [
       {
@@ -116,9 +116,9 @@ export const asyncRoutes = [
         component: () => import('@/views/page/page'),
         name: 'management',
         meta: {
-          title: '页面管理',
+          title: '页面管理'
         }
-      },
+      }
     ]
   },
   {
@@ -126,10 +126,10 @@ export const asyncRoutes = [
     component: Layout,
     redirect: '/order/order',
     alwaysShow: true, // will always show the root menu
-    name:'order',
+    name: 'order',
     meta: {
       title: '订单',
-      icon: 'lock',
+      icon: 'lock'
     },
     children: [
       {
@@ -137,9 +137,9 @@ export const asyncRoutes = [
         component: () => import('@/views/order/order'),
         name: 'order',
         meta: {
-          title: '订单管理',
+          title: '订单管理'
         }
-      },
+      }
     ]
   },
   {
@@ -147,10 +147,10 @@ export const asyncRoutes = [
     component: Layout,
     redirect: '/commodity/commodity',
     alwaysShow: true, // will always show the root menu
-    name:'commodity',
+    name: 'commodity',
     meta: {
       title: '商品',
-      icon: 'lock',
+      icon: 'lock'
     },
     children: [
       {
@@ -158,9 +158,9 @@ export const asyncRoutes = [
         component: () => import('@/views/commodity/commodity'),
         name: 'commodity',
         meta: {
-          title: '商品管理',
+          title: '商品管理'
         }
-      },
+      }
     ]
   },
   {
@@ -168,10 +168,10 @@ export const asyncRoutes = [
     component: Layout,
     redirect: '/customer/customer',
     alwaysShow: true, // will always show the root menu
-    name:'customer',
+    name: 'customer',
     meta: {
       title: '顾客',
-      icon: 'lock',
+      icon: 'lock'
     },
     children: [
       {
@@ -179,9 +179,9 @@ export const asyncRoutes = [
         component: () => import('@/views/customer/customer'),
         name: 'customer',
         meta: {
-          title: '顾客管理',
+          title: '顾客管理'
         }
-      },
+      }
     ]
   },
   {
@@ -189,10 +189,10 @@ export const asyncRoutes = [
     component: Layout,
     redirect: '/member/member',
     alwaysShow: true, // will always show the root menu
-    name:'member',
+    name: 'member',
     meta: {
       title: '会员',
-      icon: 'lock',
+      icon: 'lock'
     },
     children: [
       {
@@ -200,9 +200,9 @@ export const asyncRoutes = [
         component: () => import('@/views/member/member'),
         name: 'member',
         meta: {
-          title: '会员卡',
+          title: '会员卡'
         }
-      },
+      }
     ]
   },
   {
@@ -210,10 +210,10 @@ export const asyncRoutes = [
     component: Layout,
     redirect: '/marketing/marketing',
     alwaysShow: true, // will always show the root menu
-    name:'marketing',
+    name: 'marketing',
     meta: {
       title: '营销',
-      icon: 'lock',
+      icon: 'lock'
     },
     children: [
       {
@@ -221,9 +221,9 @@ export const asyncRoutes = [
         component: () => import('@/views/marketing/marketing'),
         name: 'marketing',
         meta: {
-          title: '营销劵类型',
+          title: '营销劵类型'
         }
-      },
+      }
     ]
   },
   {
@@ -231,10 +231,10 @@ export const asyncRoutes = [
     component: Layout,
     redirect: '/team/team',
     alwaysShow: true, // will always show the root menu
-    name:'team',
+    name: 'team',
     meta: {
       title: '团队',
-      icon: 'lock',
+      icon: 'lock'
     },
     children: [
       {
@@ -242,9 +242,9 @@ export const asyncRoutes = [
         component: () => import('@/views/team/team'),
         name: 'team',
         meta: {
-          title: '员工管理',
+          title: '员工管理'
         }
-      },
+      }
     ]
   },
   {
@@ -252,10 +252,10 @@ export const asyncRoutes = [
     component: Layout,
     redirect: '/setup/setup',
     alwaysShow: true, // will always show the root menu
-    name:'setup',
+    name: 'setup',
     meta: {
       title: '服务',
-      icon: 'lock',
+      icon: 'lock'
     },
     children: [
       {
@@ -263,9 +263,9 @@ export const asyncRoutes = [
         component: () => import('@/views/setup/setup'),
         name: 'setup',
         meta: {
-          title: '服务设置',
+          title: '服务设置'
         }
-      },
+      }
     ]
   },
 

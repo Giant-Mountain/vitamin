@@ -5,6 +5,9 @@ export function MergerList(data) {
     url: '/member/member-list',
     method: 'post',
     baseURL: '/api',
-    data
+    data: {
+      type: 2,
+      page: 1
+    }
   })
 }
