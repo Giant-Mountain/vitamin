@@ -51,7 +51,7 @@ export default {
       type: Array
     },
     form: {
-      type: Array
+      type: Object
     }
   },
   data() {

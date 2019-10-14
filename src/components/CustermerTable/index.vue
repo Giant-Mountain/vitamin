@@ -20,7 +20,6 @@
 import { mapState } from 'vuex'
 export default {
   name: 'CustormerTable',
-  // props: ['tableColumn', 'tableData'],
   props: {
     tableColumn: {
       type: Array
