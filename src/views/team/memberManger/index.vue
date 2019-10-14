@@ -21,6 +21,7 @@ export default {
     return {
       navList: ['员工管理', '邀请中', '角色描述'],
       title: '员工管理',
+      avatar: '',
       form: {
         tel: '',
         shop: '',
@@ -99,7 +100,7 @@ export default {
         [
           {
             lable: '头像',
-            prop: 'img'
+            prop: 'avatar'
           },
           {
             lable: '姓名',
@@ -145,7 +146,7 @@ export default {
       tableLists: [
         [
           {
-            img: '',
+            avatar: this.avatar,
             create_user_name: '',
             mobile: '',
             role: '',
@@ -161,9 +162,14 @@ export default {
     tableData({ type: 1,
       status: 3,
       page: 1 }).then(res => {
-    //   const img = res.data.list.map(item => {
-    //     return <img src=${item.img}  alt />
-    //   })
+      res.data.list.filter(item => {
+        this.avatar = `<img src='${item.img}' alt='' />`
+      })
+      res.data.list.map(item => {
+        // eslint-disable-next-line no-return-assign
+        return item.img = this.avatar
+      })
+      //   console.log(this.avatar, '..........')
       this.tableLists = [res.data.list]
       console.log(this.tableLists)
     })
