@@ -52,7 +52,7 @@ h6 {
 .nav-selected {
   width: 100%;
   font-size: 0;
-  line-height: 0;
+  height: auto;
   border-bottom: 1px solid #e8e8e8;
 }
 

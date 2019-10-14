@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-for="(item,index) in list" :key="index">
+    <div v-for="(item,index) in list" :key="index" class="navselected">
       <span>{{ item.title }}</span>
     </div>
   </div>
