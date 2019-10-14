@@ -1,13 +1,20 @@
 import request from '@/utils/request'
+import qs from 'qs'
 
 export function MergerList(data) {
   return request({
     url: '/member/member-list',
     method: 'post',
     baseURL: '/api',
-    data: {
-      type: 2,
-      page: 1
-    }
+    headers: { 'content-type': 'application/x-www-form-urlencoded' },
+    data: qs.stringify(data)
+  })
+}
+
+export function SearchList() {
+  return request({
+    url: '/member/search-set',
+    method: 'post',
+    baseURL: '/api'
   })
 }

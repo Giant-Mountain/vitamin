@@ -3,27 +3,41 @@
     <div class="custormer-header">
       <div style="font-size:16px">顾客管理</div>
       <div>
-        <span>批量导出</span>
-        <span>查看已生成报表</span>
+        <span class="el-icon-download">批量导出</span>
+        <span>
+          <i class="el-icon-document-remove" /> 查看已生成报表
+        </span>
       </div>
       <div>
-        <span :class="currentIndex===0?'tab-active':''" @click="handIndex(0)">有效顾客</span>
-        <span :class="currentIndex===1?'tab-active':''" @click="handIndex(1)">潜在顾客</span>
+        <span :class="currentIndex===0?'tab-active':''" @click="handIndex(0,1)">有效顾客</span>
+        <span :class="currentIndex===1?'tab-active':''" @click="handIndex(1,2)">潜在顾客</span>
       </div>
     </div>
     <div class="card-group">
       <CustormerFrom :froms="froms[currentIndex]" :form="form" />
     </div>
     <div class="customer-list">
-      <CustormerTable :table-column="tableColumn[currentIndex]" :table-data="tableLists[currentIndex]" />
+      <CustormerTable :table-column="tableColumn[currentIndex]" />
     </div>
+    <el-pagination
+      :current-page="currentPage4"
+      :page-sizes="[10, 15, 20, 25]"
+      :page-size="10"
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="pagination.totalCount"
+      style="float:right"
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+    />
   </div>
 </template>
 <script>
 import CustormerFrom from '@/components/CustormerFrom/index.vue'
 import CustormerTable from '@/components/CustermerTable/index.vue'
-import { MergerList } from '@/api/custormer.js'
+import { mapState } from 'vuex'
+
 export default {
+  name: 'Customer',
   components: {
     CustormerFrom,
     CustormerTable
@@ -31,6 +45,8 @@ export default {
   data() {
     return {
       currentIndex: 0,
+      currentPage4: 1,
+      currentType: 1,
       form: {
         tel: '',
         name: '',
@@ -73,16 +89,7 @@ export default {
             name: 'vip',
             is: 'el-select',
             placeholder: '请选择',
-            options: [
-              {
-                label: '是',
-                value: 1
-              },
-              {
-                label: '否',
-                value: 0
-              }
-            ]
+            options: null
           },
           {
             label: '总购买次数:',
@@ -133,101 +140,102 @@ export default {
       tableColumn: [
         [
           {
-            lable: '日期',
-            prop: 'date'
+            lable: '姓名',
+            prop: 'name'
           },
+          {
+            lable: '昵称',
+            prop: 'nickname'
+          },
+          {
+            lable: '手机号',
+            prop: 'grade_code'
+          },
+          {
+            lable: '会员卡号',
+            prop: 'cid'
+          },
+          {
+            lable: '会员等级',
+            prop: 'member_level'
+          },
+          {
+            lable: '总购买次数',
+            prop: 'buy_times'
+          },
+          {
+            lable: '客单价(￥)',
+            prop: 'average_price'
+          },
+          {
+            lable: '最近消费时间',
+            prop: 'lately_consume_time'
+          },
+          {
+            lable: '最近浏览时间',
+            prop: 'lately_view_time'
+          }
+        ],
+        [
           {
             lable: '姓名',
             prop: 'name'
           },
           {
-            lable: '省份',
-            prop: 'province'
+            lable: '昵称',
+            prop: 'nickname'
           },
           {
-            lable: '市区',
-            prop: 'city'
+            lable: '手机号',
+            prop: 'grade_code'
           },
           {
-            lable: '地址',
-            prop: 'address'
+            lable: '会员卡号',
+            prop: 'cid'
           },
           {
-            lable: '邮编',
-            prop: 'zip'
-          }
-        ]
-      ],
-      tableLists: [
-        [
-          {
-            date: '2016-05-03',
-            name: '王小虎',
-            province: '上海',
-            city: '普陀区',
-            address: '上海市普陀区金沙江路 1518 弄',
-            zip: 200333
+            lable: '会员等级',
+            prop: 'member_level'
           },
           {
-            date: '2016-05-02',
-            name: '王小虎',
-            province: '上海',
-            city: '普陀区',
-            address: '上海市普陀区金沙江路 1518 弄',
-            zip: 200333
-          },
-          {
-            date: '2016-05-04',
-            name: '王小虎',
-            province: '上海',
-            city: '普陀区',
-            address: '上海市普陀区金沙江路 1518 弄',
-            zip: 200333
-          },
-          {
-            date: '2016-05-01',
-            name: '王小虎',
-            province: '上海',
-            city: '普陀区',
-            address: '上海市普陀区金沙江路 1518 弄',
-            zip: 200333
-          },
-          {
-            date: '2016-05-08',
-            name: '王小虎',
-            province: '上海',
-            city: '普陀区',
-            address: '上海市普陀区金沙江路 1518 弄',
-            zip: 200333
-          },
-          {
-            date: '2016-05-06',
-            name: '王小虎',
-            province: '上海',
-            city: '普陀区',
-            address: '上海市普陀区金沙江路 1518 弄',
-            zip: 200333
-          },
-          {
-            date: '2016-05-07',
-            name: '王小虎',
-            province: '上海',
-            city: '普陀区',
-            address: '上海市普陀区金沙江路 1518 弄',
-            zip: 200333
+            lable: '最近浏览时间',
+            prop: 'lately_view_time'
           }
         ]
       ]
     }
   },
+  computed: mapState({
+    tableList: store => store.custormer.tableList,
+    pagination: store => store.custormer.pagination
+  }),
   mounted() {
-    MergerList().then(res => {
-      console.log(res)
+    this.$store.dispatch('custormer/getTableList', {
+      type: this.currentType,
+      page: this.currentPage4
     })
+    this.$store.dispatch('custormer/getSearchList')
   },
   methods: {
-    handIndex(index) {
+    // 用来tab切换以及切tab切换的数据
+    handIndex(index, type) {
       this.currentIndex = index
+      this.currentType = type
+      this.$store.dispatch('custormer/getTableList', {
+        type: this.currentType,
+        page: this.currentPage4
+      })
+    },
+    handleSizeChange(val) {
+      console.log(`每页 ${val} 条`)
+    },
+    // 点击换页面并进行数据重新渲染
+    handleCurrentChange(val) {
+      this.currentPage4 = val
+      this.$store.dispatch('custormer/getTableList', {
+        type: 1,
+        page: this.currentPage4
+      })
     }
   }
 }
@@ -285,7 +293,7 @@ export default {
   border-bottom: 1px solid #e8e8e8;
 }
 .customer-list {
-  padding: 24px 24px 100px;
+  padding: 24px 24px 24px;
   background: #fff;
   margin-top: 24px;
 }
