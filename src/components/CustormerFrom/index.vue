@@ -41,7 +41,6 @@
 
 <script>
 import RangeInput from './components/RangInput'
-import { mapState } from 'vuex'
 
 export default {
   name: 'CustormerFrom',
@@ -49,7 +48,7 @@ export default {
     RangeInput
   },
   // eslint-disable-next-line vue/require-prop-types
-  props: ['froms', 'form'],
+  //   props: ['froms', 'form'],
   // props: ['froms', 'form'],
   //   props: {
   //     froms: {
@@ -59,15 +58,32 @@ export default {
   //       type: Object
   //     }
   //   },
+  props: {
+    froms: {
+      type: Array,
+      default: function() {
+        return {}
+      }
+    },
+    form: {
+      type: Object,
+      default: function() {
+        return {}
+      }
+    },
+    gradeLevel: {
+      type: Array,
+      default: function() {
+        return {}
+      }
+    }
+  },
   data() {
     return {}
   },
-  computed: mapState({
-    gradeLevel: store => store.custormer.gradeLevel
-  }),
   methods: {
     search() {
-      console.log(123)
+      this.$emit('handSearch', this.form)
     },
     reset() {
       console.log('重置')
