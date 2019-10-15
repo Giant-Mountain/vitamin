@@ -1,12 +1,17 @@
 <template>
+
   <TeamManger
     :title="title"
     :nav-list="navList"
     :form="form"
     :froms="froms"
     :table-column="tableColumn"
+    :table-columns="tableColumns"
     :table-list="tableList"
+    :list="list"
+    :paginations="paginations"
     :pagination="pagination"
+    :current-type="currentType"
   />
 </template>
 
@@ -20,6 +25,7 @@ export default {
   },
   data() {
     return {
+      currentType: 1,
       navList: ['员工管理', '邀请中', '角色描述'],
       title: '员工管理',
       avatar: '',
@@ -105,7 +111,7 @@ export default {
           },
           {
             lable: '姓名',
-            prop: 'create_user_name'
+            prop: 'user_name'
           },
           {
             lable: '手机号',
@@ -136,20 +142,64 @@ export default {
             prop: 'status'
           }
         ]
+      ],
+      tableColumns: [
+        [
+          {
+            lable: '姓名',
+            prop: 'user_name'
+          },
+          {
+            lable: '手机号',
+            prop: 'mobile'
+          },
+          {
+            lable: '角色',
+            prop: 'role'
+          },
+          {
+            lable: '所属店铺',
+            prop: 'store_name'
+          },
+          {
+            lable: '',
+            prop: ''
+          },
+          {
+            lable: '',
+            prop: ''
+          },
+          {
+            lable: '邀请者',
+            prop: 'create_user_name'
+          },
+          {
+            lable: '发送时间',
+            prop: 'created_at',
+            sortable: 'sortable'
+          }
+        ]
       ]
     }
   },
   computed: {
     ...mapState({
       tableList: state => state.team.tableList,
-      pagination: state => state.team.pagination
+      pagination: state => state.team.pagination,
+      list: state => state.team.list,
+      paginations: state => state.team.pagination
     })
   },
   created() {
     this.$store.dispatch('team/getTableList', {
-      type: 1,
+      type: this.currentType,
       page: 1,
       status: '0, 1'
+    })
+    this.$store.dispatch('team/getTableLists', {
+      type: this.currentType,
+      status: 3,
+      page: 1
     })
   }
 }

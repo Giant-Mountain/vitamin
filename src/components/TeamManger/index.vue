@@ -5,7 +5,7 @@
       :nav-list="navList"
       :current="current"
       :flag="flag"
-      :datalength="tableList.length"
+      :datalength="list.length"
       @handleClicks="clicks"
     />
     <div class="main">
@@ -21,7 +21,7 @@
         </div>
         <div class="tableList">
           <CustormerTable
-            :table-column="tableColumn[current]"
+            :table-column="tableColumn[0]"
             :table-list="tableList"
           />
           <el-pagination
@@ -36,12 +36,23 @@
           />
         </div>
       </div>
-      <div v-show="current===1">123234</div>
-      <div v-show="current===2">123235</div>
+      <div v-show="current===1">
+        <Inviteing
+          :list="list"
+          :paginations="paginations"
+          :current-pages="currentPages"
+          :current-type="currentType"
+          :table-columns="tableColumns"
+        />
+      </div>
+      <div v-show="current===2">
+        <div>465767687</div>
+      </div>
     </div>
   </div>
 </template>
 <script>
+import Inviteing from '@/components/Inviteing'
 import CustormerFrom from '@/components/CustormerFrom'
 import CustormerTable from '@/components/CustermerTable'
 import NavHeader from '@/components/NavHeader'
@@ -50,10 +61,11 @@ export default {
   components: {
     CustormerFrom,
     NavHeader,
-    CustormerTable
+    CustormerTable,
+    Inviteing
   },
   // eslint-disable-next-line vue/require-prop-types
-  props: ['title', 'navList', 'form', 'froms', 'tableColumn', 'tableList', 'pagination'],
+  props: ['title', 'navList', 'form', 'froms', 'tableColumn', 'tableList', 'pagination', 'currentType', 'paginations', 'list', 'tableColumns'],
   data() {
     return {
       datalength: 0,
@@ -72,10 +84,10 @@ export default {
     },
     // 点击换页面并进行数据重新渲染
     handleCurrentChange(val) {
-      console.log(val, '234343434')
+      //   console.log(val, '234343434')
       this.currentPages = val
       this.$store.dispatch('team/getTableList', {
-        type: 1,
+        type: this.currentType,
         status: '0,1',
         page: this.currentPages
       })
