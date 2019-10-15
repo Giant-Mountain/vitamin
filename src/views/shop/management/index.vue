@@ -14,10 +14,10 @@
                 楼层:
                 <el-select v-model="value" placeholder="请选择" class="selectbox">
                   <el-option
-                    v-for="item in options"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value"
+                    v-for="item in FloorList"
+                    :key="item.id"
+                    :label="item.name"
+                    :value="item.id"
                   />
                 </el-select>
               </div>
@@ -25,10 +25,10 @@
                 分类:
                 <el-select v-model="value" placeholder="请选择" class="selectbox">
                   <el-option
-                    v-for="item in options"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value"
+                    v-for="item in FloorList"
+                    :key="item.id"
+                    :label="item.description"
+                    :value="item.id"
                   />
                 </el-select>
               </div>
@@ -41,9 +41,7 @@
           <div class="table-layout">
             <!-- <div class="btn-add" >+</div> -->
 
-            <el-button type="primary" style="margin-left: 16px;" @click="drawer = true">
-              点我打开
-            </el-button>
+            <el-button type="primary" style="margin-left: 16px;" @click="drawer = true">点我打开</el-button>
 
             <el-drawer
               title="我是标题"
@@ -53,16 +51,17 @@
             >
               <span>我来啦!</span>
             </el-drawer>
+            <!-- {{ManagerList}} -->
             <!-- 表格 -->
-            <el-table :data="tableData" style="width: 100%">
-              <el-table-column prop="date" label="店铺名称" width="180" />
-              <el-table-column prop="name" label="楼层" width="180" />
+            <el-table :data="ManagerList" style="width: 100%">
+              <el-table-column prop="name" label="店铺名称" width="180" />
+              <el-table-column prop="floor_name" label="楼层" width="180" />
               <el-table-column prop="address" label="位置" />
-              <el-table-column prop="address" label="所属分类" />
-              <el-table-column prop="address" label="店长" />
-              <el-table-column prop="address" label="楼管" />
-              <el-table-column prop="address" label="状态" />
-              <el-table-column prop="address" label="操作" />
+              <el-table-column prop="category_data[0]" label="所属分类" />
+              <el-table-column prop="shop_manager" label="店长" />
+              <el-table-column prop="building" label="楼管" />
+              <el-table-column prop="status_str" label="状态" />
+              <el-table-column prop label="操作" />
             </el-table>
             <el-pagination background layout="prev, pager, next" :total="1000" class="page" />
           </div>
@@ -78,10 +77,10 @@
                 楼层:
                 <el-select v-model="value" placeholder="请选择" class="selectbox">
                   <el-option
-                    v-for="item in options"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value"
+                    v-for="item in FloorList"
+                    :key="item.id"
+                    :label="item.name"
+                    :value="item.id"
                   />
                 </el-select>
               </div>
@@ -89,10 +88,10 @@
                 分类:
                 <el-select v-model="value" placeholder="请选择" class="selectbox">
                   <el-option
-                    v-for="item in options"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value"
+                    v-for="item in FloorList"
+                    :key="item.id"
+                    :label="item.description"
+                    :value="item.id"
                   />
                 </el-select>
               </div>
@@ -102,78 +101,37 @@
               <el-button @click="resetForm('ruleForm')">重置</el-button>
             </div>
           </div>
-          <el-table :data="tableData" style="width: 100%">
-            <el-table-column prop="date" label="店铺名称" width="180" />
-            <el-table-column prop="name" label="楼层" width="180" />
+          <!-- {{FloorList}} -->
+          <el-table :data="ManagerList" style="width: 100%">
+            <el-table-column prop="name" label="店铺名称" width="180" />
+            <el-table-column prop="floor_name" label="楼层" width="180" />
             <el-table-column prop="address" label="位置" />
-            <el-table-column prop="address" label="所属分类" />
-            <el-table-column prop="address" label="店长" />
-            <el-table-column prop="address" label="楼管" />
-            <el-table-column prop="address" label="状态" />
-            <el-table-column prop="address" label="操作" />
+            <el-table-column prop="category_data[0]" label="所属分类" />
+            <el-table-column prop="shop_manager" label="店长" />
+            <el-table-column prop="building" label="楼管" />
+            <el-table-column prop="status_str" label="状态" />
+            <el-table-column prop label="操作" />
           </el-table>
           <el-pagination background layout="prev, pager, next" :total="1000" class="page" />
-
         </el-tab-pane>
       </el-tabs>
     </div>
   </div>
 </template>
 <script>
+import { mapState, mapActions } from 'vuex'
 export default {
   data() {
     return {
       activeName: 'second',
       input: '',
-      options: [
-        {
-          value: '选项1',
-          label: '黄金糕'
-        },
-        {
-          value: '选项2',
-          label: '双皮奶'
-        },
-        {
-          value: '选项3',
-          label: '蚵仔煎'
-        },
-        {
-          value: '选项4',
-          label: '龙须面'
-        },
-        {
-          value: '选项5',
-          label: '北京烤鸭'
-        }
-      ],
       value: '',
-      tableData: [
-        {
-          date: '2016-05-02',
-          name: '王小虎',
-          address: '上海市'
-        },
-        {
-          date: '2016-05-04',
-          name: '王小虎',
-          address: '上海市'
-        },
-        {
-          date: '2016-05-01',
-          name: '王小虎',
-          address: '上海市'
-        },
-        {
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市'
-        }
-      ],
       drawer: false,
       direction: 'rtl'
     }
-    // 表格数据
+  },
+  computed: {
+    ...mapState('manager', ['ManagerList', 'FloorList'])
   },
   methods: {
     handleClick(tab, event) {
@@ -191,7 +149,22 @@ export default {
           done()
         })
         .catch(_ => {})
-    }
+    },
+    ...mapActions({
+      getManagerList: 'manager/getManagerList',
+      getFloorList: 'manager/getFloorList'
+    })
+  },
+  mounted() {
+    this.getManagerList({
+      page: 1,
+      scene_type: 1
+    })
+    this.getFloorList()
+    // this.$store.dispatch('manager/getManagerList',{
+    //   page:1,
+    //   scene_type:1
+    // });
   }
 }
 </script>

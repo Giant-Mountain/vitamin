@@ -97,7 +97,6 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  /* --antd-wave-shadow-color:#1890ff; */
 }
 
 .surveyCon {
