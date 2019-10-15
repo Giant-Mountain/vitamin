@@ -1,9 +1,6 @@
 <template>
   <div>
-    <el-form
-      ref="form"
-      :model="form"
-    >
+    <el-form ref="form" :model="form">
       <div class="from-content">
         <el-form-item
           v-for="(value,key) in froms"
@@ -19,15 +16,17 @@
             :start-placeholder="value.startPlaceholder"
             :end-placeholder="value.endPlaceholder"
             :placeholder="value.placeholder"
-            :range.sync="form[value.name]"
+            :buy_times.sync="form[value.name]"
           >
             <el-option
               v-for="(v, k) in gradeLevel"
-              v-show="value.name==='vip'"
+              v-show="value.name==='grade_code'"
               :key="k"
+              v-model="v.value"
               :label="v.label"
               :value="v.value"
             />
+            <el-option v-for="(v, k) in value.options" :key="k" :label="v.label" :value="v.value" />
           </component>
         </el-form-item>
       </div>
@@ -47,20 +46,11 @@ export default {
   components: {
     RangeInput
   },
-  // props: ['froms', 'form'],
-  //   props: {
-  //     froms: {
-  //       type: Array
-  //     },
-  //     form: {
-  //       type: Object
-  //     }
-  //   },
   props: {
     froms: {
       type: Array,
       default: function() {
-        return {}
+        return []
       }
     },
     form: {
@@ -72,7 +62,7 @@ export default {
     gradeLevel: {
       type: Array,
       default: function() {
-        return {}
+        return []
       }
     }
   },
@@ -81,10 +71,11 @@ export default {
   },
   methods: {
     search() {
+      console.log(this.form)
       this.$emit('handSearch', this.form)
     },
     reset() {
-      console.log('重置')
+      this.$emit('resetInputValue')
     }
   }
 }
@@ -92,56 +83,72 @@ export default {
 
 <style lang="scss" scoped>
 .from-content {
-    display: flex;
-    flex-wrap: wrap;
-    padding: 46px 46px 20px 46px;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .from-content /deep/ .el-form-item {
-    display: flex;
-    width: 500px;
-    height: 40px;
-    line-height: 40px;
-    display: inline-block;
+  display: flex;
+  height: 40px;
+  line-height: 40px;
 }
 .form-label /deep/ .el-form-item__label {
-    font-size: 12px;
-    display: inline-block;
-    width: 120px;
-    font-weight: normal;
+  font-size: 12px;
+  display: inline-block;
+  width: 120px;
+  font-weight: normal;
 }
+// .from-content {
+//   display: flex;
+//   flex-wrap: wrap;
+//   padding: 46px 46px 20px 46px;
+// }
+
+// .from-content /deep/ .el-form-item {
+//   display: flex;
+//   width: 500px;
+//   height: 40px;
+//   line-height: 40px;
+//   display: inline-block;
+// }
+// .form-label /deep/ .el-form-item__label {
+//   font-size: 12px;
+//   display: inline-block;
+//   width: 120px;
+//   font-weight: normal;
+// }
 
 .form-label /deep/ .el-input__inner {
-    width: 250px;
+  width: 250px;
 }
 .form-label /deep/ .el-form-item__content .el-input {
-    font-size: 12px;
-    width: 250px;
+  font-size: 12px;
+  width: 250px;
 }
 .form-label /deep/ .el-form-item__content .el-range-input {
-    margin-left: 10px;
-    font-size: 12px;
+  margin-left: 10px;
+  font-size: 12px;
 }
 .form-label /deep/ .el-form-item__content .el-range-separator {
-    font-size: 12px;
+  font-size: 12px;
 }
 .form-btns {
-    display: flex;
-    justify-content: flex-end;
-    button {
-        margin-right: 15px;
-        display: inline-block;
-        background: #3ec6b6;
-        border: 1px solid #3ec6b6;
-        color: #fff;
-        border-radius: 4px;
-        padding: 6px 15px;
-    }
-    button:nth-child(2) {
-        color: #3c3c3c;
-        border-radius: 4px;
-        border: 1px solid #e8e8e8;
-        background-color: #fff;
-    }
+  display: flex;
+  justify-content: flex-end;
+  button {
+    margin-right: 15px;
+    display: inline-block;
+    background: #3ec6b6;
+    border: 1px solid #3ec6b6;
+    color: #fff;
+    border-radius: 4px;
+    padding: 6px 15px;
+  }
+  button:nth-child(2) {
+    color: #3c3c3c;
+    border-radius: 4px;
+    border: 1px solid #e8e8e8;
+    background-color: #fff;
+  }
 }
 </style>

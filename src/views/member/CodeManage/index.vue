@@ -11,10 +11,15 @@
         :froms="froms[currentIndex]"
         :form="form"
         @handSearch="handSearchInput"
+        @resetInputValue="resetFromsValue"
       />
     </div>
     <div class="customer-list">
-      <CustormerTable :table-column="tableColumn[currentIndex]" :table-list="qrcodeList" />
+      <CustormerTable
+        :add-dialog="addDialog"
+        :table-column="tableColumn[currentIndex]"
+        :table-list="qrcodeList"
+      />
     </div>
     <el-pagination
       :current-page="currentPage4"
@@ -42,6 +47,7 @@ export default {
   },
   data() {
     return {
+      addDialog: true,
       currentIndex: 0,
       currentPage4: 1,
       currentType: 1,
@@ -87,7 +93,16 @@ export default {
             name: 'type',
             is: 'el-select',
             placeholder: '请选择',
-            options: null
+            options: [
+              {
+                label: '专柜员工',
+                value: '2'
+              },
+              {
+                label: '自营员工',
+                value: '1'
+              }
+            ]
           },
           {
             label: '楼层:',
@@ -199,6 +214,19 @@ export default {
         floor,
         brand
       })
+    },
+    resetFromsValue() {
+      this.form = {
+        id: '',
+        name: '',
+        mobile: '',
+        cid: '',
+        hiredate: '',
+        type: '',
+        section: '',
+        floor: '',
+        brand: ''
+      }
     }
   }
 }

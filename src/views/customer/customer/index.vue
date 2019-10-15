@@ -18,10 +18,16 @@
         :froms="froms[currentIndex]"
         :form="form"
         :grade-level="gradeLevel"
+        @handSearch="handSearchInput"
+        @resetInputValue="resetFromsValue"
       />
     </div>
     <div class="customer-list">
-      <CustormerTable :table-column="tableColumn[currentIndex]" :table-list="tableList.list" />
+      <CustormerTable
+        :add-dialog="addDialog"
+        :table-column="tableColumn[currentIndex]"
+        :table-list="tableList.list"
+      />
     </div>
     <el-pagination
       :current-page="currentPage4"
@@ -48,6 +54,7 @@ export default {
   },
   data() {
     return {
+      addDialog: true,
       currentIndex: 0,
       currentPage4: 1,
       currentType: 1,
@@ -55,11 +62,12 @@ export default {
         tel: '',
         name: '',
         nickname: '',
-        vipnumber: '',
-        vip: '',
-        range: [],
-        consumptionTime: '',
-        EffectiveTime: ''
+        grade_code: '',
+        cid: '',
+        member_level: '',
+        buy_times: [],
+        lately_consume_time: '',
+        lately_view_time: ''
       },
       froms: [
         [
@@ -71,7 +79,7 @@ export default {
           },
           {
             label: '姓名:',
-            name: 'name',
+            name: 'nickname',
             placeholder: '请输入',
             is: 'el-input'
           },
@@ -84,25 +92,25 @@ export default {
 
           {
             label: '会员卡号:',
-            name: 'vipnumber',
+            name: 'cid',
             placeholder: '请输入',
             is: 'el-input'
           },
           {
             label: '会员等级:',
-            name: 'vip',
+            name: 'grade_code',
             is: 'el-select',
             placeholder: '请选择',
             options: null
           },
           {
             label: '总购买次数:',
-            name: 'range',
+            name: 'buy_times',
             is: 'range-input'
           },
           {
             label: '客单价:',
-            name: 'range',
+            name: 'buy_times',
             is: 'range-input'
           },
           {
@@ -135,7 +143,7 @@ export default {
           },
           {
             label: '会员卡号:',
-            name: 'vipnumber',
+            name: 'cid',
             placeholder: '请输入',
             is: 'el-input'
           }
@@ -212,7 +220,8 @@ export default {
   computed: mapState({
     tableList: store => store.custormer.tableList,
     pagination: store => store.custormer.pagination,
-    gradeLevel: store => store.custormer.gradeLevel
+    gradeLevel: store => store.custormer.gradeLevel,
+    dialogShow: store => store.custormer.dialogShow
   }),
   mounted() {
     this.$store.dispatch('custormer/getTableList', {
@@ -241,6 +250,50 @@ export default {
         type: 1,
         page: this.currentPage4
       })
+    },
+    handSearchInput(data) {
+      console.log(data)
+      const {
+        tel,
+        name,
+        nickname,
+        grade_code,
+        cid,
+        member_level,
+        buy_times,
+        lately_consume_time,
+        lately_view_time
+      } = data
+      this.$store.dispatch('custormer/getTableList', {
+        type: this.currentType,
+        page: this.currentPage4,
+        tel,
+        name,
+        nickname,
+        grade_code,
+        cid,
+        member_level,
+        buy_times,
+        lately_consume_time,
+        lately_view_time
+      })
+    },
+    resetFromsValue() {
+      this.form = {
+        tel: '',
+        name: '',
+        nickname: '',
+        grade_code: '',
+        cid: '',
+        member_level: '',
+        buy_times: [],
+        lately_consume_time: '',
+        lately_view_time: ''
+      }
+    },
+    handDialogShow(flag) {
+      console.log(1)
+      console.log(flag)
     }
   }
 }

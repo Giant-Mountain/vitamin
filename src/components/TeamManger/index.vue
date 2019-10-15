@@ -21,7 +21,7 @@
         <div class="tableList">
           <CustormerTable
             :table-column="tableColumn[current]"
-            :table-data="tableLists[current]"
+            :table-list="tableLists[current]"
           />
         </div>
       </div>
