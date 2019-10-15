@@ -41,7 +41,7 @@ export default {
   },
   methods: {
     handDialog() {
-      this.$store.commit('custormer/SET_DIALOG', true)
+      this.$store.commit('custormer/SET_DIALOG', this.addDialog)
     }
   }
 }

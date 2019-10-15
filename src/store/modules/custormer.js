@@ -24,6 +24,7 @@ const mutations = {
     console.log(state.gradeLevel)
   },
   SET_DIALOG: (state, payload) => {
+    console.log(payload)
     state.dialogShow = payload
   }
 }

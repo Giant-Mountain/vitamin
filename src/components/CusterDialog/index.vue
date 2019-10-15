@@ -1,24 +1,49 @@
 <template>
-  <el-dialog title="收货地址" :visible.sync="dialogFormVisible">
+  <el-dialog :title="title" :visible.sync="dialogFormVisible">
     <el-form :model="form">
-      <el-form-item label="活动名称" :label-width="formLabelWidth">
-        <el-input v-model="form.name" autocomplete="off" />
-      </el-form-item>
-      <el-form-item label="活动区域" :label-width="formLabelWidth">
-        <el-select v-model="form.region" placeholder="请选择活动区域">
-          <el-option label="区域一" value="shanghai" />
-          <el-option label="区域二" value="beijing" />
-        </el-select>
-      </el-form-item>
+      <DialogForm :form="form" :froms="froms" />
     </el-form>
     <div slot="footer" class="dialog-footer">
-      <el-button @click="dialogFormVisible = false">取 消</el-button>
-      <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+      <el-button @click="handCancel">取 消</el-button>
+      <el-button type="primary" @click="handCancel">确 定</el-button>
     </div>
   </el-dialog>
 </template>
 <script>
-export default {}
+import DialogForm from '@/components/DialogForm/index.vue'
+
+export default {
+  components: {
+    DialogForm
+  },
+  props: {
+    dialogFormVisible: {
+      type: Boolean
+    },
+    froms: {
+      type: Array,
+      default: function() {
+        return []
+      }
+    },
+    form: {
+      type: Object
+    },
+    title: {
+      type: String
+    }
+  },
+  data() {
+    return {
+      dialogTableVisible: false
+    }
+  },
+  methods: {
+    handCancel() {
+      this.$store.commit('custormer/SET_DIALOG', this.dialogFormVisible)
+    }
+  }
+}
 </script>
 <style lang="scss">
 </style>

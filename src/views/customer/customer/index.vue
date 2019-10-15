@@ -220,8 +220,7 @@ export default {
   computed: mapState({
     tableList: store => store.custormer.tableList,
     pagination: store => store.custormer.pagination,
-    gradeLevel: store => store.custormer.gradeLevel,
-    dialogShow: store => store.custormer.dialogShow
+    gradeLevel: store => store.custormer.gradeLevel
   }),
   mounted() {
     this.$store.dispatch('custormer/getTableList', {

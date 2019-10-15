@@ -31,19 +31,27 @@
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
     />
+    <CustormerDialog
+      :dialog-form-visible="dialogShow"
+      :froms="dialogFroms[addType-1]"
+      :form="dialogForm"
+      :title="title"
+    />
   </div>
 </template>
 
 <script>
 import CustormerFrom from '@/components/CustormerFrom/index.vue'
 import CustormerTable from '@/components/CustermerTable/index.vue'
+import CustormerDialog from '@/components/CusterDialog/index.vue'
 import { mapState } from 'vuex'
 
 export default {
   name: 'Customer',
   components: {
     CustormerFrom,
-    CustormerTable
+    CustormerTable,
+    CustormerDialog
   },
   data() {
     return {
@@ -51,6 +59,122 @@ export default {
       currentIndex: 0,
       currentPage4: 1,
       currentType: 1,
+      title: '添加员工',
+      addType: 1,
+      dialogForm: {
+        name: '',
+        tel: '',
+        cid: '',
+        time: '',
+        delivery: false,
+        type: '',
+        resource: '',
+        desc: ''
+      },
+      dialogFroms: [
+        [
+          {
+            label: '员工类型:',
+            name: 'type',
+            is: 'el-select',
+            placeholder: '请选择',
+            options: [
+              {
+                label: '专柜员工',
+                value: '2'
+              },
+              {
+                label: '自营员工',
+                value: '1'
+              }
+            ]
+          },
+          {
+            label: '姓名:',
+            name: 'name',
+            placeholder: '请输入',
+            is: 'el-input'
+          },
+          {
+            label: '电话号码:',
+            name: 'tel',
+            placeholder: '请输入',
+            is: 'el-input'
+          },
+          {
+            label: '会员卡号:',
+            name: 'cid',
+            placeholder: '请输入',
+            is: 'el-input'
+          },
+          {
+            label: '入职时间:',
+            name: 'time',
+            placeholder: '请选择日期',
+            is: 'el-input'
+          }
+        ],
+        [
+          {
+            label: '员工类型:',
+            name: 'type',
+            is: 'el-select',
+            placeholder: '请选择',
+            options: [
+              {
+                label: '专柜员工',
+                value: '2'
+              },
+              {
+                label: '自营员工',
+                value: '1'
+              }
+            ]
+          },
+          {
+            label: '楼层:',
+            name: 'id',
+            placeholder: '请输入',
+            is: 'el-input'
+          },
+          {
+            label: '区域:',
+            name: 'id',
+            placeholder: '请输入',
+            is: 'el-input'
+          },
+          {
+            label: '品牌:',
+            name: 'id',
+            placeholder: '请输入',
+            is: 'el-input'
+          },
+          {
+            label: '姓名:',
+            name: 'id',
+            placeholder: '请输入',
+            is: 'el-input'
+          },
+          {
+            label: '电话号码:',
+            name: 'id',
+            placeholder: '请输入',
+            is: 'el-input'
+          },
+          {
+            label: '会员卡号:',
+            name: 'id',
+            placeholder: '请输入',
+            is: 'el-input'
+          },
+          {
+            label: '入职时间:',
+            name: 'id',
+            placeholder: '请选择日期',
+            is: 'el-input'
+          }
+        ]
+      ],
       form: {
         id: '',
         name: '',
@@ -168,7 +292,8 @@ export default {
   },
   computed: mapState({
     qrcodeList: store => store.merge.qrcodeList,
-    pagination: store => store.merge.pagination
+    pagination: store => store.merge.pagination,
+    dialogShow: store => store.custormer.dialogShow
   }),
   mounted() {
     this.$store.dispatch('merge/getQrcodeList', {
@@ -227,6 +352,9 @@ export default {
         floor: '',
         brand: ''
       }
+    },
+    handSelectType(data) {
+      console.log(data)
     }
   }
 }
