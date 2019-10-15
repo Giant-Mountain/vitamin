@@ -41,9 +41,7 @@
           <div class="table-layout">
             <!-- <div class="btn-add" >+</div> -->
 
-            <el-button type="primary" style="margin-left: 16px;" @click="drawer = true">
-              点我打开
-            </el-button>
+            <el-button type="primary" style="margin-left: 16px;" @click="drawer = true">点我打开</el-button>
 
             <el-drawer
               title="我是标题"
@@ -113,7 +111,6 @@
             <el-table-column prop="address" label="操作" />
           </el-table>
           <el-pagination background layout="prev, pager, next" :total="1000" class="page" />
-
         </el-tab-pane>
       </el-tabs>
     </div>
