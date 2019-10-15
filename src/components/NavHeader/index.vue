@@ -18,7 +18,7 @@
         :key="index"
         :class="current===index?'active':''"
         @click="handleClick(index)"
-      >{{ item }}<i v-show="item===&quot;邀请中&quot;">3</i></span>
+      >{{ item }}<i v-show="item===&quot;邀请中&quot;">({{ datalength }})</i></span>
     </div>
   </div>
 </template>
@@ -26,7 +26,7 @@
 <script>
 export default {
   // eslint-disable-next-line vue/require-prop-types
-  props: ['title', 'navList', 'current', 'flag'],
+  props: ['title', 'navList', 'current', 'flag', 'datalength'],
   methods: {
     handleClick(ind) {
       this.current = ind
@@ -55,6 +55,9 @@ export default {
             span {
                 margin: 0 40px 0 0;
                 cursor: pointer;
+                i {
+                    font-style: normal;
+                }
             }
             .active {
                 border-bottom: 4px solid #3ec6b6;

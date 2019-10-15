@@ -9,8 +9,14 @@
         </span>
       </div>
       <div>
-        <span :class="currentIndex===0?'tab-active':''" @click="handIndex(0,1)">有效顾客</span>
-        <span :class="currentIndex===1?'tab-active':''" @click="handIndex(1,2)">潜在顾客</span>
+        <span
+          :class="currentIndex===0?'tab-active':''"
+          @click="handIndex(0,1)"
+        >有效顾客</span>
+        <span
+          :class="currentIndex===1?'tab-active':''"
+          @click="handIndex(1,2)"
+        >潜在顾客</span>
       </div>
     </div>
     <div class="card-group">
@@ -21,7 +27,10 @@
       />
     </div>
     <div class="customer-list">
-      <CustormerTable :table-column="tableColumn[currentIndex]" :table-list="tableList.list" />
+      <CustormerTable
+        :table-column="tableColumn[currentIndex]"
+        :table-list="tableList.list"
+      />
     </div>
     <el-pagination
       :current-page="currentPage4"
@@ -248,58 +257,58 @@ export default {
 
 <style lang="scss" scoped>
 * {
-  font-size: 12px;
+    font-size: 12px;
 }
 %juzhong {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .custormer-container {
-  padding: 24px;
+    padding: 24px;
 }
 
 .custormer-header {
-  padding: 24px;
-  background: #fff;
-  border-bottom: 1px solid #f5f5f5;
-  height: 150px;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  div:nth-child(1) {
-    flex: 2;
-  }
-  div:nth-child(2) {
-    flex: 6;
+    padding: 24px;
+    background: #fff;
+    border-bottom: 1px solid #f5f5f5;
+    height: 150px;
+    position: relative;
     display: flex;
-    align-items: center;
-    span {
-      margin-right: 25px;
+    flex-direction: column;
+    div:nth-child(1) {
+        flex: 2;
     }
-  }
-  div:nth-child(3) {
-    height: 25px;
-    span {
-      margin-right: 25px;
-      height: 100%;
-      display: inline-block;
+    div:nth-child(2) {
+        flex: 6;
+        display: flex;
+        align-items: center;
+        span {
+            margin-right: 25px;
+        }
     }
-    .tab-active {
-      border-bottom: 2px solid #3ec6b6;
-      color: #3ec6b6;
+    div:nth-child(3) {
+        height: 25px;
+        span {
+            margin-right: 25px;
+            height: 100%;
+            display: inline-block;
+        }
+        .tab-active {
+            border-bottom: 2px solid #3ec6b6;
+            color: #3ec6b6;
+        }
     }
-  }
 }
 .card-group {
-  padding: 24px;
-  background: #fff;
-  overflow: hidden;
-  border-bottom: 1px solid #e8e8e8;
+    padding: 24px;
+    background: #fff;
+    overflow: hidden;
+    border-bottom: 1px solid #e8e8e8;
 }
 .customer-list {
-  padding: 24px 24px 24px;
-  background: #fff;
-  margin-top: 24px;
+    padding: 24px 24px 24px;
+    background: #fff;
+    margin-top: 24px;
 }
 </style>

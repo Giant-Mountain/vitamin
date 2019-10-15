@@ -5,6 +5,7 @@
       :nav-list="navList"
       :current="current"
       :flag="flag"
+      :datalength="tableList.length"
       @handleClicks="clicks"
     />
     <div class="main">
@@ -21,7 +22,17 @@
         <div class="tableList">
           <CustormerTable
             :table-column="tableColumn[current]"
-            :table-data="tableLists[current]"
+            :table-list="tableList"
+          />
+          <el-pagination
+            :current-page="currentPages"
+            :page-sizes="[10,15,20,25,30]"
+            :page-size="pagination.pageLimit"
+            layout="total, sizes, prev, pager, next, jumper"
+            :total="pagination.totalCount"
+            style="float:right"
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
           />
         </div>
       </div>
@@ -42,16 +53,32 @@ export default {
     CustormerTable
   },
   // eslint-disable-next-line vue/require-prop-types
-  props: ['title', 'navList', 'form', 'froms', 'tableColumn', 'tableLists'],
+  props: ['title', 'navList', 'form', 'froms', 'tableColumn', 'tableList', 'pagination'],
   data() {
     return {
+      datalength: 0,
       current: 0,
-      flag: true
+      flag: false,
+      currentPages: 1
     }
   },
   methods: {
     clicks(current) {
       this.current = current
+    },
+    handleSizeChange(val) {
+      this.pagination.pageLimit = val
+      console.log(`每页 ${val} 条`)
+    },
+    // 点击换页面并进行数据重新渲染
+    handleCurrentChange(val) {
+      console.log(val, '234343434')
+      this.currentPages = val
+      this.$store.dispatch('team/getTableList', {
+        type: 1,
+        status: '0,1',
+        page: this.currentPages
+      })
     }
   }
 }

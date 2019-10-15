@@ -47,15 +47,6 @@ export default {
   components: {
     RangeInput
   },
-  // props: ['froms', 'form'],
-  //   props: {
-  //     froms: {
-  //       type: Array
-  //     },
-  //     form: {
-  //       type: Object
-  //     }
-  //   },
   props: {
     froms: {
       type: Array,
@@ -110,7 +101,24 @@ export default {
     width: 120px;
     font-weight: normal;
 }
+.from-content {
+    display: flex;
+    flex-wrap: wrap;
+    // padding: 46px 46px 20px 46px;
+}
 
+.from-content /deep/ .el-form-item {
+    display: flex;
+    // width: 33%;
+    height: 40px;
+    line-height: 40px;
+}
+.form-label /deep/ .el-form-item__label {
+    font-size: 12px;
+    display: inline-block;
+    width: 120px;
+    font-weight: normal;
+}
 .form-label /deep/ .el-input__inner {
     width: 250px;
 }

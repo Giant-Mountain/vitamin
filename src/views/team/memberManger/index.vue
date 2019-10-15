@@ -5,13 +5,14 @@
     :form="form"
     :froms="froms"
     :table-column="tableColumn"
-    :table-lists="tableLists"
+    :table-list="tableList"
+    :pagination="pagination"
   />
 </template>
 
 <script>
 import TeamManger from '@/components/TeamManger'
-import { tableData } from '@/api/team.js'
+import { mapState } from 'vuex'
 export default {
   name: 'MemberManger',
   components: {
@@ -100,7 +101,7 @@ export default {
         [
           {
             lable: '头像',
-            prop: 'avatar'
+            prop: 'img'
           },
           {
             lable: '姓名',
@@ -133,45 +134,22 @@ export default {
           {
             lable: '状态',
             prop: 'status'
-          },
-          {
-            lable: '操作',
-            prop: 'option',
-            render(record, text) {
-              return <div>查看</div>
-            }
-          }
-        ]
-      ],
-      tableLists: [
-        [
-          {
-            avatar: this.avatar,
-            create_user_name: '',
-            mobile: '',
-            role: '',
-            store_name: '',
-            relation_user: '',
-            status: ''
           }
         ]
       ]
     }
   },
-  mounted() {
-    tableData({ type: 1,
-      status: 3,
-      page: 1 }).then(res => {
-      res.data.list.filter(item => {
-        this.avatar = `<img src='${item.img}' alt='' />`
-      })
-      res.data.list.map(item => {
-        // eslint-disable-next-line no-return-assign
-        return item.img = this.avatar
-      })
-      //   console.log(this.avatar, '..........')
-      this.tableLists = [res.data.list]
-      console.log(this.tableLists)
+  computed: {
+    ...mapState({
+      tableList: state => state.team.tableList,
+      pagination: state => state.team.pagination
+    })
+  },
+  created() {
+    this.$store.dispatch('team/getTableList', {
+      type: 1,
+      page: 1,
+      status: '0, 1'
     })
   }
 }
