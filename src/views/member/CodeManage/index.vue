@@ -60,16 +60,13 @@ export default {
       currentPage4: 1,
       currentType: 1,
       title: '添加员工',
-      addType: 1,
       dialogForm: {
         name: '',
-        tel: '',
+        mobile: '',
         cid: '',
-        time: '',
-        delivery: false,
+        hiredate: '',
         type: '',
-        resource: '',
-        desc: ''
+        section: ''
       },
       dialogFroms: [
         [
@@ -87,31 +84,43 @@ export default {
                 label: '自营员工',
                 value: '1'
               }
-            ]
+            ],
+            rules: [{ required: true, message: '姓名不能为空' }]
           },
           {
             label: '姓名:',
             name: 'name',
             placeholder: '请输入',
-            is: 'el-input'
+            is: 'el-input',
+            rules: [{ required: true, message: '姓名不能为空' }]
+          },
+          {
+            label: '部门:',
+            name: 'section',
+            placeholder: '请输入',
+            is: 'el-input',
+            rules: [{ required: true, message: '姓名不能为空' }]
           },
           {
             label: '电话号码:',
-            name: 'tel',
+            name: 'mobile',
             placeholder: '请输入',
-            is: 'el-input'
+            is: 'el-input',
+            rules: [{ required: true, message: '姓名不能为空' }]
           },
           {
             label: '会员卡号:',
             name: 'cid',
             placeholder: '请输入',
-            is: 'el-input'
+            is: 'el-input',
+            rules: [{ required: true, message: '姓名不能为空' }]
           },
           {
             label: '入职时间:',
-            name: 'time',
+            name: 'hiredate',
             placeholder: '请选择日期',
-            is: 'el-input'
+            is: 'el-date-picker',
+            rules: [{ required: true, message: '姓名不能为空' }]
           }
         ],
         [
@@ -133,13 +142,13 @@ export default {
           },
           {
             label: '楼层:',
-            name: 'id',
+            name: 'floor',
             placeholder: '请输入',
             is: 'el-input'
           },
           {
             label: '区域:',
-            name: 'id',
+            name: 'brand',
             placeholder: '请输入',
             is: 'el-input'
           },
@@ -151,27 +160,27 @@ export default {
           },
           {
             label: '姓名:',
-            name: 'id',
+            name: 'name',
             placeholder: '请输入',
             is: 'el-input'
           },
           {
             label: '电话号码:',
-            name: 'id',
+            name: 'mobile',
             placeholder: '请输入',
             is: 'el-input'
           },
           {
             label: '会员卡号:',
-            name: 'id',
+            name: 'cid',
             placeholder: '请输入',
             is: 'el-input'
           },
           {
             label: '入职时间:',
-            name: 'id',
+            name: 'hiredate',
             placeholder: '请选择日期',
-            is: 'el-input'
+            is: 'el-date-picker'
           }
         ]
       ],
@@ -293,7 +302,8 @@ export default {
   computed: mapState({
     qrcodeList: store => store.merge.qrcodeList,
     pagination: store => store.merge.pagination,
-    dialogShow: store => store.custormer.dialogShow
+    dialogShow: store => store.custormer.dialogShow,
+    addType: store => store.custormer.addType
   }),
   mounted() {
     this.$store.dispatch('merge/getQrcodeList', {

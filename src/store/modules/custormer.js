@@ -4,7 +4,8 @@ const state = {
   tableList: [],
   pagination: {},
   gradeLevel: [],
-  dialogShow: false
+  dialogShow: false,
+  addType: 1
 }
 
 const mutations = {
@@ -24,8 +25,10 @@ const mutations = {
     console.log(state.gradeLevel)
   },
   SET_DIALOG: (state, payload) => {
-    console.log(payload)
     state.dialogShow = payload
+  },
+  SET_TYPE: (state, payload) => {
+    state.addType = payload
   }
 }
 

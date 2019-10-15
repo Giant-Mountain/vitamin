@@ -12,7 +12,7 @@ export default {
     buyTimes: {
       type: Array,
       default: function() {
-        return {}
+        return []
       }
     }
   }

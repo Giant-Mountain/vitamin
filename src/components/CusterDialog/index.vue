@@ -1,12 +1,8 @@
 <template>
-  <el-dialog :title="title" :visible.sync="dialogFormVisible">
+  <el-dialog :title="title" :visible.sync="dialogFormVisible" @close="onClose">
     <el-form :model="form">
-      <DialogForm :form="form" :froms="froms" />
+      <DialogForm :form="form" :froms="froms" :dialog-form-visible="dialogFormVisible" />
     </el-form>
-    <div slot="footer" class="dialog-footer">
-      <el-button @click="handCancel">取 消</el-button>
-      <el-button type="primary" @click="handCancel">确 定</el-button>
-    </div>
   </el-dialog>
 </template>
 <script>
@@ -39,9 +35,11 @@ export default {
     }
   },
   methods: {
-    handCancel() {
+
+    onClose() {
       this.$store.commit('custormer/SET_DIALOG', this.dialogFormVisible)
     }
+
   }
 }
 </script>
