@@ -36,73 +36,80 @@ export default {
         customer: '',
         status: ''
       },
-      froms: [[{
-        label: '手机号:',
-        name: 'tel',
-        placeholder: '请输入',
-        is: 'el-input'
-      },
-      {
-        label: '所属店铺:',
-        name: 'shop',
-        is: 'el-select',
-        placeholder: '请选择',
-        options: [
+      froms: [
+        [
           {
-            label: '是',
-            value: 1
+            label: '手机号:',
+            name: 'tel',
+            placeholder: '请输入',
+            is: 'el-input'
           },
           {
-            label: '否',
-            value: 0
-          }
-        ]
-      }, {
-        label: '角色:',
-        name: 'role',
-        is: 'el-select',
-        placeholder: '请选择',
-        options: [
-          {
-            label: '是',
-            value: 1
+            label: '所属店铺:',
+            name: 'shop',
+            is: 'el-select',
+            placeholder: '请选择',
+            options: [
+              {
+                label: '是',
+                value: 1
+              },
+              {
+                label: '否',
+                value: 0
+              }
+            ]
           },
           {
-            label: '否',
-            value: 0
-          }
-        ]
-      }, {
-        label: '顾客账号:',
-        name: 'customer',
-        is: 'el-select',
-        placeholder: '请选择',
-        options: [
-          {
-            label: '是',
-            value: 1
+            label: '角色:',
+            name: 'role',
+            is: 'el-select',
+            placeholder: '请选择',
+            options: [
+              {
+                label: '是',
+                value: 1
+              },
+              {
+                label: '否',
+                value: 0
+              }
+            ]
           },
           {
-            label: '否',
-            value: 0
-          }
-        ]
-      }, {
-        label: '状态:',
-        name: 'status',
-        is: 'el-select',
-        placeholder: '请选择',
-        options: [
-          {
-            label: '是',
-            value: 1
+            label: '顾客账号:',
+            name: 'customer',
+            is: 'el-select',
+            placeholder: '请选择',
+            options: [
+              {
+                label: '是',
+                value: 1
+              },
+              {
+                label: '否',
+                value: 0
+              }
+            ]
           },
           {
-            label: '否',
-            value: 0
+            label: '状态:',
+            name: 'status',
+            is: 'el-select',
+            placeholder: '请选择',
+            options: [
+              {
+                label: '是',
+                value: 1
+              },
+              {
+                label: '否',
+                value: 0
+              }
+            ]
           }
         ]
-      }]],
+      ],
       tableColumn: [
         [
           {

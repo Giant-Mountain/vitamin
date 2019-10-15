@@ -3,7 +3,9 @@ import { MergerList, SearchList } from '@/api/custormer'
 const state = {
   tableList: [],
   pagination: {},
-  gradeLevel: []
+  gradeLevel: [],
+  dialogShow: false,
+  addType: 1
 }
 
 const mutations = {
@@ -12,12 +14,21 @@ const mutations = {
     state.pagination = payload.pagination
   },
   SET_GRADELEVEL: (state, payload) => {
+    console.log(payload)
     for (const i in payload) {
+      console.log(i)
       state.gradeLevel.push({
         label: payload[i],
-        value: payload[i]
+        value: i
       })
     }
+    console.log(state.gradeLevel)
+  },
+  SET_DIALOG: (state, payload) => {
+    state.dialogShow = payload
+  },
+  SET_TYPE: (state, payload) => {
+    state.addType = payload
   }
 }
 

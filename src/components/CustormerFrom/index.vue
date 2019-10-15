@@ -19,11 +19,18 @@
             :start-placeholder="value.startPlaceholder"
             :end-placeholder="value.endPlaceholder"
             :placeholder="value.placeholder"
-            :range.sync="form[value.name]"
+            :buy_times.sync="form[value.name]"
           >
             <el-option
               v-for="(v, k) in gradeLevel"
-              v-show="value.name==='vip'"
+              v-show="value.name==='grade_code'"
+              :key="k"
+              v-model="v.value"
+              :label="v.label"
+              :value="v.value"
+            />
+            <el-option
+              v-for="(v, k) in value.options"
               :key="k"
               :label="v.label"
               :value="v.value"
@@ -51,7 +58,7 @@ export default {
     froms: {
       type: Array,
       default: function() {
-        return {}
+        return []
       }
     },
     form: {
@@ -63,7 +70,7 @@ export default {
     gradeLevel: {
       type: Array,
       default: function() {
-        return {}
+        return []
       }
     }
   },
@@ -72,10 +79,11 @@ export default {
   },
   methods: {
     search() {
+      console.log(this.form)
       this.$emit('handSearch', this.form)
     },
     reset() {
-      console.log('重置')
+      this.$emit('resetInputValue')
     }
   }
 }
@@ -85,15 +93,12 @@ export default {
 .from-content {
     display: flex;
     flex-wrap: wrap;
-    padding: 46px 46px 20px 46px;
 }
 
 .from-content /deep/ .el-form-item {
     display: flex;
-    width: 500px;
     height: 40px;
     line-height: 40px;
-    display: inline-block;
 }
 .form-label /deep/ .el-form-item__label {
     font-size: 12px;
@@ -106,6 +111,25 @@ export default {
     flex-wrap: wrap;
     // padding: 46px 46px 20px 46px;
 }
+// .from-content {
+//   display: flex;
+//   flex-wrap: wrap;
+//   padding: 46px 46px 20px 46px;
+// }
+
+// .from-content /deep/ .el-form-item {
+//   display: flex;
+//   width: 500px;
+//   height: 40px;
+//   line-height: 40px;
+//   display: inline-block;
+// }
+// .form-label /deep/ .el-form-item__label {
+//   font-size: 12px;
+//   display: inline-block;
+//   width: 120px;
+//   font-weight: normal;
+// }
 
 .from-content /deep/ .el-form-item {
     display: flex;

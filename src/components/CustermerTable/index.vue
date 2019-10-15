@@ -1,5 +1,11 @@
 <template>
   <div class="table-content">
+    <div
+      v-if="addDialog"
+      class="addBtn"
+    >
+      <span @click="handDialog">+</span>
+    </div>
     <el-table
       :data="tableList"
       style="width: 100%;height:100%"
@@ -30,14 +36,22 @@ export default {
     tableColumn: {
       type: Array,
       default: function() {
-        return {}
+        return []
       }
     },
     tableList: {
       type: Array,
       default: function() {
-        return {}
+        return []
       }
+    },
+    addDialog: {
+      type: Boolean
+    }
+  },
+  methods: {
+    handDialog() {
+      this.$store.commit('custormer/SET_DIALOG', this.addDialog)
     }
   }
 }
@@ -52,5 +66,21 @@ export default {
 }
 .table-content /deep/ .has-gutter {
     color: #000;
+}
+.addBtn {
+    span {
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        background: #3ec6b6;
+        border-radius: 50%;
+        color: #fff;
+        font-size: 30px;
+        margin-bottom: 24px;
+        text-align: center;
+        line-height: 30px;
+        font-weight: 200;
+        cursor: pointer;
+    }
 }
 </style>
