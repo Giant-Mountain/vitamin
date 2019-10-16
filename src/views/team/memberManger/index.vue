@@ -12,6 +12,11 @@
     :paginations="paginations"
     :pagination="pagination"
     :current-type="currentType"
+    :role-column="roleColumn"
+    :role-list="roleList"
+    :role-pagination="rolePagination"
+    :shop-list="shopList"
+    :role-lists="roleLists"
   />
 </template>
 
@@ -29,6 +34,7 @@ export default {
       navList: ['员工管理', '邀请中', '角色描述'],
       title: '员工管理',
       avatar: '',
+      shopLists: [],
       form: {
         tel: '',
         shop: '',
@@ -47,31 +53,14 @@ export default {
         name: 'shop',
         is: 'el-select',
         placeholder: '请选择',
-        options: [
-          {
-            label: '是',
-            value: 1
-          },
-          {
-            label: '否',
-            value: 0
-          }
-        ]
-      }, {
+        options: null
+      },
+      {
         label: '角色:',
         name: 'role',
         is: 'el-select',
         placeholder: '请选择',
-        options: [
-          {
-            label: '是',
-            value: 1
-          },
-          {
-            label: '否',
-            value: 0
-          }
-        ]
+        options: null
       }, {
         label: '顾客账号:',
         name: 'customer',
@@ -79,11 +68,11 @@ export default {
         placeholder: '请选择',
         options: [
           {
-            label: '是',
+            label: '已关联',
             value: 1
           },
           {
-            label: '否',
+            label: '未关联',
             value: 0
           }
         ]
@@ -94,11 +83,11 @@ export default {
         placeholder: '请选择',
         options: [
           {
-            label: '是',
+            label: '冻结',
             value: 1
           },
           {
-            label: '否',
+            label: '正常',
             value: 0
           }
         ]
@@ -179,6 +168,34 @@ export default {
             sortable: 'sortable'
           }
         ]
+      ],
+      roleColumn: [
+        [
+          {
+            lable: '角色',
+            prop: 'role_name'
+          },
+          {
+            lable: '权限',
+            prop: 'description'
+          },
+          {
+            lable: '',
+            prop: ''
+          },
+          {
+            lable: '',
+            prop: ''
+          },
+          {
+            lable: '店铺权限',
+            prop: 'store_permission'
+          },
+          {
+            lable: '手机App',
+            prop: 'is_app'
+          }
+        ]
       ]
     }
   },
@@ -187,7 +204,11 @@ export default {
       tableList: state => state.team.tableList,
       pagination: state => state.team.pagination,
       list: state => state.team.list,
-      paginations: state => state.team.pagination
+      paginations: state => state.team.paginations,
+      roleList: state => state.team.roleList,
+      rolePagination: state => state.team.rolePagination,
+      shopList: state => state.team.shopList,
+      roleLists: state => state.team.roleLists
     })
   },
   created() {
@@ -200,6 +221,14 @@ export default {
       type: this.currentType,
       status: 3,
       page: 1
+    })
+    this.$store.dispatch('team/getRoleList', {
+      mall_id: 61500,
+      type: this.currentType,
+      page: 1
+    })
+    this.$store.dispatch('team/getSelectList', {
+      type: this.currentType
     })
   }
 }

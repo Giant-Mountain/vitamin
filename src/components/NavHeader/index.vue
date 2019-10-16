@@ -18,7 +18,7 @@
         :key="index"
         :class="current===index?'active':''"
         @click="handleClick(index)"
-      >{{ item }}<i v-show="item===&quot;邀请中&quot;">({{ datalength }})</i></span>
+      >{{ item }}<i v-show="item===&quot;邀请中&quot;">({{ paginations.totalCount }})</i></span>
     </div>
   </div>
 </template>
@@ -26,11 +26,10 @@
 <script>
 export default {
   // eslint-disable-next-line vue/require-prop-types
-  props: ['title', 'navList', 'current', 'flag', 'datalength'],
+  props: ['title', 'navList', 'current', 'flag', 'paginations'],
   methods: {
     handleClick(ind) {
-      this.current = ind
-      this.$emit('handleClicks', this.current)
+      this.$emit('handleClicks', ind)
     }
   }
 }

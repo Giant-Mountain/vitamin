@@ -5,7 +5,7 @@
       :nav-list="navList"
       :current="current"
       :flag="flag"
-      :datalength="list.length"
+      :paginations="paginations"
       @handleClicks="clicks"
     />
     <div class="main">
@@ -14,6 +14,8 @@
           <CustormerFrom
             :form="form"
             :froms="froms[current]"
+            :shop-list="shopList"
+            :role-lists="roleLists"
           />
         </div>
         <div class="add">
@@ -46,13 +48,20 @@
         />
       </div>
       <div v-show="current===2">
-        <div>465767687</div>
+        <Roleing
+          :role-column="roleColumn"
+          :role-list="roleList"
+          :role-pagination="rolePagination"
+          :current-pages="currentPages"
+          :current-type="currentType"
+        />
       </div>
     </div>
   </div>
 </template>
 <script>
 import Inviteing from '@/components/Inviteing'
+import Roleing from '@/components/Roleing'
 import CustormerFrom from '@/components/CustormerFrom'
 import CustormerTable from '@/components/CustermerTable'
 import NavHeader from '@/components/NavHeader'
@@ -62,13 +71,13 @@ export default {
     CustormerFrom,
     NavHeader,
     CustormerTable,
-    Inviteing
+    Inviteing,
+    Roleing
   },
   // eslint-disable-next-line vue/require-prop-types
-  props: ['title', 'navList', 'form', 'froms', 'tableColumn', 'tableList', 'pagination', 'currentType', 'paginations', 'list', 'tableColumns'],
+  props: ['title', 'navList', 'form', 'froms', 'tableColumn', 'tableList', 'pagination', 'currentType', 'paginations', 'list', 'tableColumns', 'roleColumn', 'roleList', 'rolePagination', 'shopList', 'roleLists'],
   data() {
     return {
-      datalength: 0,
       current: 0,
       flag: false,
       currentPages: 1

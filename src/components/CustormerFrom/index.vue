@@ -29,6 +29,23 @@
               :label="v.label"
               :value="v.value"
             />
+
+            <el-option
+              v-for="(v) in roleLists"
+              v-show="value.name==='role'"
+              :key="v.id"
+              v-model="v.name"
+              :label="v.label"
+              :value="v.name"
+            />
+            <el-option
+              v-for="(v) in shopList"
+              v-show="value.name==='shop'"
+              :key="v.id"
+              v-model="v.name"
+              :label="v.label"
+              :value="v.name"
+            />
             <el-option
               v-for="(v, k) in value.options"
               :key="k"
@@ -72,6 +89,18 @@ export default {
       default: function() {
         return []
       }
+    },
+    roleLists: {
+      type: Array,
+      default: function() {
+        return []
+      }
+    },
+    shopList: {
+      type: Array,
+      default: function() {
+        return []
+      }
     }
   },
   data() {
@@ -79,7 +108,6 @@ export default {
   },
   methods: {
     search() {
-      console.log(this.form)
       this.$emit('handSearch', this.form)
     },
     reset() {
@@ -93,10 +121,11 @@ export default {
 .from-content {
     display: flex;
     flex-wrap: wrap;
+    padding: 46px 46px 20px 46px;
 }
-
 .from-content /deep/ .el-form-item {
     display: flex;
+    width: 33.3%;
     height: 40px;
     line-height: 40px;
 }
@@ -106,31 +135,6 @@ export default {
     width: 120px;
     font-weight: normal;
 }
-.from-content {
-    display: flex;
-    flex-wrap: wrap;
-    // padding: 46px 46px 20px 46px;
-}
-// .from-content {
-//   display: flex;
-//   flex-wrap: wrap;
-//   padding: 46px 46px 20px 46px;
-// }
-
-// .from-content /deep/ .el-form-item {
-//   display: flex;
-//   width: 500px;
-//   height: 40px;
-//   line-height: 40px;
-//   display: inline-block;
-// }
-// .form-label /deep/ .el-form-item__label {
-//   font-size: 12px;
-//   display: inline-block;
-//   width: 120px;
-//   font-weight: normal;
-// }
-
 .from-content /deep/ .el-form-item {
     display: flex;
     // width: 33%;

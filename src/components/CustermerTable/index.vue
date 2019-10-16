@@ -15,7 +15,7 @@
         :key="index"
         :label="table.lable"
         :prop="table.prop"
-        :sortable="table.sortable?'':sortable"
+        :sortable="table.sortable?'':table.sortable"
       />
       <el-table-column label="操作">
         <template>

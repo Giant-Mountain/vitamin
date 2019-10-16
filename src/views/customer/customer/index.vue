@@ -257,7 +257,6 @@ export default {
       })
     },
     handSearchInput(data) {
-      console.log(data)
       const {
         tel,
         name,

@@ -1,15 +1,15 @@
 <template>
   <div class="tableList">
     <CustormerTable
-      :table-column="tableColumns[0]"
-      :table-list="list"
+      :table-column="roleColumn[0]"
+      :table-list="roleList"
     />
     <el-pagination
       :current-page="currentPages"
       :page-sizes="[10,15,20,25,30]"
-      :page-size="paginations.pageLimit"
+      :page-size="rolePagination.pageLimit"
       layout="total, sizes, prev, pager, next, jumper"
-      :total="paginations.totalCount"
+      :total="rolePagination.totalCount"
       style="float:right"
       @size-change="handleSizeChanges"
       @current-change="handleCurrentChanges"
@@ -28,19 +28,18 @@ export default {
     CustormerTable
   },
   // eslint-disable-next-line vue/require-prop-types
-  props: ['paginations', 'list', 'currentPages', 'currentType', 'tableColumn', 'tableColumns'],
+  props: ['roleColumn', 'roleList', 'rolePagination', 'currentPages', 'currentType'],
   methods: {
     handleSizeChanges(val) {
-      this.paginations.pageLimit = val
+      this.rolePagination.pageLimit = val
       console.log(`每页 ${val} 条`)
     },
     handleCurrentChanges(val) {
       this.currentPages = val
-      this.$store.dispatch('team/getTableLists', {
+      this.$store.dispatch('team/getRoleList', {
+        mall_id: 61500,
         type: this.currentType,
-        status: 3,
-        page: this.currentPages,
-        sort_time: ''
+        page: this.currentPages
       })
     }
   }
