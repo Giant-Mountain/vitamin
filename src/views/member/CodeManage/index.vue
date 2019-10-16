@@ -19,6 +19,7 @@
         :add-dialog="addDialog"
         :table-column="tableColumn[currentIndex]"
         :table-list="qrcodeList"
+        :table-component="tableComponent"
       />
     </div>
     <el-pagination
@@ -228,12 +229,12 @@ export default {
             placeholder: '请选择',
             options: [
               {
-                label: '专柜员工',
-                value: '2'
+                name: '专柜员工',
+                id: '2'
               },
               {
-                label: '自营员工',
-                value: '1'
+                name: '自营员工',
+                id: '1'
               }
             ]
           },
@@ -261,41 +262,56 @@ export default {
         [
           {
             lable: '编号',
-            prop: 'id'
+            prop: 'id',
+            tp: false
           },
           {
             lable: '姓名',
-            prop: 'name'
+            prop: 'name',
+            tp: false
           },
           {
             lable: '电话号码',
-            prop: 'mobile'
+            prop: 'mobile',
+            tp: false
           },
           {
             lable: '会员卡号',
-            prop: 'cid'
+            prop: 'cid',
+            tp: false
           },
           {
             lable: '入职时间',
-            prop: 'hiredate'
+            prop: 'hiredate',
+            tp: false
           },
           {
             lable: '员工类型',
-            prop: 'type'
+            prop: 'type',
+            tp: false
           },
           {
             lable: '部门',
-            prop: 'section'
+            prop: 'section',
+            tp: false
           },
           {
             lable: '楼层',
-            prop: 'floor'
+            prop: 'floor',
+            tp: false
           },
           {
             lable: '区域',
-            prop: 'brand'
+            prop: 'brand',
+            tp: false
           }
         ]
+      ],
+      tableComponent: [
+        {
+          lable: '操作',
+          content: ['编辑', '删除']
+        }
       ]
     }
   },

@@ -29,8 +29,8 @@ export default {
   props: ['title', 'navList', 'current', 'flag', 'datalength'],
   methods: {
     handleClick(ind) {
-      this.current = ind
-      this.$emit('handleClicks', this.current)
+      // this.current = ind
+      this.$emit('handleClicks', ind)
     }
   }
 }
@@ -40,7 +40,8 @@ export default {
 .header {
     background: #fff;
     height: 180px;
-    padding: 48px 0 0 48px;
+    padding: 24px;
+    // padding: 48px 0 0 48px;
     border-bottom: 4px solid #f5f5f5;
     font-size: 16px;
     display: flex;
