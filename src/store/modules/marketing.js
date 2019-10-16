@@ -132,6 +132,7 @@ const mutations = {
     state.pagination = payload.pagination
   },
   SET_SELECTDATA: (state, payload) => {
+    console.log(payload)
     const arr = []
     for (const i in payload) {
       arr.push({
