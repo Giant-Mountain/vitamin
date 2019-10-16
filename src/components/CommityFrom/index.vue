@@ -15,32 +15,32 @@
             :range.sync="form[value.name]"
           >
             <el-option
-              v-for="v in value.options"
-              v-show="value.label==='楼层'"
-              :key="v.id"
-              :label="v.name"
-              :value="v.id"
-            />
-            <el-option
-              v-for="order in value.options"
-              v-show="value.label==='订单类型'"
-              :key="order.keb"
-              :value="order.id"
-              :label="order.keb"
-            />
-            <el-option
-              v-for="order in value.options"
-              v-show="value.label==='货源类型'"
-              :key="order.use"
-              :value="order.id"
-              :label="order.use"
-            />
-            <el-option
               v-for="order in value.options"
               v-show="value.label==='品牌'"
               :key="order.name"
               :value="order.id"
               :label="order.name"
+            />
+            <el-option
+              v-for="order in value.options"
+              v-show="value.label==='商品来源'"
+              :key="order.name"
+              :value="order.id"
+              :label="order.name"
+            />
+            <el-option
+              v-for="order in value.options"
+              v-show="value.label==='商品类型'"
+              :key="order.name"
+              :value="order.id"
+              :label="order.name"
+            />
+            <el-option
+              v-for="item in value.options"
+              v-show="value.label==='配送方式'"
+              :key="item.name"
+              :label="item.name"
+              :value="item.id"
             />
             <el-option-group
               v-for="group in value.options"
@@ -69,13 +69,9 @@
 </template>
 
 <script>
-import RangeInput from './components/RangInput'
-
 export default {
   name: 'CustormerFrom',
-  components: {
-    RangeInput
-  },
+  components: {},
   props: ['froms', 'form'],
   // gradeLevel: {
   //   type: Array,

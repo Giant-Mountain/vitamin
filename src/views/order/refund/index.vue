@@ -13,6 +13,7 @@
     @search="searchSelect"
     @handReset="ResetClick"
   />
+
 </template>
 <script>
 import { floor } from '../api/order.js'
@@ -27,26 +28,27 @@ export default {
     return {
       flag: true,
       form: {
-        delivery_name: '',
-        number: '',
-        order_type: '',
-        delivery_tel: '',
-        floor_id: '',
-        vm_store_id: '',
-        submit_time: '',
-        order_pay_time: '',
         brand_id: '',
+        sub_number: '',
+        floor_id: '',
+        prod_name: '',
         prod_code: '',
-        prod_name: ''
+        delivery_name: '',
+        return_number: '',
+        vm_store_id: '',
+        order_number: '',
+        submit_time: '',
+        delivery_tel: '',
+        order_pay_time: ''
       },
-      navList: ['全部', '代收款', '待发货', '待收货', '已完成'],
-      title: '订单管理',
+      navList: ['全部', '待商家处理', '待买家处理', '待审核', '待财务确认', '退款成功', '退款关闭'],
+      title: '店铺管理',
       froms: [
         [
           {
-            label: '订单号',
-            name: 'number',
-            placeholder: '请输入订单号',
+            label: '退单号',
+            name: 'return_number',
+            placeholder: '请输入店铺订单编号',
             is: 'el-input'
           },
           {
@@ -62,27 +64,15 @@ export default {
             is: 'el-input'
           },
           {
-            label: '订单类型',
-            name: 'order_type',
-            is: 'el-select',
-            options: [
-              {
-                id: 1,
-                keb: '全部'
-              },
-              {
-                id: 2,
-                keb: '线上poss'
-              },
-              {
-                id: 3,
-                keb: '电商订单'
-              },
-              {
-                id: 4,
-                keb: '电子卡卷'
-              }
-            ]
+            label: '订单号',
+            name: 'order_number',
+            placeholder: '请输入订单编号',
+            is: 'el-input'
+          },
+          {
+            label: '店铺订单号',
+            name: 'sub_number',
+            is: 'el-input'
           },
           {
             label: '楼层',
@@ -99,11 +89,10 @@ export default {
           {
             label: '品牌',
             name: 'brand_id',
-            is: 'el-select',
-            options: null
+            is: 'el-select'
           },
           {
-            label: '商品款号',
+            label: '商品单号',
             name: 'prod_code',
             placeholder: '请输入',
             is: 'el-input'
@@ -115,13 +104,13 @@ export default {
             is: 'el-input'
           },
           {
-            label: '下单时间',
+            label: '申请时间',
             name: 'submit_time',
             placeholder: '开始时间~结束事件',
             is: 'el-date-picker'
           },
           {
-            label: '支付时间',
+            label: '退款时间',
             name: 'order_pay_time',
             placeholder: '开始时间~结束事件',
             is: 'el-date-picker'
@@ -131,42 +120,45 @@ export default {
       tableColumn: [
         [
           {
-            lable: '订单号',
-            prop: 'number'
+            lable: '退款号',
+            prop: 'return_number'
           },
           {
-            lable: '下单时间',
-            prop: 'created_at_str'
+            lable: '退款方式',
+            prop: 'type_str'
+          },
+          {
+            lable: '订单编号',
+            prop: 'order_number'
+          },
+          {
+            lable: '店铺',
+            prop: 'vm_store_name'
           },
           {
             lable: '顾客',
             prop: 'customer_name'
           },
           {
-            lable: '订单类型',
-            prop: 'order_type'
-          },
-          {
-            lable: '售后',
-            prop: 'status_str'
+            lable: '退款',
+            prop: 'refund_ing_str'
           }
         ]
       ],
-      // current:0,
       currentPage4: 1,
       currentType: 5
     }
   },
   computed: mapState({
-    list: store => store.order.list,
+    list: store => store.order.tablist,
     pagination: store => store.custormer.pagination
   }),
   mounted() {
     this.$store.dispatch('custormer/getSearchList')
-    this.$store.dispatch('order/getTableList', {
+    this.$store.dispatch('order/getReturnList', {
       org_id: 61500,
-      page: this.currentPage4,
-      org_type: this.currentType
+      page: 1,
+      org_type: 5
     })
     floor({
       org_id: 61500,
@@ -204,65 +196,69 @@ export default {
     // 重置
     ResetClick(data) {
       console.log(1)
-      this.$store.dispatch('order/getTableList', {
+      this.$store.dispatch('order/getReturnList', {
         org_id: 61500,
         page: 1,
         org_type: 5
       })
       let {
-        delivery_tel,
         brand_id,
-        order_type,
+        sub_number,
         floor_id,
-        vm_store_id,
-        number,
         delivery_name,
-        prod_code,
+        return_number,
+        vm_store_id,
         prod_name,
+        order_number,
         submit_time,
+        prod_code,
+        delivery_tel,
         order_pay_time
       } = data
-      delivery_tel = '',
       brand_id = '',
-      order_type = '',
+      sub_number = '',
       floor_id = '',
-      vm_store_id = '',
-      number = '',
       delivery_name = '',
-      prod_code = '',
+      return_number = '',
       prod_name = '',
+      vm_store_id = '',
+      order_number = '',
       submit_time = '',
-      order_pay_time
+      delivery_tel = '',
+      order_pay_time = ''
+      prod_code = ''
     },
     searchSelect(data) {
       console.log(this.list)
       const {
-        delivery_tel,
         brand_id,
-        order_type,
+        sub_number,
         floor_id,
-        vm_store_id,
-        number,
         delivery_name,
-        prod_code,
+        return_number,
         prod_name,
+        prod_code,
+        vm_store_id,
+        order_number,
         submit_time,
+        delivery_tel,
         order_pay_time
       } = data
       console.log(data)
-      this.$store.dispatch('order/getTableList', {
+      this.$store.dispatch('order/getReturnList', {
         org_id: 61500,
         page: 1,
         org_type: 5,
         delivery_tel: delivery_tel,
-        brand_id: brand_id,
-        order_type: order_type,
-        vm_store_id: vm_store_id,
+        sub_number: sub_number,
         floor_id: floor_id,
-        number: number,
-        delivery_name: delivery_name,
+        return_number: return_number,
+        vm_store_id: vm_store_id,
+        order_number: order_number,
         prod_code: prod_code,
         prod_name: prod_name,
+        brand_id: brand_id,
+        delivery_name: delivery_name,
         submit_time: submit_time,
         order_pay_time: order_pay_time
       })
@@ -270,6 +266,6 @@ export default {
   }
 }
 </script>
-<style>
-@import url("../style/index.css");
+ <style>
+@import url('../style/index.css');
 </style>

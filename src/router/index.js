@@ -139,6 +139,60 @@ export const asyncRoutes = [
         meta: {
           title: '订单管理'
         }
+      },
+      {
+        path: 'shoporder',
+        component: () => import('@/views/order/shoporder'),
+        name: 'shoporder',
+        meta: {
+          title: '店铺订单'
+          // if do not set roles, means: this page does not require permission
+        }
+      },
+      {
+        path: 'refund',
+        component: () => import('@/views/order/refund'),
+        name: 'refund',
+        meta: {
+          title: '退款订单'
+          // if do not set roles, means: this page does not require permission
+        }
+      },
+      {
+        path: 'whole-refund',
+        component: () => import('@/views/order/wholerefund'),
+        name: 'wholerefund',
+        meta: {
+          title: '整单退'
+          // if do not set roles, means: this page does not require permission
+        }
+      },
+      {
+        path: 'invoice',
+        component: () => import('@/views/order/invoice'),
+        name: 'invoice',
+        meta: {
+          title: '发票管理'
+          // if do not set roles, means: this page does not require permission
+        }
+      },
+      {
+        path: 'refund-review',
+        component: () => import('@/views/order/refund-review'),
+        name: 'refund-review',
+        meta: {
+          title: '退款审核'
+          // if do not set roles, means: this page does not require permission
+        }
+      },
+      {
+        path: 'finance-refund',
+        component: () => import('@/views/order/finance-refund'),
+        name: 'finance-refund',
+        meta: {
+          title: '财务退款'
+          // if do not set roles, means: this page does not require permission
+        }
       }
     ]
   },
