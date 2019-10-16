@@ -68,6 +68,8 @@ export default {
 <style lang="scss" scoped>
 .table-content {
   font-weight: normal;
+  margin-top: 24px;
+  background-color: #fff;
 }
 .table-content /deep/ .el-table {
   font-size: 12px;
@@ -77,6 +79,9 @@ export default {
   color: #000;
 }
 .addBtn {
+  height: 50px;
+  display: flex;
+  align-items: center;
   span {
     display: inline-block;
     width: 30px;
@@ -85,11 +90,11 @@ export default {
     border-radius: 50%;
     color: #fff;
     font-size: 30px;
-    margin-bottom: 24px;
     text-align: center;
     line-height: 30px;
     font-weight: 200;
     cursor: pointer;
+    margin-left: 24px;
   }
 }
 </style>

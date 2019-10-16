@@ -26,12 +26,7 @@
               :label="v.label"
               :value="v.value"
             />
-            <el-option
-              v-for="(v, k) in value.options"
-              :key="k"
-              :label="v.name"
-              :value="v.id"
-            />
+            <el-option v-for="(v, k) in value.options" :key="k" :label="v.name" :value="v.id" />
             <el-option-group
               v-for="opt in value.options"
               v-show="opt.children"
@@ -45,6 +40,7 @@
                 :value="item.value"
               />
             </el-option-group>
+            <!-- <el-tree :data="value.options" :props="defaultProps"></el-tree> -->
           </component>
         </el-form-item>
       </div>
@@ -85,7 +81,12 @@ export default {
     }
   },
   data() {
-    return {}
+    return {
+      defaultProps: {
+        children: 'children',
+        name: 'name'
+      }
+    }
   },
   methods: {
     search() {

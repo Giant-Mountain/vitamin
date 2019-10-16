@@ -3,8 +3,8 @@
     <div class="card-group">
       <h3 v-text="title" />
     </div>
-    <div class="card-header-nav">
-      <div class="nav-selected">
+    <div v-if="form" class="card-header-nav">
+      <div v-if="navList" class="nav-selected">
         <span
           v-for="(item,index) in navList"
           :key="index"
@@ -12,7 +12,7 @@
           @click="handClick(item.id)"
         >{{ item.nav }}</span>
       </div>
-      <CustormerFrom :froms="froms" :form="form" />
+      <CustormerFrom v-if="form" :froms="froms" :form="form" />
     </div>
     <CustormerTable
       :table-column="tableColumn"
