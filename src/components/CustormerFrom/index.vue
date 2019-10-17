@@ -44,7 +44,7 @@
                 :value="v.name"
               />
               <el-option
-                v-for="(v, k) in value.options"
+                v-for="v in value.options"
                 :key="v.label"
                 :label="v.label"
                 :value="v.value"
@@ -105,7 +105,6 @@
                     :value="item.value"
                   />
                 </el-option-group>
-                <!-- <el-tree :data="value.options" :props="defaultProps"></el-tree> -->
               </el-option-group>
             </component>
           </el-form-item>

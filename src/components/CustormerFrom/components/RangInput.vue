@@ -9,7 +9,7 @@
 export default {
   name: 'RangInput',
   props: {
-    buyTimes: {
+    buy_times: {
       type: Array,
       default: function() {
         return []

@@ -4,30 +4,30 @@
       <span @click="handDialog">+</span>
     </div>
     <el-table :data="tableList" style="width: 100%;height:100%">
-        <el-table-column
-          v-for="(table,index) in tableColumn"
-          :key="index"
-          align="center"
-          :label="table.lable"
-          :prop="table.prop"
-          :sortable="table.sortable?'':table.sortable"
-        />
-        <el-table-column
-          v-for="(item) in tableComponent"
-          :key="item.lable"
-          align="center"
-          :label="item.lable"
-        >
-          <template slot-scope="scope" :render="item.render(scope.row)">
-            <el-button
-              v-for="(key,ind) in item.content"
-              :key="ind"
-              type="text"
-              size="small"
-              @click="handClick(scope.row)"
-            >{{ key }}</el-button>
-          </template>
-        </el-table-column>/>
+      <el-table-column
+        v-for="(table,index) in tableColumn"
+        :key="index"
+        align="center"
+        :label="table.lable"
+        :prop="table.prop"
+        :sortable="table.sortable?'':table.sortable"
+      />
+      <el-table-column
+        v-for="(item) in tableComponent"
+        :key="item.lable"
+        align="center"
+        :label="item.lable"
+      >
+        <template slot-scope="scope" :render="item.render(scope.row)">
+          <el-button
+            v-for="(key,ind) in item.content"
+            :key="ind"
+            type="text"
+            size="small"
+            @click="handClick(scope.row,ind)"
+          >{{ key }}</el-button>
+        </template>
+      </el-table-column>/>
     </el-table>
   </div>
 </template>
@@ -53,7 +53,7 @@ export default {
       default: function() {
         return [];
       }
-    },  
+    },
     addDialog: {
       type: Boolean
     },
@@ -68,10 +68,10 @@ export default {
     handDialog() {
       this.$store.commit("custormer/SET_DIALOG", this.addDialog);
     },
-    handClick(row) {
+    handClick(row, ind) {
       // 打印到的是当前行的数据
-      console.log(row);
-      this.$emit("handSeeContent", row.id);
+      console.log(row, ind);
+      this.$emit("handSeeContent", { id: row.id, index: ind });
     },
     changeInput(val) {
       console.log(val);
