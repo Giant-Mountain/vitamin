@@ -235,6 +235,11 @@ export const asyncRoutes = [
         meta: {
           title: '顾客管理'
         }
+      },
+      {
+        path: 'customer/:id',
+        component: () => import('@/views/customer/customerDetail'),
+        name: 'customerId'
       }
     ]
   },
@@ -283,7 +288,39 @@ export const asyncRoutes = [
         component: () => import('@/views/marketing/marketing'),
         name: 'marketing',
         meta: {
-          title: '营销劵类型'
+          title: '优惠券'
+        }
+      },
+      {
+        path: 'Price',
+        component: () => import('@/views/marketing/Price'),
+        name: 'Price',
+        meta: {
+          title: '一口价'
+        }
+      },
+      {
+        path: 'Exemption',
+        component: () => import('@/views/marketing/Exemption'),
+        name: 'Exemption',
+        meta: {
+          title: '免检活动'
+        }
+      },
+      {
+        path: 'Restriction',
+        component: () => import('@/views/marketing/Restriction'),
+        name: 'Restriction',
+        meta: {
+          title: '限购活动'
+        }
+      },
+      {
+        path: 'promotion',
+        component: () => import('@/views/marketing/promotion'),
+        name: 'promotion',
+        meta: {
+          title: '店内促销'
         }
       }
     ]
@@ -320,20 +357,97 @@ export const asyncRoutes = [
   {
     path: '/setup',
     component: Layout,
-    redirect: '/setup/setup',
+    redirect: '/setup/shopset',
     alwaysShow: true, // will always show the root menu
     name: 'setup',
     meta: {
-      title: '服务',
+      title: '设置',
       icon: 'lock'
     },
     children: [
       {
-        path: 'setup',
-        component: () => import('@/views/setup/setup'),
-        name: 'setup',
+        path: 'shopset',
+        component: () => import('@/views/setup/shopset'),
+        name: 'shopset',
+        meta: {
+          title: '店铺设置'
+        }
+      },
+      {
+        path: '/order',
+        component: () => import('@/views/setup/order'),
+        redirect: '/order/orderset',
+        alwaysShow: true,
+        name: 'order',
+        meta: {
+          title: '订单设置',
+          icon: 'lock'
+        },
+        children: [
+          {
+            path: 'orderset',
+            component: () => import('@/views/setup/order/orderset'),
+            name: 'orderset',
+            meta: {
+              title: '订单设置'
+            }
+          },
+          {
+            path: 'refundset',
+            component: () => import('@/views/setup/order/refundset'),
+            name: 'refundset',
+            meta: {
+              title: '退款设置'
+            }
+          },
+          {
+            path: 'freightset',
+            component: () => import('@/views/setup/order/freightset'),
+            name: 'freightset',
+            meta: {
+              title: '运费模板设置'
+            }
+          }
+        ]
+      },
+      {
+        path: 'productsset',
+        component: () => import('@/views/setup/productsset'),
+        name: 'productsset',
+        meta: {
+          title: '商品设置'
+        }
+      },
+      {
+        path: 'userauthset',
+        component: () => import('@/views/setup/userauthset'),
+        name: 'userauthset',
+        meta: {
+          title: '登录设置'
+        }
+      },
+      {
+        path: 'onlineshopset',
+        component: () => import('@/views/setup/onlineshopset'),
+        name: 'onlineshopset',
+        meta: {
+          title: '网店设置'
+        }
+      },
+      {
+        path: 'serviceset',
+        component: () => import('@/views/setup/serviceset'),
+        name: 'serviceset',
         meta: {
           title: '服务设置'
+        }
+      },
+      {
+        path: 'wxauthset',
+        component: () => import('@/views/setup/wxauthset'),
+        name: 'wxauthset',
+        meta: {
+          title: '系统设置'
         }
       }
     ]

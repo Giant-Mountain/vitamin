@@ -43,17 +43,17 @@ service.interceptors.request.use(
 // response interceptor
 service.interceptors.response.use(
   /**
-   * If you want to get http information such as headers or status
-   * Please return  response => response
-   */
+     * If you want to get http information such as headers or status
+     * Please return  response => response
+     */
 
   /**
-   * Determine the request status by custom code
-   * Here is just an example
-   * You can also judge the status by HTTP Status Code
-   */
+     * Determine the request status by custom code
+     * Here is just an example
+     * You can also judge the status by HTTP Status Code
+     */
   response => {
-    console.log(response)
+    // console.log(response)
     const res = response.data
     if (res.code === 200) {
       // Message({
@@ -79,8 +79,7 @@ service.interceptors.response.use(
         // to re-login
         MessageBox.confirm(
           'You have been logged out, you can cancel to stay on this page, or log in again',
-          'Confirm logout',
-          {
+          'Confirm logout', {
             confirmButtonText: 'Re-Login',
             cancelButtonText: 'Cancel',
             type: 'warning'
@@ -93,12 +92,11 @@ service.interceptors.response.use(
       }
       return Promise.reject(new Error(res.message || 'Error'))
     } else {
-      console.log(2)
       return res
     }
   },
   error => {
-    console.log('err' + error) // for debug
+    // console.log('err' + error) // for debug
     Message({
       message: error.message,
       type: 'error',

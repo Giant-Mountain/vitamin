@@ -1,4 +1,4 @@
-import { qrcodeList } from '@/api/merge'
+import { qrcodeList, addQrcodeList } from '@/api/merge'
 
 const state = {
   qrcodeList: [],
@@ -17,12 +17,17 @@ const mutations = {
     })
     state.pagination = payload.total
   }
+
 }
 
 const actions = {
   async getQrcodeList({ commit }, payload) {
     const result = await qrcodeList(payload)
     commit('SET_QRCODELIST', result.data)
+  },
+  async getaddQrcodeList({ commit }, payload) {
+    const result = await addQrcodeList(payload)
+    console.log(result)
   }
 }
 

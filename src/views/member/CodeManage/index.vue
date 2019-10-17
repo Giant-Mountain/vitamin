@@ -11,10 +11,16 @@
         :froms="froms[currentIndex]"
         :form="form"
         @handSearch="handSearchInput"
+        @resetInputValue="resetFromsValue"
       />
     </div>
     <div class="customer-list">
-      <CustormerTable :table-column="tableColumn[currentIndex]" :table-list="qrcodeList" />
+      <CustormerTable
+        :add-dialog="addDialog"
+        :table-column="tableColumn[currentIndex]"
+        :table-list="qrcodeList"
+        :table-component="tableComponent"
+      />
     </div>
     <el-pagination
       :current-page="currentPage4"
@@ -26,25 +32,159 @@
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
     />
+    <CustormerDialog
+      :dialog-form-visible="dialogShow"
+      :froms="dialogFroms[addType-1]"
+      :form="dialogForm"
+      :title="title"
+    />
   </div>
 </template>
 
 <script>
 import CustormerFrom from '@/components/CustormerFrom/index.vue'
 import CustormerTable from '@/components/CustermerTable/index.vue'
+import CustormerDialog from '@/components/CusterDialog/index.vue'
 import { mapState } from 'vuex'
 
 export default {
   name: 'Customer',
   components: {
     CustormerFrom,
-    CustormerTable
+    CustormerTable,
+    CustormerDialog
   },
   data() {
     return {
+      addDialog: true,
       currentIndex: 0,
       currentPage4: 1,
       currentType: 1,
+      title: '添加员工',
+      dialogForm: {
+        name: '',
+        mobile: '',
+        cid: '',
+        hiredate: '',
+        type: '',
+        section: ''
+      },
+      dialogFroms: [
+        [
+          {
+            label: '员工类型:',
+            name: 'type',
+            is: 'el-select',
+            placeholder: '请选择',
+            options: [
+              {
+                label: '专柜员工',
+                value: '2'
+              },
+              {
+                label: '自营员工',
+                value: '1'
+              }
+            ],
+            rules: [{ required: true, message: '姓名不能为空' }]
+          },
+          {
+            label: '姓名:',
+            name: 'name',
+            placeholder: '请输入',
+            is: 'el-input',
+            rules: [{ required: true, message: '姓名不能为空' }]
+          },
+          {
+            label: '部门:',
+            name: 'section',
+            placeholder: '请输入',
+            is: 'el-input',
+            rules: [{ required: true, message: '姓名不能为空' }]
+          },
+          {
+            label: '电话号码:',
+            name: 'mobile',
+            placeholder: '请输入',
+            is: 'el-input',
+            rules: [{ required: true, message: '姓名不能为空' }]
+          },
+          {
+            label: '会员卡号:',
+            name: 'cid',
+            placeholder: '请输入',
+            is: 'el-input',
+            rules: [{ required: true, message: '姓名不能为空' }]
+          },
+          {
+            label: '入职时间:',
+            name: 'hiredate',
+            placeholder: '请选择日期',
+            is: 'el-date-picker',
+            rules: [{ required: true, message: '姓名不能为空' }]
+          }
+        ],
+        [
+          {
+            label: '员工类型:',
+            name: 'type',
+            is: 'el-select',
+            placeholder: '请选择',
+            options: [
+              {
+                label: '专柜员工',
+                value: '2'
+              },
+              {
+                label: '自营员工',
+                value: '1'
+              }
+            ]
+          },
+          {
+            label: '楼层:',
+            name: 'floor',
+            placeholder: '请输入',
+            is: 'el-input'
+          },
+          {
+            label: '区域:',
+            name: 'brand',
+            placeholder: '请输入',
+            is: 'el-input'
+          },
+          {
+            label: '品牌:',
+            name: 'id',
+            placeholder: '请输入',
+            is: 'el-input'
+          },
+          {
+            label: '姓名:',
+            name: 'name',
+            placeholder: '请输入',
+            is: 'el-input'
+          },
+          {
+            label: '电话号码:',
+            name: 'mobile',
+            placeholder: '请输入',
+            is: 'el-input'
+          },
+          {
+            label: '会员卡号:',
+            name: 'cid',
+            placeholder: '请输入',
+            is: 'el-input'
+          },
+          {
+            label: '入职时间:',
+            name: 'hiredate',
+            placeholder: '请选择日期',
+            is: 'el-date-picker'
+          }
+        ]
+      ],
       form: {
         id: '',
         name: '',
@@ -87,7 +227,16 @@ export default {
             name: 'type',
             is: 'el-select',
             placeholder: '请选择',
-            options: null
+            options: [
+              {
+                name: '专柜员工',
+                id: '2'
+              },
+              {
+                name: '自营员工',
+                id: '1'
+              }
+            ]
           },
           {
             label: '楼层:',
@@ -113,47 +262,64 @@ export default {
         [
           {
             lable: '编号',
-            prop: 'id'
+            prop: 'id',
+            tp: false
           },
           {
             lable: '姓名',
-            prop: 'name'
+            prop: 'name',
+            tp: false
           },
           {
             lable: '电话号码',
-            prop: 'mobile'
+            prop: 'mobile',
+            tp: false
           },
           {
             lable: '会员卡号',
-            prop: 'cid'
+            prop: 'cid',
+            tp: false
           },
           {
             lable: '入职时间',
-            prop: 'hiredate'
+            prop: 'hiredate',
+            tp: false
           },
           {
             lable: '员工类型',
-            prop: 'type'
+            prop: 'type',
+            tp: false
           },
           {
             lable: '部门',
-            prop: 'section'
+            prop: 'section',
+            tp: false
           },
           {
             lable: '楼层',
-            prop: 'floor'
+            prop: 'floor',
+            tp: false
           },
           {
             lable: '区域',
-            prop: 'brand'
+            prop: 'brand',
+            tp: false
           }
         ]
+      ],
+      tableComponent: [
+        {
+          lable: '操作',
+          content: ['编辑', '删除']
+        }
       ]
     }
   },
   computed: mapState({
     qrcodeList: store => store.merge.qrcodeList,
-    pagination: store => store.merge.pagination
+    pagination: store => store.merge.pagination,
+    dialogShow: store => store.custormer.dialogShow,
+    addType: store => store.custormer.addType
   }),
   mounted() {
     this.$store.dispatch('merge/getQrcodeList', {
@@ -199,6 +365,22 @@ export default {
         floor,
         brand
       })
+    },
+    resetFromsValue() {
+      this.form = {
+        id: '',
+        name: '',
+        mobile: '',
+        cid: '',
+        hiredate: '',
+        type: '',
+        section: '',
+        floor: '',
+        brand: ''
+      }
+    },
+    handSelectType(data) {
+      console.log(data)
     }
   }
 }
