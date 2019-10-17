@@ -1,79 +1,119 @@
 <template>
-  <div style="padding:10px">
+  <div>
     <el-form
       ref="form"
       :model="form"
     >
-      <div class="from-content">
-        <el-form-item
-          v-for="(value,key) in froms"
-          :key="key"
-          :label="value.label"
-          class="form-label"
-        >
-          <component
-            :is="value.is"
-            v-model="form[value.name]"
-            :type="value.type"
-            :range-separator="value.rangeSeparator"
-            :start-placeholder="value.startPlaceholder"
-            :end-placeholder="value.endPlaceholder"
-            :placeholder="value.placeholder"
-            :buy_times.sync="form[value.name]"
+      <div>
+        <div class="from-content">
+          <el-form-item
+            :key="key"
+            :label="value.label"
+            class="form-label"
           >
-            <el-option
-              v-for="(v, k) in gradeLevel"
-              v-show="value.name==='grade_code'"
-              :key="k"
-              v-model="v.value"
-              :label="v.label"
-              :value="v.value"
-            />
-
-            <el-option
-              v-for="(v) in roleLists"
-              v-show="value.name==='role'"
-              :key="v.id"
-              v-model="v.name"
-              :label="v.label"
-              :value="v.name"
-            />
-            <el-option
-              v-for="(v) in shopList"
-              v-show="value.name==='shop'"
-              :key="v.id"
-              v-model="v.name"
-              :label="v.label"
-              :value="v.name"
-            />
-            <el-option
-              v-for="(v, k) in value.options"
-              :key="k"
-              :label="v.label"
-              :value="v.value"
-            />
-            <el-option
-              v-for="(v, k) in value.options"
-              :key="k"
-              :label="v.name"
-              :value="v.id"
-            />
-            <el-option-group
-              v-for="opt in value.options"
-              v-show="opt.children"
-              :key="opt.name"
-              :label="opt.title"
+            <component
+              :is="value.is"
+              v-model="form[value.name]"
+              :placeholder="value.placeholder"
+              :buy_times.sync="form[value.name]"
             >
               <el-option
-                v-for="item in opt.children"
-                :key="item.value"
-                :label="item.title"
-                :value="item.value"
+                v-for="(v, k) in gradeLevel"
+                v-show="value.name==='grade_code'"
+                :key="k"
+                v-model="v.value"
+                :label="v.label"
+                :value="v.value"
               />
-            </el-option-group>
-            <!-- <el-tree :data="value.options" :props="defaultProps"></el-tree> -->
-          </component>
-        </el-form-item>
+
+              <el-option
+                v-for="(v) in roleLists"
+                v-show="value.name==='role'"
+                :key="v.id"
+                v-model="v.name"
+                :label="v.label"
+                :value="v.name"
+              />
+              <el-option
+                v-for="(v) in shopList"
+                v-show="value.name==='shop'"
+                :key="v.id"
+                v-model="v.name"
+                :label="v.label"
+                :value="v.name"
+              />
+              <el-option
+                v-for="(v, k) in value.options"
+                :key="k"
+                :label="v.label"
+                :value="v.value"
+              />
+              <el-option
+                v-for="(v, k) in value.options"
+                :key="k"
+                :label="v.name"
+                :value="v.id"
+              />
+              <el-option-group
+                v-for="opt in value.options"
+                v-show="opt.children"
+                :key="opt.name"
+                :label="opt.title"
+              >
+                <el-option
+                  v-for="item in opt.children"
+                  :key="item.value"
+                  :label="v.name"
+                  :value="v.id"
+                />
+                <el-option
+                  v-for="v in value.options"
+                  v-show="value.label==='楼层'"
+                  :key="v.id"
+                  :label="v.name"
+                  :value="v.id"
+                />
+                <el-option
+                  v-for="order in value.options"
+                  v-show="value.label==='订单类型'"
+                  :key="order.keb"
+                  :value="order.id"
+                  :label="order.keb"
+                />
+                <el-option
+                  v-for="order in value.options"
+                  v-show="value.label==='货源类型'"
+                  :key="order.use"
+                  :value="order.id"
+                  :label="order.use"
+                />
+                <el-option
+                  v-for="order in value.options"
+                  v-show="value.label==='品牌'"
+                  :key="order.name"
+                  :value="order.id"
+                  :label="order.name"
+                />
+                <el-option-group
+                  v-for="group in value.options"
+                  v-show="value.label==='店铺'"
+                  :key="group.title"
+                  :label="group.title"
+                  :value="group.value"
+                >
+                  <el-option
+                    v-for="item in group.children"
+                    v-show="value.label==='店铺'"
+                    :key="item.title"
+                    :label="item.title"
+                    :value="item.value"
+                  />
+                </el-option-group>
+                <!-- <el-tree :data="value.options" :props="defaultProps"></el-tree> -->
+              </el-option-group>
+            </component>
+          </el-form-item>
+        </div>
       </div>
     </el-form>
     <div class="form-btns">
@@ -137,6 +177,7 @@ export default {
     },
     reset() {
       this.$emit('resetInputValue')
+      this.$emit('handlEmit', this.form)
     }
   }
 }
@@ -186,12 +227,14 @@ export default {
 //   font-weight: normal;
 // }
 
-.from-content /deep/ .el-form-item {
-    display: flex;
-    // width: 33%;
-    height: 40px;
-    line-height: 40px;
-}
+// .from-content /deep/ .el-form-item {
+//     display: flex;
+//     // width: 33%;
+//     height: 40px;
+//     line-height: 40px;
+//   width: 500px;
+//   display: inline-block;
+// }
 .form-label /deep/ .el-form-item__label {
     font-size: 12px;
     display: inline-block;

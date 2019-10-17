@@ -4,12 +4,12 @@
     :title="title"
     :form="form"
     :froms="froms"
+    :flag="flag"
     :list="list"
     :table-column="tableColumn"
     :current-page4="currentPage4"
     :current-type="currentType"
     :total="pagination.totalCount"
-    :flag="flag"
     @search="searchSelect"
     @handReset="ResetClick"
   />
@@ -28,9 +28,11 @@ export default {
       flag: true,
       form: {
         delivery_name: '',
-        number: '',
+        sub_number: '',
         order_type: '',
         delivery_tel: '',
+        order_number: '',
+        source_type: '',
         floor_id: '',
         vm_store_id: '',
         submit_time: '',
@@ -39,14 +41,14 @@ export default {
         prod_code: '',
         prod_name: ''
       },
-      navList: ['全部', '代收款', '待发货', '待收货', '已完成'],
-      title: '订单管理',
+      navList: ['全部', '待付款', '待发货', '待收货', '已完成'],
+      title: '店铺管理',
       froms: [
         [
           {
-            label: '订单号',
-            name: 'number',
-            placeholder: '请输入订单号',
+            label: '店铺订单订单号',
+            name: 'sub_number',
+            placeholder: '请输入店铺订单编号',
             is: 'el-input'
           },
           {
@@ -85,6 +87,32 @@ export default {
             ]
           },
           {
+            label: '订单编号',
+            name: 'order_number',
+            placeholder: '请输入订单编号',
+            is: 'el-input'
+          },
+          {
+            label: '货源类型',
+            name: 'source_type',
+            placeholder: '请选择',
+            is: 'el-select',
+            options: [
+              {
+                id: 1,
+                use: '所有'
+              },
+              {
+                id: 2,
+                use: '总仓'
+              },
+              {
+                id: 3,
+                use: '店仓'
+              }
+            ]
+          },
+          {
             label: '楼层',
             name: 'floor_id',
             is: 'el-select',
@@ -99,11 +127,10 @@ export default {
           {
             label: '品牌',
             name: 'brand_id',
-            is: 'el-select',
-            options: null
+            is: 'el-select'
           },
           {
-            label: '商品款号',
+            label: '商品单号',
             name: 'prod_code',
             placeholder: '请输入',
             is: 'el-input'
@@ -116,7 +143,7 @@ export default {
           },
           {
             label: '下单时间',
-            name: 'submit_time',
+            name: 'starttime',
             placeholder: '开始时间~结束事件',
             is: 'el-date-picker'
           },
@@ -152,7 +179,6 @@ export default {
           }
         ]
       ],
-      // current:0,
       currentPage4: 1,
       currentType: 5
     }
@@ -165,8 +191,8 @@ export default {
     this.$store.dispatch('custormer/getSearchList')
     this.$store.dispatch('order/getTableList', {
       org_id: 61500,
-      page: this.currentPage4,
-      org_type: this.currentType
+      page: 1,
+      org_type: 5
     })
     floor({
       org_id: 61500,
@@ -210,44 +236,50 @@ export default {
         org_type: 5
       })
       let {
-        delivery_tel,
-        brand_id,
+        delivery_name,
+        sub_number,
         order_type,
+        delivery_tel,
+        order_number,
+        source_type,
         floor_id,
         vm_store_id,
-        number,
-        delivery_name,
-        prod_code,
-        prod_name,
         submit_time,
-        order_pay_time
+        order_pay_time,
+        brand_id,
+        prod_code,
+        prod_name
       } = data
-      delivery_tel = '',
-      brand_id = '',
+      delivery_name = '',
+      sub_number = '',
       order_type = '',
+      delivery_tel = '',
+      order_number = '',
+      source_type = '',
       floor_id = '',
       vm_store_id = '',
-      number = '',
-      delivery_name = '',
-      prod_code = '',
-      prod_name = '',
       submit_time = '',
-      order_pay_time
+      order_pay_time = '',
+      brand_id = '',
+      prod_code = '',
+      prod_name = ''
     },
     searchSelect(data) {
       console.log(this.list)
       const {
-        delivery_tel,
-        brand_id,
+        delivery_name,
+        sub_number,
         order_type,
+        delivery_tel,
+        order_number,
+        source_type,
         floor_id,
         vm_store_id,
-        number,
-        delivery_name,
-        prod_code,
-        prod_name,
         submit_time,
-        order_pay_time
+        order_pay_time,
+        brand_id,
+        prod_code,
+        prod_name
       } = data
       console.log(data)
       this.$store.dispatch('order/getTableList', {
@@ -255,14 +287,15 @@ export default {
         page: 1,
         org_type: 5,
         delivery_tel: delivery_tel,
-        brand_id: brand_id,
         order_type: order_type,
-        vm_store_id: vm_store_id,
         floor_id: floor_id,
-        number: number,
+        sub_number: sub_number,
+        vm_store_id: vm_store_id,
+        source_type: source_type,
         delivery_name: delivery_name,
         prod_code: prod_code,
         prod_name: prod_name,
+        brand_id: brand_id,
         submit_time: submit_time,
         order_pay_time: order_pay_time
       })
@@ -270,6 +303,6 @@ export default {
   }
 }
 </script>
-<style>
+ <style>
 @import url("../style/index.css");
 </style>

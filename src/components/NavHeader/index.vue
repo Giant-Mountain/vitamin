@@ -1,7 +1,7 @@
 <template>
   <div class="header">
     <div>{{ title }}</div>
-    <div v-show="flag===true">
+    <div v-show="flag">
       <el-button
         type="text"
         class="el-icon-download"
@@ -37,8 +37,8 @@ export default {
 
 <style lang='scss' scoped>
 .header {
+    padding: 24px;
     background: #fff;
-    height: 180px;
     padding: 24px;
     // padding: 48px 0 0 48px;
     border-bottom: 4px solid #f5f5f5;
@@ -46,10 +46,6 @@ export default {
     display: flex;
     flex-direction: column;
     div {
-        flex: 1;
-        .el-button {
-            color: #000;
-        }
         &:last-child {
             font-size: 14px;
             span {
