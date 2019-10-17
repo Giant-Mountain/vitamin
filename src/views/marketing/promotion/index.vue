@@ -60,57 +60,6 @@ export default {
         lately_consume_time: '',
         lately_view_time: ''
       },
-      // froms: [
-      //   [
-      //     {
-      //       label: "店铺名:",
-      //       name: "tel",
-      //       placeholder: "请输入",
-      //       is: "el-input"
-      //     },
-      //     {
-      //       label: "楼层:",
-      //       name: "grade_code",
-      //       is: "el-select",
-      //       placeholder: "请选择",
-      //       options: null
-      //     },
-      //     {
-      //       label: "分类:",
-      //       name: "grade_code",
-      //       is: "el-select",
-      //       placeholder: "请选择",
-      //       options: null
-      //     },
-      //     {
-      //       label: "状态:",
-      //       name: "grade_code",
-      //       is: "el-select",
-      //       placeholder: "请选择",
-      //       options: null
-      //     },
-      //     {
-      //       label: "开始时间:",
-      //       name: "consumptionTime",
-      //       type: "daterange",
-      //       placeholder: "选择时间",
-      //       rangeSeparator: "至",
-      //       startPlaceholder: "开始日期",
-      //       endPlaceholder: "结束日期",
-      //       is: "el-date-picker"
-      //     },
-      //     {
-      //       label: "结束时间:",
-      //       name: "EffectiveTime",
-      //       type: "daterange",
-      //       placeholder: "选择时间",
-      //       rangeSeparator: "至",
-      //       startPlaceholder: "开始日期",
-      //       endPlaceholder: "结束日期",
-      //       is: "el-date-picker"
-      //     }
-      //   ]
-      // ],
       tableColumn: [
         [
           {

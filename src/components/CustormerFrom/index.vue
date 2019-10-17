@@ -1,12 +1,10 @@
 <template>
   <div>
-    <el-form
-      ref="form"
-      :model="form"
-    >
+    <el-form ref="form" :model="form">
       <div>
         <div class="from-content">
           <el-form-item
+            v-for="(value,key) in froms"
             :key="key"
             :label="value.label"
             class="form-label"
@@ -14,13 +12,16 @@
             <component
               :is="value.is"
               v-model="form[value.name]"
+              :range-separator="value.rangeSeparator"
+              :start-placeholder="value.startPlaceholder"
+              :end-placeholder="value.endPlaceholder"
               :placeholder="value.placeholder"
               :buy_times.sync="form[value.name]"
             >
               <el-option
-                v-for="(v, k) in gradeLevel"
+                v-for="(v) in gradeLevel"
                 v-show="value.name==='grade_code'"
-                :key="k"
+                :key="v.label"
                 v-model="v.value"
                 :label="v.label"
                 :value="v.value"
@@ -44,16 +45,11 @@
               />
               <el-option
                 v-for="(v, k) in value.options"
-                :key="k"
+                :key="v.label"
                 :label="v.label"
                 :value="v.value"
               />
-              <el-option
-                v-for="(v, k) in value.options"
-                :key="k"
-                :label="v.name"
-                :value="v.id"
-              />
+              <el-option v-for="(v) in value.options" :key="v.id" :label="v.name" :value="v.id" />
               <el-option-group
                 v-for="opt in value.options"
                 v-show="opt.children"
@@ -62,9 +58,9 @@
               >
                 <el-option
                   v-for="item in opt.children"
-                  :key="item.value"
-                  :label="v.name"
-                  :value="v.id"
+                  :key="item.name"
+                  :label="item.name"
+                  :value="item.id"
                 />
                 <el-option
                   v-for="v in value.options"
@@ -124,10 +120,10 @@
 </template>
 
 <script>
-import RangeInput from './components/RangInput'
+import RangeInput from "./components/RangInput";
 
 export default {
-  name: 'CustormerFrom',
+  name: "CustormerFrom",
   components: {
     RangeInput
   },
@@ -135,77 +131,77 @@ export default {
     froms: {
       type: Array,
       default: function() {
-        return []
+        return [];
       }
     },
     form: {
       type: Object,
       default: function() {
-        return {}
+        return {};
       }
     },
     gradeLevel: {
       type: Array,
       default: function() {
-        return []
+        return [];
       }
     },
     roleLists: {
       type: Array,
       default: function() {
-        return []
+        return [];
       }
     },
     shopList: {
       type: Array,
       default: function() {
-        return []
+        return [];
       }
     }
   },
   data() {
     return {
       defaultProps: {
-        children: 'children',
-        name: 'name'
+        children: "children",
+        name: "name"
       }
-    }
+    };
   },
   methods: {
     search() {
-      this.$emit('handSearch', this.form)
+      this.$emit("handSearch", this.form);
     },
     reset() {
-      this.$emit('resetInputValue')
-      this.$emit('handlEmit', this.form)
+      this.$emit("resetInputValue");
+      this.$emit("handlEmit", this.form);
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
 .from-content {
-    padding: 46px 46px 20px 46px;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-wrap: wrap;
+  padding: 46px 46px 20px 46px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
 }
 .from-content /deep/ .el-form-item {
-    width: 33.3%;
-    height: 40px;
-    line-height: 40px;
-    display: flex;
+  width: 33.3%;
+  height: 40px;
+  line-height: 40px;
+  display: flex;
 }
 .form-label /deep/ .el-form-item__label {
-    display: inline-block;
-    width: 120px;
-    font-weight: normal;
+  display: inline-block;
+  width: 120px;
+  font-weight: normal;
 }
 .from-content {
-    display: flex;
-    flex-wrap: wrap;
-    // padding: 46px 46px 20px 46px;
+  display: flex;
+  flex-wrap: wrap;
+  // padding: 46px 46px 20px 46px;
 }
 // .from-content {
 //   display: flex;
@@ -236,42 +232,42 @@ export default {
 //   display: inline-block;
 // }
 .form-label /deep/ .el-form-item__label {
-    font-size: 12px;
-    display: inline-block;
-    width: 120px;
-    font-weight: normal;
+  font-size: 12px;
+  display: inline-block;
+  width: 120px;
+  font-weight: normal;
 }
 .form-label /deep/ .el-input__inner {
-    width: 250px;
+  width: 250px;
 }
 .form-label /deep/ .el-form-item__content .el-input {
-    font-size: 12px;
-    width: 250px;
+  font-size: 12px;
+  width: 250px;
 }
 .form-label /deep/ .el-form-item__content .el-range-input {
-    margin-left: 10px;
-    font-size: 12px;
+  margin-left: 10px;
+  font-size: 12px;
 }
 .form-label /deep/ .el-form-item__content .el-range-separator {
-    font-size: 12px;
+  font-size: 12px;
 }
 .form-btns {
-    display: flex;
-    justify-content: flex-end;
-    button {
-        margin-right: 15px;
-        display: inline-block;
-        background: #3ec6b6;
-        border: 1px solid #3ec6b6;
-        color: #fff;
-        border-radius: 4px;
-        padding: 6px 15px;
-    }
-    button:nth-child(2) {
-        color: #3c3c3c;
-        border-radius: 4px;
-        border: 1px solid #e8e8e8;
-        background-color: #fff;
-    }
+  display: flex;
+  justify-content: flex-end;
+  button {
+    margin-right: 15px;
+    display: inline-block;
+    background: #3ec6b6;
+    border: 1px solid #3ec6b6;
+    color: #fff;
+    border-radius: 4px;
+    padding: 6px 15px;
+  }
+  button:nth-child(2) {
+    color: #3c3c3c;
+    border-radius: 4px;
+    border: 1px solid #e8e8e8;
+    background-color: #fff;
+  }
 }
 </style>
