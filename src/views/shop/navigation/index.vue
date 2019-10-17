@@ -2,6 +2,7 @@
   <div>
     <div class="navigationCon">
       <div class="card-group">专柜导航设置</div>
+      <!-- {{navlist}} -->
       <div class="totalInput">
         <div class="totalInput1">
           <div>
@@ -35,23 +36,21 @@
           <el-button type="primary" class="btn1" @click="onSubmit">查询</el-button>
           <el-button @click="resetForm('ruleForm')">重置</el-button>
         </div>
-
       </div>
-      <el-table :data="tableData" style="width: 100%">
-        <el-table-column prop="date" label="店铺名称" width="180" />
-        <el-table-column prop="name" label="楼层" width="180" />
+      <el-table :data="navlist" style="width: 100%">
+        <el-table-column prop="name" label="店铺名称" width="180" />
+        <el-table-column prop="floor_name" label="楼层" width="180" />
         <el-table-column prop="address" label="位置" />
-        <el-table-column prop="address" label="所属分类" />
-        <el-table-column prop="address" label="店长" />
-        <el-table-column prop="address" label="楼管" />
+        <el-table-column prop="category_data[0]" label="所属分类" />
 
+        <el-table-column prop label="权重" />
       </el-table>
       <el-pagination background layout="prev, pager, next" :total="1000" class="page" />
     </div>
-
   </div>
 </template>
 <script>
+import { mapState, mapActions } from 'vuex'
 export default {
   data() {
     return {
@@ -79,29 +78,7 @@ export default {
           label: '北京烤鸭'
         }
       ],
-      value: '',
-      tableData: [
-        {
-          date: '2016-05-02',
-          name: '王小虎',
-          address: '上海市'
-        },
-        {
-          date: '2016-05-04',
-          name: '王小虎',
-          address: '上海市'
-        },
-        {
-          date: '2016-05-01',
-          name: '王小虎',
-          address: '上海市'
-        },
-        {
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市'
-        }
-      ]
+      value: ''
     }
   },
   methods: {
@@ -113,12 +90,25 @@ export default {
     },
     resetForm(formName) {
       this.$refs[formName].resetFields()
-    }
+    },
+    ...mapActions({
+      getNavList: 'navigation/getNavList'
+    })
+  },
+  computed: {
+    ...mapState('navigation', ['navlist'])
+  },
+  mounted() {
+    this.getNavList({
+      scene_type: 2,
+      page: 1,
+      store_type: 1
+    })
   }
 }
 </script>
 <style>
-    html,
+html,
 body {
   width: 100%;
   height: 100%;

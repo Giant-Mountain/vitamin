@@ -41,7 +41,7 @@
           <div class="table-layout">
             <!-- <div class="btn-add" >+</div> -->
 
-            <el-button type="primary" style="margin-left: 16px;" @click="drawer = true">点我打开</el-button>
+            <!-- <el-button type="primary" style="margin-left: 16px;" @click="drawer = true">点我打开</el-button>
 
             <el-drawer
               title="我是标题"
@@ -50,8 +50,8 @@
               :before-close="handleClose"
             >
               <span>我来啦!</span>
-            </el-drawer>
-            <!-- {{ManagerList}} -->
+            </el-drawer>-->
+
             <!-- 表格 -->
             <el-table :data="ManagerList" style="width: 100%">
               <el-table-column prop="name" label="店铺名称" width="180" />
@@ -63,7 +63,17 @@
               <el-table-column prop="status_str" label="状态" />
               <el-table-column prop label="操作" />
             </el-table>
-            <el-pagination background layout="prev, pager, next" :total="1000" class="page" />
+            <div class="block">
+              <el-pagination
+                :current-page="currentPage4"
+                :page-sizes="[10, 15, 20, 25]"
+                :page-size="10"
+                layout="total, sizes, prev, pager, next, jumper"
+                :total="789"
+                @size-change="handleSizeChange"
+                @current-change="handleCurrentChange"
+              />
+            </div>
           </div>
         </el-tab-pane>
         <el-tab-pane label="e店铺" name="second">
@@ -106,13 +116,23 @@
             <el-table-column prop="name" label="店铺名称" width="180" />
             <el-table-column prop="floor_name" label="楼层" width="180" />
             <el-table-column prop="address" label="位置" />
-            <el-table-column prop="category_data[0]" label="所属分类" />
+            <el-table-column prop="category_data[0]" label="所属分类" class="Type" />
             <el-table-column prop="shop_manager" label="店长" />
             <el-table-column prop="building" label="楼管" />
             <el-table-column prop="status_str" label="状态" />
             <el-table-column prop label="操作" />
           </el-table>
-          <el-pagination background layout="prev, pager, next" :total="1000" class="page" />
+          <div class="block">
+            <el-pagination
+              :current-page="currentPage4"
+              :page-sizes="[100, 200, 300, 400]"
+              :page-size="100"
+              layout="total, sizes, prev, pager, next, jumper"
+              :total="400"
+              @size-change="handleSizeChange"
+              @current-change="handleCurrentChange"
+            />
+          </div>
         </el-tab-pane>
       </el-tabs>
     </div>
@@ -127,7 +147,11 @@ export default {
       input: '',
       value: '',
       drawer: false,
-      direction: 'rtl'
+      direction: 'rtl',
+      currentPage1: 5,
+      currentPage2: 5,
+      currentPage3: 5,
+      currentPage4: 4
     }
   },
   computed: {
@@ -153,11 +177,23 @@ export default {
     ...mapActions({
       getManagerList: 'manager/getManagerList',
       getFloorList: 'manager/getFloorList'
-    })
+    }),
+    // 分页器
+    handleSizeChange(val) {
+      console.log(`每页 ${val} 条`)
+    },
+    handleCurrentChange(val) {
+      this.currentPage4 = val
+      console.log(`当前页: ${val}`)
+      this.getManagerList({
+        page: this.currentPage4,
+        scene_type: 1
+      })
+    }
   },
   mounted() {
     this.getManagerList({
-      page: 1,
+      page: this.currentPage4,
       scene_type: 1
     })
     this.getFloorList()
@@ -225,12 +261,20 @@ body {
 .btn1 {
   background: #3ec6b6;
 }
-.page {
-  margin-top: 30px;
-  margin-left: 730px;
-}
+
 .btn-add {
   margin: 30px 0;
   color: #fff;
+}
+.block{
+margin-top: 30px;
+  margin-left: 530px;
+}
+.el-table_1_column_4 .cell{
+  font-size: 12px;
+  border:1px solid #d9d9d9;
+  background: #fafafa;
+  display: inline-block;
+  border-radius:4px;
 }
 </style>

@@ -8,7 +8,6 @@
         <el-table-column prop="page_url" label="url" width="180" class="column" />
         <el-table-column prop="address" label="状态" />
       </el-table>
-      <!-- {{pagelist}} -->
       <div class="block">
         <el-pagination
           :current-page="currentPage4"
