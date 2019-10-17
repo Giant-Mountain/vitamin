@@ -35,7 +35,7 @@ export default {
   data() {
     return {
     }
-  },
+  }
   //   computed: {
   //     ...mapState({
   //       categoryList: state => state.team.categoryList
@@ -44,9 +44,6 @@ export default {
   //   created() {
   //     this.$store.dispatch('team/getCategoryList')
   //   },
-  mounted() {
-    console.log(this.categoryList)
-  }
 }
 </script>
 

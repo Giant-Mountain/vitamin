@@ -36,6 +36,9 @@ export default {
       tabPosition: 'left',
       title: '店铺分类管理'
     }
+  },
+  mounted() {
+    console.log(this.categoryList)
   }
 }
 </script>

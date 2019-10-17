@@ -50,7 +50,7 @@ export const selectList = async data => {
 }
 
 export const shopCategory = async() => {
-  const url = 'store/category-list'
+  const url = '/store/category-list'
   return await request({
     url: url,
     method: 'post',

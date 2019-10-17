@@ -37,23 +37,23 @@ export default {
 
 <style lang='scss' scoped>
 .header {
-    padding: 24px;
     background: #fff;
-    padding: 24px;
-    // padding: 48px 0 0 48px;
+    height: 180px;
+    padding: 48px 0 0 48px;
     border-bottom: 4px solid #f5f5f5;
     font-size: 16px;
     display: flex;
     flex-direction: column;
     div {
+        flex: 1;
+        .el-button {
+            color: #000;
+        }
         &:last-child {
             font-size: 14px;
             span {
                 margin: 0 40px 0 0;
                 cursor: pointer;
-                i {
-                    font-style: normal;
-                }
             }
             .active {
                 border-bottom: 4px solid #3ec6b6;
