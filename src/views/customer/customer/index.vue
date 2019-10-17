@@ -9,14 +9,8 @@
         </span>
       </div>
       <div>
-        <span
-          :class="currentIndex===0?'tab-active':''"
-          @click="handIndex(0,1)"
-        >有效顾客</span>
-        <span
-          :class="currentIndex===1?'tab-active':''"
-          @click="handIndex(1,2)"
-        >潜在顾客</span>
+        <span :class="currentIndex===0?'tab-active':''" @click="handIndex(0,1)">有效顾客</span>
+        <span :class="currentIndex===1?'tab-active':''" @click="handIndex(1,2)">潜在顾客</span>
       </div>
     </div>
     <div class="card-group">
@@ -33,6 +27,8 @@
         :add-dialog="addDialog"
         :table-column="tableColumn[currentIndex]"
         :table-list="tableList.list"
+        :table-component="tableComponent"
+        @handSeeContent="handClickSee"
       />
     </div>
     <el-pagination
@@ -60,7 +56,7 @@ export default {
   },
   data() {
     return {
-      addDialog: true,
+      addDialog: false,
       currentIndex: 0,
       currentPage4: 1,
       currentType: 1,
@@ -220,6 +216,12 @@ export default {
             prop: 'lately_view_time'
           }
         ]
+      ],
+      tableComponent: [
+        {
+          lable: '操作',
+          content: ['查看']
+        }
       ]
     }
   },
@@ -236,6 +238,9 @@ export default {
     this.$store.dispatch('custormer/getSearchList')
   },
   methods: {
+    handClickSee(id) {
+      this.$router.push(`customer/${id}`)
+    },
     // 用来tab切换以及切tab切换的数据
     handIndex(index, type) {
       this.currentIndex = index
@@ -305,58 +310,58 @@ export default {
 
 <style lang="scss" scoped>
 * {
-    font-size: 12px;
+  font-size: 12px;
 }
 %juzhong {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .custormer-container {
-    padding: 24px;
+  padding: 24px;
 }
 
 .custormer-header {
-    padding: 24px;
-    background: #fff;
-    border-bottom: 1px solid #f5f5f5;
-    height: 150px;
-    position: relative;
+  padding: 24px;
+  background: #fff;
+  border-bottom: 1px solid #f5f5f5;
+  height: 150px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  div:nth-child(1) {
+    flex: 2;
+  }
+  div:nth-child(2) {
+    flex: 6;
     display: flex;
-    flex-direction: column;
-    div:nth-child(1) {
-        flex: 2;
+    align-items: center;
+    span {
+      margin-right: 25px;
     }
-    div:nth-child(2) {
-        flex: 6;
-        display: flex;
-        align-items: center;
-        span {
-            margin-right: 25px;
-        }
+  }
+  div:nth-child(3) {
+    height: 25px;
+    span {
+      margin-right: 25px;
+      height: 100%;
+      display: inline-block;
     }
-    div:nth-child(3) {
-        height: 25px;
-        span {
-            margin-right: 25px;
-            height: 100%;
-            display: inline-block;
-        }
-        .tab-active {
-            border-bottom: 2px solid #3ec6b6;
-            color: #3ec6b6;
-        }
+    .tab-active {
+      border-bottom: 2px solid #3ec6b6;
+      color: #3ec6b6;
     }
+  }
 }
 .card-group {
-    padding: 24px;
-    background: #fff;
-    overflow: hidden;
-    border-bottom: 1px solid #e8e8e8;
+  padding: 24px;
+  background: #fff;
+  overflow: hidden;
+  border-bottom: 1px solid #e8e8e8;
 }
 .customer-list {
-    padding: 24px 24px 24px;
-    background: #fff;
-    margin-top: 24px;
+  padding: 24px 24px 24px;
+  background: #fff;
+  margin-top: 24px;
 }
 </style>

@@ -181,6 +181,11 @@ export const asyncRoutes = [
         meta: {
           title: '顾客管理'
         }
+      },
+      {
+        path: 'customer/:id',
+        component: () => import('@/views/customer/customerDetail'),
+        name: 'customerId'
       }
     ]
   },
@@ -229,7 +234,39 @@ export const asyncRoutes = [
         component: () => import('@/views/marketing/marketing'),
         name: 'marketing',
         meta: {
-          title: '营销劵类型'
+          title: '优惠券'
+        }
+      },
+      {
+        path: 'Price',
+        component: () => import('@/views/marketing/Price'),
+        name: 'Price',
+        meta: {
+          title: '一口价'
+        }
+      },
+      {
+        path: 'Exemption',
+        component: () => import('@/views/marketing/Exemption'),
+        name: 'Exemption',
+        meta: {
+          title: '免检活动'
+        }
+      },
+      {
+        path: 'Restriction',
+        component: () => import('@/views/marketing/Restriction'),
+        name: 'Restriction',
+        meta: {
+          title: '限购活动'
+        }
+      },
+      {
+        path: 'promotion',
+        component: () => import('@/views/marketing/promotion'),
+        name: 'promotion',
+        meta: {
+          title: '店内促销'
         }
       }
     ]

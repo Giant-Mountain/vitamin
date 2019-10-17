@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="padding:10px">
     <el-form
       ref="form"
       :model="form"
@@ -52,6 +52,26 @@
               :label="v.label"
               :value="v.value"
             />
+            <el-option
+              v-for="(v, k) in value.options"
+              :key="k"
+              :label="v.name"
+              :value="v.id"
+            />
+            <el-option-group
+              v-for="opt in value.options"
+              v-show="opt.children"
+              :key="opt.name"
+              :label="opt.title"
+            >
+              <el-option
+                v-for="item in opt.children"
+                :key="item.value"
+                :label="item.title"
+                :value="item.value"
+              />
+            </el-option-group>
+            <!-- <el-tree :data="value.options" :props="defaultProps"></el-tree> -->
           </component>
         </el-form-item>
       </div>
@@ -104,7 +124,12 @@ export default {
     }
   },
   data() {
-    return {}
+    return {
+      defaultProps: {
+        children: 'children',
+        name: 'name'
+      }
+    }
   },
   methods: {
     search() {
@@ -119,22 +144,48 @@ export default {
 
 <style lang="scss" scoped>
 .from-content {
+    padding: 46px 46px 20px 46px;
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-wrap: wrap;
-    padding: 46px 46px 20px 46px;
 }
 .from-content /deep/ .el-form-item {
-    display: flex;
     width: 33.3%;
     height: 40px;
     line-height: 40px;
+    display: flex;
 }
 .form-label /deep/ .el-form-item__label {
-    font-size: 12px;
     display: inline-block;
     width: 120px;
     font-weight: normal;
 }
+.from-content {
+    display: flex;
+    flex-wrap: wrap;
+    // padding: 46px 46px 20px 46px;
+}
+// .from-content {
+//   display: flex;
+//   flex-wrap: wrap;
+//   padding: 46px 46px 20px 46px;
+// }
+
+// .from-content /deep/ .el-form-item {
+//   display: flex;
+//   width: 500px;
+//   height: 40px;
+//   line-height: 40px;
+//   display: inline-block;
+// }
+// .form-label /deep/ .el-form-item__label {
+//   font-size: 12px;
+//   display: inline-block;
+//   width: 120px;
+//   font-weight: normal;
+// }
+
 .from-content /deep/ .el-form-item {
     display: flex;
     // width: 33%;
