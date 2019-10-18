@@ -84,10 +84,10 @@
                 <el-input v-model="input" placeholder="请输入内容" class="Inputbox" />
               </div>
               <div>
-                楼层:
+                店铺权限:
                 <el-select v-model="value" placeholder="请选择" class="selectbox">
                   <el-option
-                    v-for="item in FloorList"
+                    v-for="item in elist"
                     :key="item.id"
                     :label="item.name"
                     :value="item.id"
@@ -95,12 +95,12 @@
                 </el-select>
               </div>
               <div>
-                分类:
+                授权品牌:
                 <el-select v-model="value" placeholder="请选择" class="selectbox">
                   <el-option
-                    v-for="item in FloorList"
+                    v-for="item in brandlist"
                     :key="item.id"
-                    :label="item.description"
+                    :label="item.name"
                     :value="item.id"
                   />
                 </el-select>
@@ -112,25 +112,25 @@
             </div>
           </div>
           <!-- {{FloorList}} -->
+          <!-- {{brandlist}} -->
           <el-table :data="ManagerList" style="width: 100%">
             <el-table-column prop="name" label="店铺名称" width="180" />
-            <el-table-column prop="floor_name" label="楼层" width="180" />
-            <el-table-column prop="address" label="位置" />
-            <el-table-column prop="category_data[0]" label="所属分类" class="Type" />
-            <el-table-column prop="shop_manager" label="店长" />
-            <el-table-column prop="building" label="楼管" />
+            <el-table-column prop="store_permission" label="店铺权限" width="180" />
+            <el-table-column prop="address" label="授权品牌" />
+            <el-table-column prop="category_data[0]" label="商品来源" class="Type" />
             <el-table-column prop="status_str" label="状态" />
-            <el-table-column prop label="操作" />
           </el-table>
+          <!-- e店铺分页器 -->
+          <!-- {{elist}} -->
           <div class="block">
             <el-pagination
-              :current-page="currentPage4"
-              :page-sizes="[100, 200, 300, 400]"
-              :page-size="100"
+              :current-page="CurrentPage4"
+              :page-sizes="[10, 15, 20, 25]"
+              :page-size="10"
               layout="total, sizes, prev, pager, next, jumper"
-              :total="400"
-              @size-change="handleSizeChange"
-              @current-change="handleCurrentChange"
+              :total="548"
+              @size-change="handleSizeChange1"
+              @current-change="handleCurrentChange1"
             />
           </div>
         </el-tab-pane>
@@ -148,14 +148,12 @@ export default {
       value: '',
       drawer: false,
       direction: 'rtl',
-      currentPage1: 5,
-      currentPage2: 5,
-      currentPage3: 5,
-      currentPage4: 4
+      currentPage4: 4,
+      CurrentPage4: 4
     }
   },
   computed: {
-    ...mapState('manager', ['ManagerList', 'FloorList'])
+    ...mapState('manager', ['ManagerList', 'FloorList', 'elist', 'brandlist'])
   },
   methods: {
     handleClick(tab, event) {
@@ -176,9 +174,11 @@ export default {
     },
     ...mapActions({
       getManagerList: 'manager/getManagerList',
-      getFloorList: 'manager/getFloorList'
+      getFloorList: 'manager/getFloorList',
+      getEList: 'manager/getEList',
+      getBrandList: 'manager/getBrandList'
     }),
-    // 分页器
+    // 全部店铺分页器
     handleSizeChange(val) {
       console.log(`每页 ${val} 条`)
     },
@@ -189,6 +189,18 @@ export default {
         page: this.currentPage4,
         scene_type: 1
       })
+    },
+    // e店铺分页器
+    handleSizeChange1(value) {
+      console.log(`每页 ${value} 条`)
+    },
+    handleCurrentChange1(value) {
+      console.log(`当前页: ${value}`)
+      this.CurrentPage4 = value
+      this.getManagerList({
+        page: this.CurrentPage4,
+        scene_type: 1
+      })
     }
   },
   mounted() {
@@ -196,7 +208,10 @@ export default {
       page: this.currentPage4,
       scene_type: 1
     })
+
     this.getFloorList()
+    this.getEList()
+    this.getBrandList()
     // this.$store.dispatch('manager/getManagerList',{
     //   page:1,
     //   scene_type:1
@@ -230,13 +245,13 @@ body {
   justify-content: space-evenly;
 }
 .totalInput1 div {
-  margin: 10px 3px;
+  margin: 10px 0px;
 }
 .totalInput1 div .Inputbox {
-  width: 75%;
+  width: 65%;
 }
 .totalInput1 div .selectbox {
-  width: 75%;
+  width: 65%;
 }
 .totalInput1 div .selectbox el-option {
   display: inline-block;
@@ -266,15 +281,18 @@ body {
   margin: 30px 0;
   color: #fff;
 }
-.block{
-margin-top: 30px;
+.block {
+  margin-top: 30px;
   margin-left: 530px;
 }
-.el-table_1_column_4 .cell{
+.el-table_1_column_4 .cell {
   font-size: 12px;
-  border:1px solid #d9d9d9;
+  border: 1px solid #d9d9d9;
   background: #fafafa;
   display: inline-block;
-  border-radius:4px;
+  border-radius: 4px;
+}
+.el-table_1_column_4 .cell label {
+  border: none;
 }
 </style>

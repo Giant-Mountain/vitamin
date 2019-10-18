@@ -9,9 +9,9 @@ export function NavList(data) {
     data: qs.stringify(data)
   })
 }
-export function floor_List(data) {
+export function FloorList(data) {
   return request({
-    url: '/store/get-store-list',
+    url: '/store/floor-list',
     method: 'post',
     baseURL: '/api',
     headers: { 'content-type': 'application/x-www-form-urlencoded' },

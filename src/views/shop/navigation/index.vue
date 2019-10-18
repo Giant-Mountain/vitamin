@@ -3,6 +3,7 @@
     <div class="navigationCon">
       <div class="card-group">专柜导航设置</div>
       <!-- {{navlist}} -->
+      <!-- {{floorlist}} -->
       <div class="totalInput">
         <div class="totalInput1">
           <div>
@@ -13,9 +14,9 @@
             楼层:
             <el-select v-model="value" placeholder="请选择" class="selectbox">
               <el-option
-                v-for="item in options"
+                v-for="item in floorlist"
                 :key="item.value"
-                :label="item.label"
+                :label="item.name"
                 :value="item.value"
               />
             </el-select>
@@ -24,9 +25,9 @@
             分类:
             <el-select v-model="value" placeholder="请选择" class="selectbox">
               <el-option
-                v-for="item in options"
+                v-for="item in floorlist"
                 :key="item.value"
-                :label="item.label"
+                :label="item.description"
                 :value="item.value"
               />
             </el-select>
@@ -43,9 +44,19 @@
         <el-table-column prop="address" label="位置" />
         <el-table-column prop="category_data[0]" label="所属分类" />
 
-        <el-table-column prop label="权重" />
+        <el-table-column prop="weight" sortable label="权重" />
       </el-table>
-      <el-pagination background layout="prev, pager, next" :total="1000" class="page" />
+      <div class="block">
+        <el-pagination
+          :current-page="currentPage4"
+          :page-sizes="[10, 15, 20, 25]"
+          :page-size="10"
+          layout="total, sizes, prev, pager, next, jumper"
+          :total="764"
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -78,7 +89,11 @@ export default {
           label: '北京烤鸭'
         }
       ],
-      value: ''
+      value: '',
+      currentPage1: 5,
+      currentPage2: 5,
+      currentPage3: 5,
+      currentPage4: 4
     }
   },
   methods: {
@@ -92,18 +107,33 @@ export default {
       this.$refs[formName].resetFields()
     },
     ...mapActions({
-      getNavList: 'navigation/getNavList'
-    })
+      getNavList: 'navigation/getNavList',
+      getFloorList: 'navigation/getFloorList'
+    }),
+    // 专业导航分页
+    handleSizeChange(val) {
+      console.log(`每页 ${val} 条`)
+    },
+    handleCurrentChange(val) {
+      console.log(`当前页: ${val}`)
+      this.currentPage4 = val
+      this.getNavList({
+        scene_type: 2,
+        page: this.currentPage4,
+        store_type: 1
+      })
+    }
   },
   computed: {
-    ...mapState('navigation', ['navlist'])
+    ...mapState('navigation', ['navlist', 'floorlist'])
   },
   mounted() {
     this.getNavList({
       scene_type: 2,
-      page: 1,
+      page: this.currentPage4,
       store_type: 1
     })
+    this.getFloorList()
   }
 }
 </script>
@@ -169,9 +199,9 @@ body {
 .btn1 {
   background: #3ec6b6;
 }
-.page {
+.block {
   margin-top: 30px;
-  margin-left: 730px;
+  margin-left: 450px;
 }
 .btn-add {
   margin: 30px 0;
