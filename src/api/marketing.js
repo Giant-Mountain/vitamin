@@ -48,3 +48,12 @@ export function PromotionSelect() {
     headers: { 'content-type': 'application/x-www-form-urlencoded' }
   })
 }
+
+export function PromotionFloorList() {
+  return request({
+    url: '/store/promotion-store-list',
+    method: 'post',
+    baseURL: '/api',
+    headers: { 'content-type': 'application/x-www-form-urlencoded' }
+  })
+}

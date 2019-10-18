@@ -11,6 +11,7 @@
       :table-list="tableList.list"
       :table-component="tableComponent"
       @ChangeId="handClick"
+      :defaultProps="defaultProps"
     />
     <el-pagination
       :current-page="currentPage4"
@@ -26,87 +27,91 @@
 </template>
 
 <script>
-import PriceHeader from '@/components/PriceHeader/index.vue'
-import { mapState } from 'vuex'
+import PriceHeader from "@/components/PriceHeader/index.vue";
+import { mapState } from "vuex";
 export default {
   data() {
     return {
       addDialog: true,
-      title: '一口价活动',
+      title: "一口价活动",
       currentIndex: 3,
       currentPage4: 1,
+      defaultProps: {
+        children: "children",
+        label: "title"
+      },
       navList: [
         {
-          nav: '活动管理',
+          nav: "活动管理",
           id: 3
         },
         {
-          nav: '待审核',
+          nav: "待审核",
           id: 1
         },
         {
-          nav: '审核不通过',
+          nav: "审核不通过",
           id: 2
         }
       ],
       form: {
-        tel: '',
-        name: '',
-        nickname: '',
-        grade_code: '',
-        cid: '',
-        member_level: '',
+        tel: "",
+        name: "",
+        nickname: "",
+        grade_code: "",
+        cid: "",
+        member_level: "",
         buy_times: [],
-        lately_consume_time: '',
-        lately_view_time: ''
+        lately_consume_time: "",
+        lately_view_time: ""
       },
       tableColumn: [
         [
           {
-            lable: '活动名称',
-            prop: 'active_name'
+            lable: "活动名称",
+            prop: "active_name"
           },
           {
-            lable: '活动范围',
-            prop: 'active_range_str'
+            lable: "活动范围",
+            prop: "active_range_str"
           },
           {
-            lable: '开始时间',
-            prop: 'start_time_str'
+            lable: "开始时间",
+            prop: "start_time_str"
           },
           {
-            lable: '结束时间',
-            prop: 'end_time_str'
+            lable: "结束时间",
+            prop: "end_time_str"
           },
           {
-            lable: '参加店铺/数',
-            prop: 'join_store_nums'
+            lable: "参加店铺/数",
+            prop: "join_store_nums"
           },
           {
-            lable: '商品数',
-            prop: 'join_prod_nums'
+            lable: "商品数",
+            prop: "join_prod_nums"
           },
           {
-            lable: '活动状态',
-            prop: 'active_status_str'
+            lable: "活动状态",
+            prop: "active_status_str"
           },
           {
-            lable: '创建时间',
-            prop: 'created_at_str'
+            lable: "创建时间",
+            prop: "created_at_str"
           },
           {
-            lable: '创建者',
-            prop: 'created_by_str'
+            lable: "创建者",
+            prop: "created_by_str"
           }
         ]
       ],
       tableComponent: [
         {
-          lable: '操作',
-          content: ['查看', '失效']
+          lable: "操作",
+          content: ["查看", "失效"]
         }
       ]
-    }
+    };
   },
   computed: mapState({
     tableList: store => store.marketing.tableList,
@@ -114,38 +119,38 @@ export default {
     froms: store => store.marketing.froms
   }),
   mounted() {
-    this.getMarketList()
-    this.$store.dispatch('marketing/getMarketSelectData', {
+    this.getMarketList();
+    this.$store.dispatch("marketing/getMarketSelectData", {
       tag_status: this.currentIndex,
       type: 2
-    })
+    });
   },
   methods: {
     handClick(id) {
-      this.currentIndex = id
-      this.getMarketList()
+      this.currentIndex = id;
+      this.getMarketList();
     },
     getMarketList() {
-      this.$store.dispatch('marketing/getMarketList', {
+      this.$store.dispatch("marketing/getMarketList", {
         page: this.currentPage4,
         pageSize: 10,
         tag_status: this.currentIndex,
         type: 2
-      })
+      });
     },
     handleSizeChange(val) {
-      console.log(`每页 ${val} 条`)
+      console.log(`每页 ${val} 条`);
     },
     // 点击换页面并进行数据重新渲染
     handleCurrentChange(val) {
-      this.currentPage4 = val
-      this.getMarketList()
+      this.currentPage4 = val;
+      this.getMarketList();
     }
   },
   components: {
     PriceHeader
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>

@@ -3,7 +3,8 @@ import {
   MarketSelectData,
   MarketRestrictList,
   PromotionData,
-  PromotionSelect
+  PromotionSelect,
+  PromotionFloorList
 } from '@/api/marketing'
 
 const state = {
@@ -42,6 +43,7 @@ const state = {
         label: '店铺分类:',
         name: 'store_category',
         is: 'el-select',
+        children: 'yes',
         placeholder: '请选择',
         options: null
       },
@@ -49,6 +51,7 @@ const state = {
         label: '店铺:',
         name: 'vm_store',
         is: 'el-select',
+        group: 'yes',
         placeholder: '请选择',
         options: null
       },
@@ -92,6 +95,7 @@ const state = {
       {
         label: '分类:',
         name: 'type',
+        children: 'yes',
         is: 'el-select',
         placeholder: '请选择',
         options: null
@@ -148,6 +152,7 @@ const mutations = {
         return key
       })
     })
+    console.log(state.froms)
   },
   SET_LISTRESTR: (state, payload) => {
     state.tableList = payload
@@ -162,6 +167,13 @@ const mutations = {
       if (key.name === 'type') {
         key.options = payload
       }
+      return key
+    })
+    state.promotionFroms[0].map(key => {
+      if (key.name === 'grade_code') {
+        key.options = payload
+      }
+      return key
     })
     console.log(state.promotionFroms)
   }
@@ -187,7 +199,8 @@ const actions = {
   },
   async getPromotionSelect({ commit }, query) {
     const result = await PromotionSelect()
-    console.log(result)
+    const FloorList = await PromotionFloorList()
+    console.log(FloorList)
     commit('SET_PROSELECT', result.data)
   }
 }

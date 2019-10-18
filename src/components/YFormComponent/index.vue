@@ -26,91 +26,31 @@
                 :label="v.label"
                 :value="v.value"
               />
-
-              <el-option
-                v-for="(v) in roleLists"
-                v-show="value.name==='role'"
-                :key="v.id"
-                v-model="v.name"
-                :label="v.label"
-                :value="v.name"
-              />
-              <el-option
-                v-for="(v) in shopList"
-                v-show="value.name==='shop'"
-                :key="v.id"
-                v-model="v.name"
-                :label="v.label"
-                :value="v.name"
-              />
-              <!-- <el-option
-                v-for="v in value.options"
-                :key="v.label"
-                :label="v.label"
-                :value="v.value"
-              /> -->
               <el-option
                 v-for="(v) in value.options"
-                v-show="!v.options"
+                v-show="!value.children && !value.group"
                 :key="v.id"
                 :label="v.name"
                 :value="v.id"
               />
+              <el-tree
+                v-if="value.children==='yes'"
+                :data="value.options"
+                :props="defaultProps"
+                @node-click="handleNodeClick"
+              ></el-tree>
               <el-option-group
                 v-for="opt in value.options"
-                v-show="opt.children"
+                v-show="value.group==='yes'"
                 :key="opt.name"
                 :label="opt.title"
               >
                 <el-option
                   v-for="item in opt.children"
                   :key="item.name"
-                  :label="item.name"
+                  :label="item.title"
                   :value="item.id"
                 />
-                <el-option
-                  v-for="v in value.options"
-                  v-show="value.label==='楼层'"
-                  :key="v.id"
-                  :label="v.name"
-                  :value="v.id"
-                />
-                <el-option
-                  v-for="order in value.options"
-                  v-show="value.label==='订单类型'"
-                  :key="order.keb"
-                  :value="order.id"
-                  :label="order.keb"
-                />
-                <el-option
-                  v-for="order in value.options"
-                  v-show="value.label==='货源类型'"
-                  :key="order.use"
-                  :value="order.id"
-                  :label="order.use"
-                />
-                <el-option
-                  v-for="order in value.options"
-                  v-show="value.label==='品牌'"
-                  :key="order.name"
-                  :value="order.id"
-                  :label="order.name"
-                />
-                <el-option-group
-                  v-for="group in value.options"
-                  v-show="value.label==='店铺'"
-                  :key="group.title"
-                  :label="group.title"
-                  :value="group.value"
-                >
-                  <el-option
-                    v-for="item in group.children"
-                    v-show="value.label==='店铺'"
-                    :key="item.title"
-                    :label="item.title"
-                    :value="item.value"
-                  />
-                </el-option-group>
               </el-option-group>
             </component>
           </el-form-item>
@@ -125,7 +65,7 @@
 </template>
 
 <script>
-import RangeInput from "./components/RangInput";
+import RangeInput from "@/components/CustormerFrom/components/RangInput";
 
 export default {
   name: "CustormerFrom",
@@ -151,26 +91,12 @@ export default {
         return [];
       }
     },
-    roleLists: {
-      type: Array,
+    defaultProps: {
+      type: Object,
       default: function() {
-        return [];
-      }
-    },
-    shopList: {
-      type: Array,
-      default: function() {
-        return [];
+        return {};
       }
     }
-  },
-  data() {
-    return {
-      defaultProps: {
-        children: "children",
-        label: "name"
-      }
-    };
   },
   methods: {
     search() {
@@ -179,6 +105,9 @@ export default {
     reset() {
       this.$emit("resetInputValue");
       this.$emit("handlEmit", this.form);
+    },
+    handleNodeClick() {
+      console.log(123);
     }
   }
 };
@@ -193,7 +122,6 @@ export default {
   flex-wrap: wrap;
 }
 .from-content /deep/ .el-form-item {
-  // width: 33.3%;
   height: 40px;
   line-height: 40px;
   display: flex;
@@ -206,36 +134,7 @@ export default {
 .from-content {
   display: flex;
   flex-wrap: wrap;
-  // padding: 46px 46px 20px 46px;
 }
-// .from-content {
-//   display: flex;
-//   flex-wrap: wrap;
-//   padding: 46px 46px 20px 46px;
-// }
-
-// .from-content /deep/ .el-form-item {
-//   display: flex;
-//   width: 500px;
-//   height: 40px;
-//   line-height: 40px;
-//   display: inline-block;
-// }
-// .form-label /deep/ .el-form-item__label {
-//   font-size: 12px;
-//   display: inline-block;
-//   width: 120px;
-//   font-weight: normal;
-// }
-
-// .from-content /deep/ .el-form-item {
-//     display: flex;
-//     // width: 33%;
-//     height: 40px;
-//     line-height: 40px;
-//   width: 500px;
-//   display: inline-block;
-// }
 .form-label /deep/ .el-form-item__label {
   font-size: 12px;
   display: inline-block;

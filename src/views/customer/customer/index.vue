@@ -14,7 +14,7 @@
       </div>
     </div>
     <div class="card-group">
-      <CustormerFrom
+      <YFormComponent
         :froms="froms[currentIndex]"
         :form="form"
         :grade-level="gradeLevel"
@@ -44,14 +44,14 @@
   </div>
 </template>
 <script>
-import CustormerFrom from '@/components/CustormerFrom/index.vue'
+import YFormComponent from '@/components/YFormComponent/index.vue'
 import CustormerTable from '@/components/CustermerTable/index.vue'
 import { mapState } from 'vuex'
 
 export default {
   name: 'Customer',
   components: {
-    CustormerFrom,
+    YFormComponent,
     CustormerTable
   },
   data() {

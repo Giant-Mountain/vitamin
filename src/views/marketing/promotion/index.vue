@@ -4,11 +4,12 @@
       <div style="font-size:16px">顾客管理</div>
     </div>
     <div class="card-group">
-      <CustormerFrom
+      <YFormComponent
         :froms="promotionFroms[currentIndex]"
         :form="form"
         @handSearch="handSearchInput"
         @resetInputValue="resetFromsValue"
+        :defaultProps="defaultProps"
       />
     </div>
     <div class="customer-list">
@@ -31,49 +32,33 @@
       @current-change="handleCurrentChange"
     />
     <MarketDialog>
-      <template v-if="tableCurrent===0">
+      <template v-slot:default="slotProps">
         <el-dialog title="查看店内促销" :visible.sync="dialogFormVisible">
           <el-form>
-            <el-form-item label="内容:" prop="desc" class="form-item-content">
-              <el-input :disabled="true" type="textarea" v-model="form.desc"></el-input>
-            </el-form-item>
-            <el-form-item label="活动时间:" class="form-item-content">
-              <el-date-picker
-                :disabled="true"
-                type="daterange"
-                range-separator="至"
-                start-placeholder="开始日期"
-                end-placeholder="结束日期"
-              ></el-date-picker>
-            </el-form-item>
-            <el-form-item label="店铺:" class="form-item-content">
-              <el-select :disabled="true" placeholder="请选择活动区域">
-                <el-option label="区域一" value="shanghai"></el-option>
-                <el-option label="区域二" value="beijing"></el-option>
-              </el-select>
-            </el-form-item>
-          </el-form>
-        </el-dialog>
-      </template>
-      <template v-if="tableCurrent===1">
-        <el-dialog title="查看店内促销" :visible.sync="dialogFormVisible">
-          <el-form>
-            <el-form-item label="内容:" prop="desc" class="form-item-content">
-              <el-input type="textarea" v-model="form.desc"></el-input>
-            </el-form-item>
-            <el-form-item label="活动时间:" class="form-item-content">
-              <el-date-picker
-                type="daterange"
-                range-separator="至"
-                start-placeholder="开始日期"
-                end-placeholder="结束日期"
-              ></el-date-picker>
-            </el-form-item>
-            <el-form-item label="店铺:" class="form-item-content">
-              <el-select placeholder="请选择活动区域" v-model="select">
-                <el-option label="区域一" value="shanghai"></el-option>
-                <el-option label="区域二" value="beijing"></el-option>
-              </el-select>
+            <el-form-item
+              v-for="(value,key) in slotProps.data.dialogFroms"
+              :key="key"
+              :label="value.label"
+              class="form-item-content"
+            >
+              <component
+                :disabled="disabled"
+                :is="value.is"
+                :type="value.type"
+                v-model="slotProps.data.dialogFrom[value.name]"
+                :range-separator="value.rangeSeparator"
+                :start-placeholder="value.startPlaceholder"
+                :end-placeholder="value.endPlaceholder"
+                :placeholder="value.placeholder"
+                :buy_times.sync="form[value.name]"
+              >
+                <el-option
+                  v-for="(v,ind) in value.options"
+                  :key="ind"
+                  :label="v.label"
+                  :value="v.value"
+                />
+              </component>
             </el-form-item>
           </el-form>
         </el-dialog>
@@ -82,7 +67,7 @@
   </div>
 </template>
 <script>
-import CustormerFrom from "@/components/CustormerFrom/index.vue";
+import YFormComponent from "@/components/YFormComponent/index.vue";
 import CustormerTable from "@/components/CustermerTable/index.vue";
 import MarketDialog from "@/components/MarketDialog/index.vue";
 import { mapState } from "vuex";
@@ -90,12 +75,15 @@ import { mapState } from "vuex";
 export default {
   name: "Customer",
   components: {
-    CustormerFrom,
+    YFormComponent,
     CustormerTable,
     MarketDialog
   },
   data() {
     return {
+      //控制input是否可以输入
+      disabled: true,
+      //控制dialog的显示与隐藏
       dialogTableVisible: false,
       dialogFormVisible: false,
       addDialog: true,
@@ -103,10 +91,9 @@ export default {
       currentPage4: 1,
       currentType: 1,
       tableCurrent: 0,
-      dialogFrom:{
-        summary:'',
-        time_data:[],
-        store_id:'',
+      defaultProps: {
+        children: "children",
+        label: "name"
       },
       form: {
         tel: "",
@@ -230,6 +217,11 @@ export default {
     handTableEdior(data) {
       this.dialogFormVisible = true;
       this.tableCurrent = data.index;
+      if (this.tableCurrent === 0) {
+        this.disabled = true;
+      } else {
+        this.disabled = false;
+      }
       console.log(this.dialogFormVisible, "parent----");
     }
   }
