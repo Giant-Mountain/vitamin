@@ -214,7 +214,15 @@ export const asyncRoutes = [
         meta: {
           title: '商品管理'
         }
-      }
+      },
+      {
+        path: 'stock-manager',
+        component: () => import('@/views/commodity/stock-manager'),
+        name: 'stock-manager',
+        meta: {
+          title: '库存管理'
+        }
+      },
     ]
   },
   {

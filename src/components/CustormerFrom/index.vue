@@ -31,7 +31,6 @@
                 v-for="(v) in roleLists"
                 v-show="value.name==='role'"
                 :key="v.id"
-                v-model="v.name"
                 :label="v.label"
                 :value="v.name"
               />
@@ -43,8 +42,8 @@
                 :label="v.label"
                 :value="v.name"
               />
-              <el-option
-                v-for="(v, k) in value.options"
+              <!-- <el-option
+                v-for="v in value.options"
                 :key="v.label"
                 :label="v.label"
                 :value="v.value"
@@ -62,7 +61,8 @@
                   :label="item.name"
                   :value="item.id"
                 />
-                <el-option
+              </el-option-group> -->
+                              <el-option
                   v-for="v in value.options"
                   v-show="value.label==='楼层'"
                   :key="v.id"
@@ -105,8 +105,6 @@
                     :value="item.value"
                   />
                 </el-option-group>
-                <!-- <el-tree :data="value.options" :props="defaultProps"></el-tree> -->
-              </el-option-group>
             </component>
           </el-form-item>
         </div>

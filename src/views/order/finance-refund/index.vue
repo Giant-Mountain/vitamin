@@ -4,12 +4,14 @@
     :title="title"
     :form="form"
     :froms="froms"
-    :list="list"
+    :tableList="list"
     :table-column="tableColumn"
     :current-page4="currentPage4"
     :current-type="currentType"
-    :total="pagination.totalCount"
+    :pagination="Returnaction"
+     @handleDetail="handleComponent"
     :flag="flag"
+    :tableComponent="tableComponent"
     @search="searchSelect"
     @handReset="ResetClick"
   />
@@ -104,11 +106,14 @@ export default {
           {
             lable: '状态',
             prop: 'return_str'
-          },
-          {
-            lable: '操作'
           }
         ]
+      ],
+       tableComponent: [
+        {
+          lable: "操作",
+          content: ["查看"]
+        }
       ],
       currentPage4: 1,
       currentType: 5
@@ -116,14 +121,18 @@ export default {
   },
   computed: mapState({
     list: store => store.order.tablist,
-    pagination: store => store.custormer.pagination
+   Returnaction: store => store.order.Returnaction
   }),
   mounted() {
-    this.$store.dispatch('custormer/getSearchList')
+    this.$store.dispatch('order/getReturnaction',{
+      org_id: 61500,
+      page: this.currentPage4,
+      org_type: this.currentType
+    })
     this.$store.dispatch('order/getReturnList', {
       org_id: 61500,
-      page: 1,
-      org_type: 5,
+      page: this.currentPage4,
+      org_type: this.currentType,
       return_status: 13,
       menu_type: 2
     })
@@ -152,6 +161,11 @@ export default {
     // handleTab(current){
     //    this.current=current
     // },
+    //查看
+     handleComponent(id) {
+      this.table = true;
+      console.log(this.table );
+    },
     // 重置
     ResetClick(data) {
       console.log(1)

@@ -75,7 +75,7 @@ export default {
     Roleing
   },
   // eslint-disable-next-line vue/require-prop-types
-  props: ['title', 'navList', 'form', 'froms', 'tableColumn', 'tableList', 'pagination', 'currentType', 'paginations', 'list', 'tableColumns', 'roleColumn', 'roleList', 'rolePagination', 'shopList', 'roleLists'],
+  props: ['title', 'navList', 'form', 'froms', 'tableColumn', 'tableList', 'pagination', 'currentType', 'paginations', 'tableColumns', 'roleColumn', 'roleList', 'rolePagination', 'shopList', 'roleLists'],
   data() {
     return {
       current: 0,

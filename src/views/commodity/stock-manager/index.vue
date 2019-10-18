@@ -1,16 +1,15 @@
 <template>
-  <TeamFund
+  <TeamStack
     :nav-list="navList"
     :title="title"
     :form="form"
     :froms="froms"
     :flag="flag"
     :table-column="tableColumn"
-    :tableprops="tableprops"
     :multipleSelection="multipleSelection"
     :tablelist="tablelist"
-    :current-page4="currentPage4"
-    :current-type="currentType"
+    :page="page"
+    :pageSize="pageSize"
     :pagination="pagination"
     @search="searchSelect"
     @handReset="ResetClick"
@@ -19,12 +18,12 @@
 </template>
 <script>
 import { prodSearch } from "../api";
-import TeamFund from "@/components/TeamFund";
+import TeamStack from "@/components/TeamStack";
 import { mapState } from "vuex";
 export default {
-  name: "MemberManger",
+   name: "MemberManger",
   components: {
-    TeamFund
+    TeamStack
   },
   data() {
     return {
@@ -35,12 +34,9 @@ export default {
         category_id: "",
         brand_id: "",
         prod_src: "",
-        prod_type: "",
-        vm_store_id: "",
-        delivery_type: "",
-        up_time: ""
+        vm_store_id: ""
       },
-      navList: ["销售中", "仓库中", "草稿箱", "待审核", "未通过审核", "商品库"],
+      navList: ["销售中", "已售馨"],
       title: "店铺管理",
       froms: [
         [
@@ -51,7 +47,7 @@ export default {
             is: "el-input"
           },
           {
-            label: "商品名称",
+            label: "SKU编码",
             name: "prod_name",
             placeholder: "请输入",
             is: "el-input"
@@ -73,89 +69,47 @@ export default {
             is: "el-select"
           },
           {
-            label: "商品类型",
-            name: "prod_type",
-            is: "el-select"
-          },
-          {
             label: "店铺",
             name: "vm_store_id",
             is: "el-select"
-          },
-          {
-            label: "配送方式",
-            name: "delivery_type",
-            is: "el-select"
-          },
-          {
-            label: "上架时间",
-            name: "up_time",
-            placeholder: "开始时间~结束事件",
-            is: "el-date-picker"
           }
         ]
       ],
       tableColumn: [
         [
-
           {
-            lable: "商品名称",
-            prop: "name"
+            lable: "商品款号",
+            prop: "product_code"
           },
           {
-            lable: "吊牌价",
-            prop: "price"
-          },
-          {
-            lable: "库存",
-            prop: "sku_discount_price"
-          },
-          {
-            lable: "分类",
-            prop: "category_name"
+            lable: "商SKU编码名称",
+            prop: "sku_code"
           },
           {
             lable: "品牌",
             prop: "brand_name"
+          },
+          {
+            lable: "品牌规格",
+            prop: "shopping_sku"
           }
         ]
       ],
-      tableprops:[
-        [
-          {
-            lable: "缩略图",
-            prop: "image"
-          },
-          {
-            lable: "商SKU编码名称",
-            prop: "code"
-          },
-          {
-            lable: "原价",
-            prop: "price"
-          },
-          {
-            lable: "促销价",
-            prop: "sku_discount_price"
-          },
-          {
-            lable: "库存",
-            prop: "sku_stock_num"
-          }
-        ]],
       multipleSelection: [],
-      currentPage4: 1,
-      currentType: 5
+      page: 1,
+      pageSize: 10
     };
   },
   computed: mapState({
-    tablelist: store => store.commodity.tablelist,
-    pagination: store => store.commodity.pagination
+    tablelist: store => store.commodity.stacklist,
+    pagination: store => store.commodity.stackpage
   }),
   mounted() {
-    this.$store.dispatch("commodity/getTableList", {
+    this.$store.dispatch("commodity/getStockList", {
       page: 1,
-      status: 4
+      pageSize: 10,
+      status: 1,
+      vm_store_id: 3446
     });
     prodSearch({
       status: 4
@@ -177,16 +131,6 @@ export default {
             return {
               ...item,
               options: res.data.source
-            };
-          } else if (item.label === "商品类型") {
-            return {
-              ...item,
-              options: res.data.product_type
-            };
-          } else if (item.label === "配送方式") {
-            return {
-              ...item,
-              options: res.data.delivery
             };
           } else if (item.label === "店铺") {
             return {
@@ -211,9 +155,11 @@ export default {
     // 重置
     ResetClick(data) {
       console.log(1);
-      this.$store.dispatch("commodity/getTableList", {
+      this.$store.dispatch("commodity/getStockList", {
         page: 1,
-        status: 4
+        pageSize: 10,
+        status: 1,
+        vm_store_id: 3446
       });
       let {} = data;
     },
@@ -221,9 +167,11 @@ export default {
       console.log(this.list);
       const {} = data;
       console.log(data);
-      this.$store.dispatch("commodity/getTableList", {
+      this.$store.dispatch("commodity/getStockList", {
         page: 1,
-        status: 4
+        pageSize: 10,
+        status: 1,
+        vm_store_id: 3446
       });
     }
   }

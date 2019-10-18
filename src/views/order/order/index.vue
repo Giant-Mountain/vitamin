@@ -4,11 +4,11 @@
     :title="title"
     :form="form"
     :froms="froms"
-    :list="list"
+    :tableList="list"
     :table-column="tableColumn"
     :current-page4="currentPage4"
     :current-type="currentType"
-    :total="pagination.totalCount"
+    :pagination="pagination"
     :flag="flag"
     @search="searchSelect"
     @handReset="ResetClick"
@@ -153,16 +153,20 @@ export default {
         ]
       ],
       // current:0,
-      currentPage4: 1,
-      currentType: 5
+      currentPage4: 2,
+      currentType: 5,
     }
   },
   computed: mapState({
     list: store => store.order.list,
-    pagination: store => store.custormer.pagination
+    pagination: store => store.order.pagination
   }),
   mounted() {
-    this.$store.dispatch('custormer/getSearchList')
+    this.$store.dispatch('order/getMainorder',{
+      org_id: 61500,
+      page: this.currentPage4,
+      org_type: this.currentType
+    })
     this.$store.dispatch('order/getTableList', {
       org_id: 61500,
       page: this.currentPage4,

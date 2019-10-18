@@ -8,7 +8,10 @@
           :key="index"
           :class="current===index?'nav-show':''"
           @click="clicks(index)"
-        >{{ item }}<i v-show="item===&quot;邀请中&quot;">3</i></span>
+        >
+          {{ item }}
+          <i v-show="item===&quot;邀请中&quot;">3</i>
+        </span>
       </div>
       <div v-show="current===0">
         <div class="inputList">
@@ -19,83 +22,95 @@
             @handlEmit="handlrest"
           />
         </div>
-        <!-- <div class="add">
-          <span>+</span>
-        </div>-->
         <div class="tableList">
-          <CustormerTable :table-column="tableColumn[current]" :list="list" />
+          <CustormerTable
+            :table-column="tableColumn[current]"
+            :tableList="tableList"
+            :tableComponent="tableComponent"
+            @handSeeContent="handleComponent"
+          />
         </div>
         <el-pagination
           :current-page="currentpage4"
-          :page-sizes="[100, 200, 300, 400]"
-          :page-size="100"
+          :page-sizes="[10,15,20,25,30]"
+          :page-size="pagination.totalPages"
           layout="total, sizes, prev, pager, next, jumper"
-          :total="400"
+          :total="pagination.totalNum"
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
         />
       </div>
       <div v-show="current===1">123234</div>
       <div v-show="current===2">123235</div>
+      <div>
+        <Drawer :table="table" :direction="direction" :getInvoice="getInvoice"/>
+      </div>
     </div>
   </div>
 </template>
 <script>
-import CustormerFrom from '@/components/CustormerFrom'
-import CustormerTable from '@/components/CustermerTable'
-import NavHeader from '@/components/NavHeader'
+import CustormerFrom from "@/components/CustormerFrom";
+import CustormerTable from "@/components/CustermerTable";
+import NavHeader from "@/components/NavHeader";
+import Drawer from '@/components/Drawer'
 export default {
-  name: 'MemberManger',
+  name: "MemberManger",
   components: {
     CustormerFrom,
     NavHeader,
-    CustormerTable
-  },
-  props: {
-    title: {
-      type: Array,
-      default: function() {
-        return []
-      }
-    }
+    CustormerTable,
+    Drawer
   },
   props: [
-    'title',
-    'navList',
-    'form',
-    'froms',
-    'flag',
-    'tableColumn',
-    'list',
-    'currentpage4',
-    'total',
-    'currentType'
+    "title",
+    "navList",
+    "form",
+    "froms",
+    "flag",
+    "table",
+    "tableColumn",
+    "tableList",
+    "currentpage4",
+    "tableComponent",
+    "pagination",
+    "direction",
+    "getInvoice",
+    "currentType"
   ],
   data() {
     return {
       current: 0
-    }
+    };
   },
   mounted() {},
   methods: {
     changeIpt(data) {
-      this.$emit('search', this.form)
+      this.$emit("search", this.form);
     },
     clicks(index) {
-      console.log(1)
-      this.current = index
+      console.log(1);
+      this.current = index;
     },
     handlrest() {
-      this.$emit('handReset', this.form)
+      this.$emit("handReset", this.form);
     },
     handleSizeChange(val) {
-      console.log(`每页 ${val} 条`)
+      this.pagination.pageLimit = val;
     },
     handleCurrentChange(val) {
-      console.log(`当前页: ${val}`)
+      console.log(1);
+      this.currentPages = val;
+      this.$store.dispatch("order/getTableList", {
+        org_id: 61500,
+        org_type: this.currentType,
+        page: this.currentPages
+      });
+    },
+    handleComponent(row) {
+      this.$emit("handleDetail", row);
     }
   }
-}
+};
 </script>
 <style lang="scss" scoped>
 %juzhong {
@@ -104,27 +119,27 @@ export default {
   justify-content: center;
 }
 .nav-selected {
-    width: 100%;
-    font-size: 0;
-    line-height: 0;
-    border-bottom: 1px solid #e8e8e8;
+  width: 100%;
+  font-size: 0;
+  line-height: 0;
+  border-bottom: 1px solid #e8e8e8;
 }
 .nav-selected span {
-    display: inline-block;
-    box-sizing: content-box;
-    padding: 10px;
-    margin: 10px 24px;
-    border-bottom: 2px solid transparent;
-    font-family: PingFangSC-Regular;
-    font-size: 14px;
-    color: #595959;
-    text-align: center;
-    line-height: 22px;
-    cursor: pointer;
+  display: inline-block;
+  box-sizing: content-box;
+  padding: 10px;
+  margin: 10px 24px;
+  border-bottom: 2px solid transparent;
+  font-family: PingFangSC-Regular;
+  font-size: 14px;
+  color: #595959;
+  text-align: center;
+  line-height: 22px;
+  cursor: pointer;
 }
 .nav-selected .nav-show {
-    color: #3ec6b6;
-    border-bottom: 2px solid #3ec6b6;
+  color: #3ec6b6;
+  border-bottom: 2px solid #3ec6b6;
 }
 .container {
   width: 100%;

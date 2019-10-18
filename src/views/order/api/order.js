@@ -54,3 +54,12 @@ export function Research(query) {
     data: qs.stringify(query)
   })
 }
+export function getInvoice(query){
+  return request({
+    url: 'order/get-invoice-info',
+    method: 'post',
+    baseURL: '/api',
+    headers: { 'content-type': 'application/x-www-form-urlencoded' },
+    data: qs.stringify(query)
+  })
+}

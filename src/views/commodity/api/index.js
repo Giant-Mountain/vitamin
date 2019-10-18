@@ -18,3 +18,12 @@ export function prodSearch(query) {
     data: qs.stringify(query)
   })
 }
+export function stockList(query) {
+  return request({
+    url: '/prod/stock-list',
+    method: 'POST',
+    baseURL: '/api',
+    headers: { 'content-type': 'application/x-www-form-urlencoded' },
+    data: qs.stringify(query)
+  })
+}

@@ -5,11 +5,11 @@
     :form="form"
     :froms="froms"
     :flag="flag"
-    :list="list"
+    :tableList="list"
     :table-column="tableColumn"
     :current-page4="currentPage4"
     :current-type="currentType"
-    :total="pagination.totalCount"
+    :pagination="pagination"
     @search="searchSelect"
     @handReset="ResetClick"
   />
@@ -185,14 +185,18 @@ export default {
   },
   computed: mapState({
     list: store => store.order.list,
-    pagination: store => store.custormer.pagination
+    pagination: store => store.order.pagination
   }),
   mounted() {
-    this.$store.dispatch('custormer/getSearchList')
+   this.$store.dispatch('order/getMainorder',{
+      org_id: 61500,
+      page: this.currentPage4,
+      org_type: this.currentType
+    })
     this.$store.dispatch('order/getTableList', {
       org_id: 61500,
-      page: 1,
-      org_type: 5
+      page: this.currentPage4,
+      org_type: this.currentType
     })
     floor({
       org_id: 61500,

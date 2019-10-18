@@ -4,12 +4,12 @@
     :title="title"
     :form="form"
     :froms="froms"
-    :list="list"
+    :tableList="list"
     :flag="flag"
     :table-column="tableColumn"
     :current-page4="currentPage4"
     :current-type="currentType"
-    :total="pagination.totalCount"
+   :pagination="Wholeination"
     @search="searchSelect"
     @handReset="ResetClick"
   />
@@ -32,6 +32,7 @@ export default {
         order_number: ''
       },
       title: '整单退',
+      navList:[''],
       froms: [
         [
           {
@@ -88,10 +89,14 @@ export default {
   },
   computed: mapState({
     list: store => store.order.number,
-    pagination: store => store.custormer.pagination
+    Wholeination: store => store.order.Wholeination
   }),
   mounted() {
-    this.$store.dispatch('custormer/getSearchList')
+    this.$store.dispatch('order/getWholeination',{
+      mall_id: 61500,
+      page: this.currentPage4,
+      org_type: this.currentType
+    })
     this.$store.dispatch('order/getWholeList', {
       mall_id: 61500,
       page: 1,

@@ -48,7 +48,7 @@ export default {
         return [];
       }
     },
-    list: {
+    tableList: {
       type: Array,
       default: function() {
         return [];
