@@ -62,49 +62,49 @@
                   :value="item.id"
                 />
               </el-option-group> -->
-                              <el-option
-                  v-for="v in value.options"
-                  v-show="value.label==='楼层'"
-                  :key="v.id"
-                  :label="v.name"
-                  :value="v.id"
-                />
+              <el-option
+                v-for="v in value.options"
+                v-show="value.label==='楼层'"
+                :key="v.id"
+                :label="v.name"
+                :value="v.id"
+              />
+              <el-option
+                v-for="order in value.options"
+                v-show="value.label==='订单类型'"
+                :key="order.keb"
+                :value="order.id"
+                :label="order.keb"
+              />
+              <el-option
+                v-for="order in value.options"
+                v-show="value.label==='货源类型'"
+                :key="order.use"
+                :value="order.id"
+                :label="order.use"
+              />
+              <el-option
+                v-for="order in value.options"
+                v-show="value.label==='品牌'"
+                :key="order.name"
+                :value="order.id"
+                :label="order.name"
+              />
+              <el-option-group
+                v-for="group in value.options"
+                v-show="value.label==='店铺'"
+                :key="group.title"
+                :label="group.title"
+                :value="group.value"
+              >
                 <el-option
-                  v-for="order in value.options"
-                  v-show="value.label==='订单类型'"
-                  :key="order.keb"
-                  :value="order.id"
-                  :label="order.keb"
-                />
-                <el-option
-                  v-for="order in value.options"
-                  v-show="value.label==='货源类型'"
-                  :key="order.use"
-                  :value="order.id"
-                  :label="order.use"
-                />
-                <el-option
-                  v-for="order in value.options"
-                  v-show="value.label==='品牌'"
-                  :key="order.name"
-                  :value="order.id"
-                  :label="order.name"
-                />
-                <el-option-group
-                  v-for="group in value.options"
+                  v-for="item in group.children"
                   v-show="value.label==='店铺'"
-                  :key="group.title"
-                  :label="group.title"
-                  :value="group.value"
-                >
-                  <el-option
-                    v-for="item in group.children"
-                    v-show="value.label==='店铺'"
-                    :key="item.title"
-                    :label="item.title"
-                    :value="item.value"
-                  />
-                </el-option-group>
+                  :key="item.title"
+                  :label="item.title"
+                  :value="item.value"
+                />
+              </el-option-group>
             </component>
           </el-form-item>
         </div>
@@ -118,10 +118,10 @@
 </template>
 
 <script>
-import RangeInput from "./components/RangInput";
+import RangeInput from './components/RangInput'
 
 export default {
-  name: "CustormerFrom",
+  name: 'CustormerFrom',
   components: {
     RangeInput
   },
@@ -129,52 +129,52 @@ export default {
     froms: {
       type: Array,
       default: function() {
-        return [];
+        return []
       }
     },
     form: {
       type: Object,
       default: function() {
-        return {};
+        return {}
       }
     },
     gradeLevel: {
       type: Array,
       default: function() {
-        return [];
+        return []
       }
     },
     roleLists: {
       type: Array,
       default: function() {
-        return [];
+        return []
       }
     },
     shopList: {
       type: Array,
       default: function() {
-        return [];
+        return []
       }
     }
   },
   data() {
     return {
       defaultProps: {
-        children: "children",
-        name: "name"
+        children: 'children',
+        name: 'name'
       }
-    };
+    }
   },
   methods: {
     search() {
-      this.$emit("handSearch", this.form);
+      this.$emit('handSearch', this.form)
     },
     reset() {
-      this.$emit("resetInputValue");
-      this.$emit("handlEmit", this.form);
+      this.$emit('resetInputValue')
+      this.$emit('handlEmit', this.form)
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

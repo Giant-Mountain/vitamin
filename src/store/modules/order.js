@@ -1,15 +1,15 @@
-import { order, Return, Whole, invoice,getInvoice } from '../../views/order/api/order'
+import { order, Return, Whole, invoice, getInvoice } from '../../views/order/api/order'
 
 const state = {
   list: [],
   tablist: [],
   number: [],
   invoice: [],
-  pagination:[],
-  Returnaction:[],
-  Wholeination:[],
-  operation:[],
-  getInvoice:[]
+  pagination: [],
+  Returnaction: [],
+  Wholeination: [],
+  operation: [],
+  getInvoice: []
 }
 
 const mutations = {
@@ -25,22 +25,22 @@ const mutations = {
   invoiceList: (state, payload) => {
     state.invoice = payload.list
   },
-  Mainorder:(state, payload) => {
+  Mainorder: (state, payload) => {
     state.pagination = payload.page
   },
-  Returnaction:(state, payload) => {
+  Returnaction: (state, payload) => {
     state.Returnaction = payload.page
   },
-  Wholeination:(state, payload) => {
+  Wholeination: (state, payload) => {
     state.Wholeination = payload.pagination
   },
-  operation:(state, payload) => {
+  operation: (state, payload) => {
     state.operation = payload.page
   },
-  getInvoice:(state, payload) => {
+  getInvoice: (state, payload) => {
     state.getInvoice = payload.info
     console.log(state.getInvoice)
-  },
+  }
 }
 
 const actions = {
@@ -79,7 +79,7 @@ const actions = {
   async getInvoiceInfo({ commit }, query) {
     const result = await getInvoice(query)
     commit('getInvoice', result.data)
-  },
+  }
 }
 
 export default {

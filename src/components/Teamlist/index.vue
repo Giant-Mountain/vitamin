@@ -25,8 +25,8 @@
         <div class="tableList">
           <CustormerTable
             :table-column="tableColumn[current]"
-            :tableList="tableList"
-            :tableComponent="tableComponent"
+            :table-list="tableList"
+            :table-component="tableComponent"
             @handSeeContent="handleComponent"
           />
         </div>
@@ -43,18 +43,18 @@
       <div v-show="current===1">123234</div>
       <div v-show="current===2">123235</div>
       <div>
-        <Drawer :table="table" :direction="direction" :getInvoice="getInvoice"/>
+        <Drawer :table="table" :direction="direction" :get-invoice="getInvoice" />
       </div>
     </div>
   </div>
 </template>
 <script>
-import CustormerFrom from "@/components/CustormerFrom";
-import CustormerTable from "@/components/CustermerTable";
-import NavHeader from "@/components/NavHeader";
+import CustormerFrom from '@/components/CustormerFrom'
+import CustormerTable from '@/components/CustermerTable'
+import NavHeader from '@/components/NavHeader'
 import Drawer from '@/components/Drawer'
 export default {
-  name: "MemberManger",
+  name: 'MemberManger',
   components: {
     CustormerFrom,
     NavHeader,
@@ -62,55 +62,55 @@ export default {
     Drawer
   },
   props: [
-    "title",
-    "navList",
-    "form",
-    "froms",
-    "flag",
-    "table",
-    "tableColumn",
-    "tableList",
-    "currentpage4",
-    "tableComponent",
-    "pagination",
-    "direction",
-    "getInvoice",
-    "currentType"
+    'title',
+    'navList',
+    'form',
+    'froms',
+    'flag',
+    'table',
+    'tableColumn',
+    'tableList',
+    'currentpage4',
+    'tableComponent',
+    'pagination',
+    'direction',
+    'getInvoice',
+    'currentType'
   ],
   data() {
     return {
       current: 0
-    };
+    }
   },
   mounted() {},
   methods: {
     changeIpt(data) {
-      this.$emit("search", this.form);
+      this.$emit('search', this.form)
     },
     clicks(index) {
-      console.log(1);
-      this.current = index;
+      console.log(1)
+      this.current = index
     },
     handlrest() {
-      this.$emit("handReset", this.form);
+      this.$emit('handReset', this.form)
     },
     handleSizeChange(val) {
-      this.pagination.pageLimit = val;
+      this.pagination.pageLimit = val
     },
     handleCurrentChange(val) {
-      console.log(1);
-      this.currentPages = val;
-      this.$store.dispatch("order/getTableList", {
+      console.log(1)
+      this.currentPages = val
+      this.$store.dispatch('order/getTableList', {
         org_id: 61500,
         org_type: this.currentType,
         page: this.currentPages
-      });
+      })
     },
     handleComponent(row) {
-      this.$emit("handleDetail", row);
+      this.$emit('handleDetail', row)
     }
   }
-};
+}
 </script>
 <style lang="scss" scoped>
 %juzhong {

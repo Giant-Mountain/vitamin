@@ -1,19 +1,19 @@
-import { prodList,stockList} from '../../views/commodity/api'
+import { prodList, stockList } from '../../views/commodity/api'
 const state = {
   tablelist: [],
-  pagination:[],
-  stacklist:[],
-  stackpage:[]
+  pagination: [],
+  stacklist: [],
+  stackpage: []
 }
 
 const mutations = {
   SET_TABLE: (state, payload) => {
     state.tablelist = payload.list,
-    state.pagination=payload.pagination
+    state.pagination = payload.pagination
   },
-  STOCK_LIST:(state,payload)=>{
-    state.stacklist=payload.list,
-    state.stackpage=payload.pagination
+  STOCK_LIST: (state, payload) => {
+    state.stacklist = payload.list,
+    state.stackpage = payload.pagination
   }
 }
 
@@ -25,7 +25,7 @@ const actions = {
   async getStockList({ commit }, query) {
     const result = await stockList(query)
     commit('STOCK_LIST', result.data)
-  },
+  }
 }
 
 export default {

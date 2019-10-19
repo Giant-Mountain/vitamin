@@ -4,14 +4,14 @@
     :title="title"
     :form="form"
     :froms="froms"
-    :tableList="list"
+    :table-list="list"
     :table-column="tableColumn"
     :current-page4="currentPage4"
     :current-type="currentType"
     :pagination="Returnaction"
     :flag="flag"
-    :tableComponent="tableComponent"
-     @handleDetail="handleComponent"
+    :table-component="tableComponent"
+    @handleDetail="handleComponent"
     @search="searchSelect"
     @handReset="ResetClick"
   />
@@ -106,13 +106,13 @@ export default {
           {
             lable: '状态',
             prop: 'refund_ing_str'
-          },
+          }
         ]
       ],
-       tableComponent: [
+      tableComponent: [
         {
-          lable: "操作",
-          content: ["查看"]
+          lable: '操作',
+          content: ['查看']
         }
       ],
       currentPage4: 1,
@@ -124,13 +124,13 @@ export default {
     Returnaction: store => store.order.Returnaction
   }),
   mounted() {
-     this.$store.dispatch('order/getReturnaction',{
+    this.$store.dispatch('order/getReturnaction', {
       org_id: 61500,
       page: this.currentPage4,
       org_type: this.currentType
     })
     this.$store.dispatch('order/getReturnList', {
-       org_id: 61500,
+      org_id: 61500,
       page: this.currentPage4,
       org_type: this.currentType
     })
@@ -158,10 +158,10 @@ export default {
     // handleTab(current){
     //    this.current=current
     // },
-    //查看
-     handleComponent(id) {
-      this.table = true;
-      console.log(this.table );
+    // 查看
+    handleComponent(id) {
+      this.table = true
+      console.log(this.table)
     },
     // 重置
     ResetClick(data) {

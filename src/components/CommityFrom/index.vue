@@ -77,9 +77,9 @@
 
 <script>
 export default {
-  name: "CustormerFrom",
+  name: 'CustormerFrom',
   components: {},
-  props: ["froms", "form"],
+  props: ['froms', 'form'],
   // gradeLevel: {
   //   type: Array,
   //   default: function() {
@@ -87,17 +87,17 @@ export default {
   //   }
   // }
   data() {
-    return {};
+    return {}
   },
   methods: {
     search() {
-      this.$emit("handSearch", this.form);
+      this.$emit('handSearch', this.form)
     },
     reset() {
-      this.$emit("handlEmit"), this.form;
+      this.$emit('handlEmit'), this.form
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

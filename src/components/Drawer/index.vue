@@ -5,41 +5,41 @@
         <p class="bold">发票信息</p>
         <p>
           <span class="width-per-22">发票抬头：</span>
-          <span class="col-xs-6">{{getInvoice.invoice_info.order_invoice_info.title}}</span>
+          <span class="col-xs-6">{{ getInvoice.invoice_info.order_invoice_info.title }}</span>
         </p>
         <p>
           <span class="width-per-22">纳税人识别号:</span>
-          <span class="col-xs-6">{{getInvoice.invoice_info.order_invoice_info.number}}</span>
+          <span class="col-xs-6">{{ getInvoice.invoice_info.order_invoice_info.number }}</span>
         </p>
       </div>
       <div class="card-group">
         <p>
           <span class="width-per-22">实付金额:</span>
-          <span class="col-xs-6">￥{{getInvoice.order_info.amount}}</span>
+          <span class="col-xs-6">￥{{ getInvoice.order_info.amount }}</span>
         </p>
         <p>
           <span class="width-per-22">订单编号:</span>
-          <span class="col-xs-6">{{getInvoice.order_info.number}}</span>
+          <span class="col-xs-6">{{ getInvoice.order_info.number }}</span>
         </p>
         <p>
           <span class="width-per-22">微信订单编号:</span>
-          <span class="col-xs-6">{{getInvoice.pay_info.transaction_id}}</span>
+          <span class="col-xs-6">{{ getInvoice.pay_info.transaction_id }}</span>
         </p>
         <p>
           <span class="width-per-22">订单类型:</span>
-          <span class="col-xs-6">{{getInvoice.order_info.type_str}}</span>
+          <span class="col-xs-6">{{ getInvoice.order_info.type_str }}</span>
         </p>
         <p>
           <span class="width-per-22">下单时间:</span>
-          <span class="col-xs-6">{{getInvoice.order_info.created_at_str}}</span>
+          <span class="col-xs-6">{{ getInvoice.order_info.created_at_str }}</span>
         </p>
         <p>
           <span class="width-per-22">付款时间:</span>
-          <span class="col-xs-6">{{getInvoice.order_info.updated_at_str}}</span>
+          <span class="col-xs-6">{{ getInvoice.order_info.updated_at_str }}</span>
         </p>
         <p>
           <span class="width-per-22">付款方式:</span>
-          <span class="col-xs-6">{{getInvoice.pay_info.payment_type_str}}</span>
+          <span class="col-xs-6">{{ getInvoice.pay_info.payment_type_str }}</span>
         </p>
       </div>
       <div class="card-group">
@@ -72,14 +72,14 @@
         </p>
         <div class="product-detail justify-between padding-10-tnb border-btm-grey">
           <div class="product-img">
-              <img src="https://img.weitaming.com/test/product/image/20190930/ca6be48f9fb97aad2a9ebb26ce7690ee.jpg" class="img">
+            <img src="https://img.weitaming.com/test/product/image/20190930/ca6be48f9fb97aad2a9ebb26ce7690ee.jpg" class="img">
           </div>
           <div class="product-list float-left col-xs-8">
-               <p>商品名称:{{getInvoice}}</p>
-               <p>商品款号:{{getInvoice}}</p>
-               <p>SKU编码:{{getInvoice}}</p>
-               <p>颜色:{{getInvoice}}</p>
-               <p>¥5760.00:{{getInvoice}}</p>
+            <p>商品名称:{{ getInvoice }}</p>
+            <p>商品款号:{{ getInvoice }}</p>
+            <p>SKU编码:{{ getInvoice }}</p>
+            <p>颜色:{{ getInvoice }}</p>
+            <p>¥5760.00:{{ getInvoice }}</p>
           </div>
         </div>
       </div>
@@ -87,11 +87,11 @@
   </el-drawer>
 </template>
 <script>
-import { mapState } from "vuex";
+import { mapState } from 'vuex'
 export default {
-  props: ["table", "direction", "getInvoice"],
+  props: ['table', 'direction', 'getInvoice'],
   mounted() {}
-};
+}
 </script>
 <style>
 .img{

@@ -4,12 +4,12 @@
     :title="title"
     :form="form"
     :froms="froms"
-    :tableList="list"
+    :table-list="list"
     :flag="flag"
     :table-column="tableColumn"
     :current-page4="currentPage4"
     :current-type="currentType"
-   :pagination="Wholeination"
+    :pagination="Wholeination"
     @search="searchSelect"
     @handReset="ResetClick"
   />
@@ -32,7 +32,7 @@ export default {
         order_number: ''
       },
       title: '整单退',
-      navList:[''],
+      navList: [''],
       froms: [
         [
           {
@@ -92,7 +92,7 @@ export default {
     Wholeination: store => store.order.Wholeination
   }),
   mounted() {
-    this.$store.dispatch('order/getWholeination',{
+    this.$store.dispatch('order/getWholeination', {
       mall_id: 61500,
       page: this.currentPage4,
       org_type: this.currentType

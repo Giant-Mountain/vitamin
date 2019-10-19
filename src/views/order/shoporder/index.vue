@@ -5,7 +5,7 @@
     :form="form"
     :froms="froms"
     :flag="flag"
-    :tableList="list"
+    :table-list="list"
     :table-column="tableColumn"
     :current-page4="currentPage4"
     :current-type="currentType"
@@ -188,7 +188,7 @@ export default {
     pagination: store => store.order.pagination
   }),
   mounted() {
-   this.$store.dispatch('order/getMainorder',{
+    this.$store.dispatch('order/getMainorder', {
       org_id: 61500,
       page: this.currentPage4,
       org_type: this.currentType

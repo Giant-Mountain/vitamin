@@ -20,7 +20,7 @@
           />
         </div>
         <div class="tableList">
-          <StackTable :table-column="tableColumn[current]" :tablelist="tablelist" :multipleSelection="multipleSelection" @handleChange="handleSlect"/>
+          <StackTable :table-column="tableColumn[current]" :tablelist="tablelist" :multiple-selection="multipleSelection" @handleChange="handleSlect" />
         </div>
         <el-pagination
           :current-page="pageSize"
@@ -62,12 +62,12 @@ export default {
     'form',
     'froms',
     'flag',
-    "pagination",
-    "tableColumn",
-    "page",
-    "pageSize",
+    'pagination',
+    'tableColumn',
+    'page',
+    'pageSize',
     'tablelist',
-    "multipleSelection"
+    'multipleSelection'
   ],
   data() {
     return {
@@ -76,8 +76,8 @@ export default {
   },
   mounted() {},
   methods: {
-    handleSlect(val){
-       this.$emit('hanleClick',val)
+    handleSlect(val) {
+      this.$emit('hanleClick', val)
     },
     changeIpt(data) {
       this.$emit('search', this.form)
@@ -90,17 +90,17 @@ export default {
       this.$emit('handReset', this.form)
     },
     handleSizeChange(val) {
-       this.pagination.pageLimit = val
+      this.pagination.pageLimit = val
     },
     handleCurrentChange(val) {
       console.log(1)
-     this.currentPages = val
+      this.currentPages = val
       this.$store.dispatch('order/getTableList', {
         org_id: 61500,
         org_type: this.currentType,
         page: this.currentPages
       })
-    },
+    }
   }
 }
 </script>

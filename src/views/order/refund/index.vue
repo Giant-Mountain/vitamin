@@ -4,7 +4,7 @@
     :title="title"
     :form="form"
     :froms="froms"
-    :tableList="list"
+    :table-list="list"
     :table-column="tableColumn"
     :current-page4="currentPage4"
     :current-type="currentType"
@@ -154,13 +154,13 @@ export default {
     Returnaction: store => store.order.Returnaction
   }),
   mounted() {
-    this.$store.dispatch('order/getReturnaction',{
+    this.$store.dispatch('order/getReturnaction', {
       org_id: 61500,
       page: this.currentPage4,
       org_type: this.currentType
     })
     this.$store.dispatch('order/getReturnList', {
-     org_id: 61500,
+      org_id: 61500,
       page: this.currentPage4,
       org_type: this.currentType
     })

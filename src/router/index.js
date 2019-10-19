@@ -222,7 +222,7 @@ export const asyncRoutes = [
         meta: {
           title: '库存管理'
         }
-      },
+      }
     ]
   },
   {
