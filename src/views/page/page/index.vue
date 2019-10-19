@@ -8,15 +8,13 @@
         <el-table-column prop="page_url" label="url" width="180" class="column" />
         <el-table-column prop="address" label="状态" />
       </el-table>
-      <!-- {{pagelist}} -->
       <div class="block">
         <el-pagination
           :current-page="currentPage4"
-          :page-sizes="[100, 200, 300, 400]"
-          :page-size="100"
+          :page-sizes="[1,2]"
+          :page-size="1"
           layout="total, sizes, prev, pager, next, jumper"
-          :total="400"
-          class="pag"
+          :total="2"
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
         />
@@ -29,20 +27,7 @@ import { mapState, mapActions } from 'vuex'
 export default {
   data() {
     return {
-      tableData: [
-        {
-          address: '草稿'
-        },
-        {
-          address: '草稿'
-        },
-        {
-          address: '草稿'
-        },
-        {
-          address: '草稿'
-        }
-      ],
+
       currentPage1: 5,
       currentPage2: 5,
       currentPage3: 5,
