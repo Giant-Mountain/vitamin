@@ -4,11 +4,12 @@
       <div style="font-size:16px">顾客管理</div>
     </div>
     <div class="card-group">
-      <CustormerFrom
+      <YFormComponent
         :froms="promotionFroms[currentIndex]"
         :form="form"
         @handSearch="handSearchInput"
         @resetInputValue="resetFromsValue"
+        :defaultProps="defaultProps"
       />
     </div>
     <div class="customer-list">
@@ -17,7 +18,7 @@
         :table-column="tableColumn[currentIndex]"
         :table-list="tableList.list"
         :table-component="tableComponent"
-        @handSeeContent="handClickSee"
+        @handSeeContent="handTableEdior"
       />
     </div>
     <el-pagination
@@ -30,67 +31,112 @@
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
     />
+    <MarketDialog>
+      <template v-slot:default="slotProps">
+        <el-dialog title="查看店内促销" :visible.sync="dialogFormVisible">
+          <el-form>
+            <el-form-item
+              v-for="(value,key) in slotProps.data.dialogFroms"
+              :key="key"
+              :label="value.label"
+              class="form-item-content"
+            >
+              <component
+                :disabled="disabled"
+                :is="value.is"
+                :type="value.type"
+                v-model="slotProps.data.dialogFrom[value.name]"
+                :range-separator="value.rangeSeparator"
+                :start-placeholder="value.startPlaceholder"
+                :end-placeholder="value.endPlaceholder"
+                :placeholder="value.placeholder"
+                :buy_times.sync="form[value.name]"
+              >
+                <el-option
+                  v-for="(v,ind) in value.options"
+                  :key="ind"
+                  :label="v.label"
+                  :value="v.value"
+                />
+              </component>
+            </el-form-item>
+          </el-form>
+        </el-dialog>
+      </template>
+    </MarketDialog>
   </div>
 </template>
 <script>
-import CustormerFrom from '@/components/CustormerFrom/index.vue'
-import CustormerTable from '@/components/CustermerTable/index.vue'
-import { mapState } from 'vuex'
+import YFormComponent from "@/components/YFormComponent/index.vue";
+import CustormerTable from "@/components/CustermerTable/index.vue";
+import MarketDialog from "@/components/MarketDialog/index.vue";
+import { mapState } from "vuex";
 
 export default {
-  name: 'Customer',
+  name: "Customer",
   components: {
-    CustormerFrom,
-    CustormerTable
+    YFormComponent,
+    CustormerTable,
+    MarketDialog
   },
   data() {
     return {
+      //控制input是否可以输入
+      disabled: true,
+      //控制dialog的显示与隐藏
+      dialogTableVisible: false,
+      dialogFormVisible: false,
       addDialog: true,
       currentIndex: 0,
       currentPage4: 1,
       currentType: 1,
+      tableCurrent: 0,
+      defaultProps: {
+        children: "children",
+        label: "name"
+      },
       form: {
-        tel: '',
-        name: '',
-        nickname: '',
-        grade_code: '',
-        cid: '',
-        member_level: '',
+        tel: "",
+        name: "",
+        nickname: "",
+        grade_code: "",
+        cid: "",
+        member_level: "",
         buy_times: [],
-        lately_consume_time: '',
-        lately_view_time: ''
+        lately_consume_time: "",
+        lately_view_time: ""
       },
       tableColumn: [
         [
           {
-            lable: '店铺名称',
-            prop: 'vm_store_name'
+            lable: "店铺名称",
+            prop: "vm_store_name"
           },
           {
-            lable: '楼层',
-            prop: 'floor_name'
+            lable: "楼层",
+            prop: "floor_name"
           },
           {
-            lable: '店内促销',
-            prop: 'summary'
+            lable: "店内促销",
+            prop: "summary"
           },
           {
-            lable: '活动时间',
-            prop: 'activity_time_str'
+            lable: "活动时间",
+            prop: "activity_time_str"
           },
           {
-            lable: '状态',
-            prop: 'promotion_status'
+            lable: "状态",
+            prop: "promotion_status"
           }
         ]
       ],
       tableComponent: [
         {
-          lable: '操作',
-          content: ['查看', '编辑', '删除']
+          lable: "操作",
+          content: ["查看", "编辑", "删除"]
         }
       ]
-    }
+    };
   },
   computed: mapState({
     tableList: store => store.marketing.tableList,
@@ -98,39 +144,34 @@ export default {
     promotionFroms: store => store.marketing.promotionFroms
   }),
   mounted() {
-    this.$store.dispatch('marketing/getPromotionSelect')
-    this.$store.dispatch('marketing/getPromotionData', {
+    this.$store.dispatch("marketing/getPromotionSelect");
+    this.$store.dispatch("marketing/getPromotionData", {
       type: this.currentType,
       page: this.currentPage4
-    })
-    // this.$store.dispatch("marketing/getSearchList");
+    });
   },
   methods: {
-    handClickSee(id) {
-      this.$router.push(`customer/${id}`)
-    },
     // 用来tab切换以及切tab切换的数据
     handIndex(index, type) {
-      this.currentIndex = index
-      this.currentType = type
-      this.$store.dispatch('marketing/getPromotionData', {
+      this.currentIndex = index;
+      this.currentType = type;
+      this.$store.dispatch("marketing/getPromotionData", {
         type: this.currentType,
         page: this.currentPage4
-      })
+      });
     },
     handleSizeChange(val) {
-      console.log(`每页 ${val} 条`)
+      console.log(`每页 ${val} 条`);
     },
     // 点击换页面并进行数据重新渲染
     handleCurrentChange(val) {
-      this.currentPage4 = val
-      this.$store.dispatch('marketing/getPromotionData', {
+      this.currentPage4 = val;
+      this.$store.dispatch("marketing/getPromotionData", {
         type: 1,
         page: this.currentPage4
-      })
+      });
     },
     handSearchInput(data) {
-      console.log(data)
       const {
         tel,
         name,
@@ -141,8 +182,8 @@ export default {
         buy_times,
         lately_consume_time,
         lately_view_time
-      } = data
-      this.$store.dispatch('marketing/getPromotionData', {
+      } = data;
+      this.$store.dispatch("marketing/getPromotionData", {
         type: this.currentType,
         page: this.currentPage4,
         tel,
@@ -154,30 +195,59 @@ export default {
         buy_times,
         lately_consume_time,
         lately_view_time
-      })
+      });
     },
     resetFromsValue() {
       this.form = {
-        tel: '',
-        name: '',
-        nickname: '',
-        grade_code: '',
-        cid: '',
-        member_level: '',
+        tel: "",
+        name: "",
+        nickname: "",
+        grade_code: "",
+        cid: "",
+        member_level: "",
         buy_times: [],
-        lately_consume_time: '',
-        lately_view_time: ''
-      }
+        lately_consume_time: "",
+        lately_view_time: ""
+      };
     },
     handDialogShow(flag) {
-      console.log(1)
-      console.log(flag)
+      console.log(1);
+      console.log(flag);
+    },
+    handTableEdior(data) {
+      this.dialogFormVisible = true;
+      this.tableCurrent = data.index;
+      if (this.tableCurrent === 0) {
+        this.disabled = true;
+      } else {
+        this.disabled = false;
+      }
+      console.log(this.dialogFormVisible, "parent----");
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
+.form-item-content {
+  display: flex;
+  justify-content: center;
+}
+.form-item-content /deep/ .el-form-item__label {
+  width: 80px;
+  font-weight: normal;
+  font-size: 14px;
+}
+.form-item-content /deep/ .el-textarea__inner {
+  width: 350px;
+  height: 95px;
+}
+.form-item-content /deep/ .el-date-editor {
+  width: 350px;
+}
+.form-item-content /deep/ .el-input__inner {
+  width: 350px;
+}
 * {
   font-size: 12px;
 }

@@ -46,18 +46,33 @@
                 :label="v.label"
                 :value="v.name"
               />
+<<<<<<< HEAD
               <el-option
                 v-for="(v) in value.options"
+=======
+              <!-- <el-option
+                v-for="v in value.options"
+>>>>>>> a4f5a7358155f832ad775201fb1e0cc609947b07
                 :key="v.label"
                 :label="v.label"
                 :value="v.value"
+              /> -->
+              <el-option
+                v-for="(v) in value.options"
+                v-show="!v.options"
+                :key="v.id"
+                :label="v.name"
+                :value="v.id"
               />
+<<<<<<< HEAD
               <el-option
                 v-for="(v) in value.options"
                 :key="v.id"
                 :label="v.name"
                 :value="v.id"
               />
+=======
+>>>>>>> a4f5a7358155f832ad775201fb1e0cc609947b07
               <el-option-group
                 v-for="opt in value.options"
                 v-show="opt.children"
@@ -113,7 +128,6 @@
                     :value="item.value"
                   />
                 </el-option-group>
-                <!-- <el-tree :data="value.options" :props="defaultProps"></el-tree> -->
               </el-option-group>
             </component>
           </el-form-item>
@@ -170,8 +184,13 @@ export default {
   data() {
     return {
       defaultProps: {
+<<<<<<< HEAD
         children: 'children',
         name: 'name'
+=======
+        children: "children",
+        label: "name"
+>>>>>>> a4f5a7358155f832ad775201fb1e0cc609947b07
       }
     }
   },
@@ -196,10 +215,17 @@ export default {
     flex-wrap: wrap;
 }
 .from-content /deep/ .el-form-item {
+<<<<<<< HEAD
     width: 33.3%;
     height: 40px;
     line-height: 40px;
     display: flex;
+=======
+  // width: 33.3%;
+  height: 40px;
+  line-height: 40px;
+  display: flex;
+>>>>>>> a4f5a7358155f832ad775201fb1e0cc609947b07
 }
 .form-label /deep/ .el-form-item__label {
     display: inline-block;

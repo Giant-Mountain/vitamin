@@ -45,13 +45,13 @@ export default {
     froms: {
       type: Array,
       default: function() {
-        return []
+        return [];
       }
     },
     form: {
       type: Object,
       default: function() {
-        return {}
+        return {};
       }
     },
     dialogFormVisible: {
@@ -62,36 +62,36 @@ export default {
     return {
       rules: {
         // 校验手机号码，主要通过validator来指定验证器名称
-        name: [{ required: true, message: '姓名不能为空', trigger: 'blur' }]
+        name: [{ required: true, message: "姓名不能为空", trigger: "blur" }]
       }
-    }
+    };
   },
   methods: {
     handChange() {
-      this.$store.commit('custormer/SET_TYPE', this.form.type)
+      this.$store.commit("custormer/SET_TYPE", this.form.type);
     },
     handCancel() {
-      this.$store.commit('custormer/SET_DIALOG', !this.dialogFormVisible)
+      this.$store.commit("custormer/SET_DIALOG", !this.dialogFormVisible);
     },
     submit(formName) {
-      const { name, mobile, cid, hiredate, type, section } = this.form
+      const { name, mobile, cid, hiredate, type, section } = this.form;
       if (
-        name === '' ||
-        mobile === '' ||
-        cid === '' ||
-        hiredate === '' ||
-        type === '' ||
-        section === ''
+        name === "" ||
+        mobile === "" ||
+        cid === "" ||
+        hiredate === "" ||
+        type === "" ||
+        section === ""
       ) {
-        alert('信息填入不完整')
+        alert("信息填入不完整");
       } else {
-        this.$store.dispatch('merge/getaddQrcodeList', this.form)
-        alert('添加成功')
-        this.$store.commit('custormer/SET_DIALOG', !this.dialogFormVisible)
+        this.$store.dispatch("merge/getaddQrcodeList", this.form);
+        alert("添加成功");
+        this.$store.commit("custormer/SET_DIALOG", !this.dialogFormVisible);
       }
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -100,6 +100,7 @@ export default {
 }
 .from-content /deep/ .el-form-item {
   display: flex;
+  justify-content: center;
   width: 100%;
 }
 .from-content /deep/ .el-input__inner {

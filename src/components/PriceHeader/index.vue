@@ -12,7 +12,7 @@
           @click="handClick(item.id)"
         >{{ item.nav }}</span>
       </div>
-      <CustormerFrom v-if="form" :froms="froms" :form="form" />
+      <YFormComponent v-if="form" :froms="froms" :form="form" :defaultProps="defaultProps" />
     </div>
     <CustormerTable
       :table-column="tableColumn"
@@ -20,19 +20,22 @@
       :table-list="tableList"
       :table-component="tableComponent"
     />
-
   </div>
 </template>
 
 <script>
-import CustormerFrom from '@/components/CustormerFrom/index.vue'
-import CustormerTable from '@/components/CustermerTable/index.vue'
+import YFormComponent from "@/components/YFormComponent/index.vue";
+import CustormerTable from "@/components/CustermerTable/index.vue";
 export default {
   components: {
     CustormerTable,
-    CustormerFrom
+    YFormComponent
   },
   props: {
+    defaultProps: {
+      children: "children",
+      label: "name"
+    },
     tableComponent: {
       type: Array
     },
@@ -61,13 +64,12 @@ export default {
       type: Object
     }
   },
-
   methods: {
     handClick(id) {
-      this.$emit('ChangeId', id)
+      this.$emit("ChangeId", id);
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
