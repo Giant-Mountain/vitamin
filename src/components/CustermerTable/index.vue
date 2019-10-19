@@ -4,80 +4,80 @@
       <span @click="handDialog">+</span>
     </div>
     <el-table :data="tableList" style="width: 100%;height:100%">
-        <el-table-column
-          v-for="(table,index) in tableColumn"
-          :key="index"
-          align="center"
-          :label="table.lable"
-          :prop="table.prop"
-          :sortable="table.sortable?'':table.sortable"
-        />
-        <el-table-column
-          v-for="(item) in tableComponent"
-          :key="item.lable"
-          align="center"
-          :label="item.lable"
-        >
-          <template slot-scope="scope" :render="item.render(scope.row)">
-            <el-button
-              v-for="(key,ind) in item.content"
-              :key="ind"
-              type="text"
-              size="small"
-              @click="handClick(scope.row)"
-            >{{ key }}</el-button>
-          </template>
-        </el-table-column>/>
+      <el-table-column
+        v-for="(table,index) in tableColumn"
+        :key="index"
+        align="center"
+        :label="table.lable"
+        :prop="table.prop"
+        :sortable="table.sortable?'':table.sortable"
+      />
+      <el-table-column
+        v-for="(item) in tableComponent"
+        :key="item.lable"
+        align="center"
+        :label="item.lable"
+      >
+        <template slot-scope="scope" :render="item.render(scope.row)">
+          <el-button
+            v-for="(key,ind) in item.content"
+            :key="ind"
+            type="text"
+            size="small"
+            @click="handClick(scope.row)"
+          >{{ key }}</el-button>
+        </template>
+      </el-table-column>/>
     </el-table>
   </div>
 </template>
 
 <script>
 export default {
-  name: "CustormerTable",
+  name: 'CustormerTable',
   props: {
     tableColumn: {
       type: Array,
       default: function() {
-        return [];
+        return []
       }
     },
     tableComponent: {
       type: Array,
       default: function() {
-        return [];
+        return []
       }
     },
     list: {
       type: Array,
       default: function() {
-        return [];
+        return []
       }
-    },  
+    },
     addDialog: {
       type: Boolean
     },
     tableList: {
       type: Array,
       default: function() {
-        return [];
+        return []
       }
     }
   },
   methods: {
     handDialog() {
-      this.$store.commit("custormer/SET_DIALOG", this.addDialog);
+      this.$store.commit('custormer/SET_DIALOG', this.addDialog)
     },
     handClick(row) {
       // 打印到的是当前行的数据
-      console.log(row);
-      this.$emit("handSeeContent", row.id);
+      console.log(row)
+      this.$emit('handSeeContent', row.id)
     },
     changeInput(val) {
-      console.log(val);
+      console.log(val)
     }
   }
-};
+}
 </script>
 <style lang="scss" scoped>
 .table-content {
