@@ -34,7 +34,6 @@
                 v-for="(v) in roleLists"
                 v-show="value.name==='role'"
                 :key="v.id"
-                v-model="v.name"
                 :label="v.label"
                 :value="v.name"
               />
@@ -46,17 +45,11 @@
                 :label="v.label"
                 :value="v.name"
               />
-<<<<<<< HEAD
               <el-option
                 v-for="(v) in value.options"
-=======
-              <!-- <el-option
-                v-for="v in value.options"
->>>>>>> a4f5a7358155f832ad775201fb1e0cc609947b07
                 :key="v.label"
-                :label="v.label"
                 :value="v.value"
-              /> -->
+              />
               <el-option
                 v-for="(v) in value.options"
                 v-show="!v.options"
@@ -64,15 +57,13 @@
                 :label="v.name"
                 :value="v.id"
               />
-<<<<<<< HEAD
+
               <el-option
                 v-for="(v) in value.options"
                 :key="v.id"
                 :label="v.name"
                 :value="v.id"
               />
-=======
->>>>>>> a4f5a7358155f832ad775201fb1e0cc609947b07
               <el-option-group
                 v-for="opt in value.options"
                 v-show="opt.children"
@@ -85,49 +76,49 @@
                   :label="item.name"
                   :value="item.id"
                 />
+              </el-option-group> -->
+              <el-option
+                v-for="v in value.options"
+                v-show="value.label==='楼层'"
+                :key="v.id"
+                :label="v.name"
+                :value="v.id"
+              />
+              <el-option
+                v-for="order in value.options"
+                v-show="value.label==='订单类型'"
+                :key="order.keb"
+                :value="order.id"
+                :label="order.keb"
+              />
+              <el-option
+                v-for="order in value.options"
+                v-show="value.label==='货源类型'"
+                :key="order.use"
+                :value="order.id"
+                :label="order.use"
+              />
+              <el-option
+                v-for="order in value.options"
+                v-show="value.label==='品牌'"
+                :key="order.name"
+                :value="order.id"
+                :label="order.name"
+              />
+              <el-option-group
+                v-for="group in value.options"
+                v-show="value.label==='店铺'"
+                :key="group.title"
+                :label="group.title"
+                :value="group.value"
+              >
                 <el-option
-                  v-for="v in value.options"
-                  v-show="value.label==='楼层'"
-                  :key="v.id"
-                  :label="v.name"
-                  :value="v.id"
-                />
-                <el-option
-                  v-for="order in value.options"
-                  v-show="value.label==='订单类型'"
-                  :key="order.keb"
-                  :value="order.id"
-                  :label="order.keb"
-                />
-                <el-option
-                  v-for="order in value.options"
-                  v-show="value.label==='货源类型'"
-                  :key="order.use"
-                  :value="order.id"
-                  :label="order.use"
-                />
-                <el-option
-                  v-for="order in value.options"
-                  v-show="value.label==='品牌'"
-                  :key="order.name"
-                  :value="order.id"
-                  :label="order.name"
-                />
-                <el-option-group
-                  v-for="group in value.options"
+                  v-for="item in group.children"
                   v-show="value.label==='店铺'"
-                  :key="group.title"
-                  :label="group.title"
-                  :value="group.value"
-                >
-                  <el-option
-                    v-for="item in group.children"
-                    v-show="value.label==='店铺'"
-                    :key="item.title"
-                    :label="item.title"
-                    :value="item.value"
-                  />
-                </el-option-group>
+                  :key="item.title"
+                  :label="item.title"
+                  :value="item.value"
+                />
               </el-option-group>
             </component>
           </el-form-item>
@@ -184,13 +175,8 @@ export default {
   data() {
     return {
       defaultProps: {
-<<<<<<< HEAD
         children: 'children',
         name: 'name'
-=======
-        children: "children",
-        label: "name"
->>>>>>> a4f5a7358155f832ad775201fb1e0cc609947b07
       }
     }
   },
@@ -215,17 +201,10 @@ export default {
     flex-wrap: wrap;
 }
 .from-content /deep/ .el-form-item {
-<<<<<<< HEAD
     width: 33.3%;
     height: 40px;
     line-height: 40px;
     display: flex;
-=======
-  // width: 33.3%;
-  height: 40px;
-  line-height: 40px;
-  display: flex;
->>>>>>> a4f5a7358155f832ad775201fb1e0cc609947b07
 }
 .form-label /deep/ .el-form-item__label {
     display: inline-block;

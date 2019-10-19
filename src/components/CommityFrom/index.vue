@@ -14,35 +14,42 @@
             :placeholder="value.placeholder"
             :range.sync="form[value.name]"
           >
-            <el-option
-              v-for="order in value.options"
+            <!-- <el-option
+              v-for="v in value.options"
               v-show="value.label==='品牌'"
-              :key="order.name"
-              :value="order.id"
-              :label="order.name"
-            />
-            <el-option
+              :key="v.name"
+              :value="v.id"
+              :label="v.name"
+            /> -->
+            <!-- <el-option
               v-for="order in value.options"
-              v-show="value.label==='商品来源'"
-              :key="order.name"
+              v-show="value.label==='分类'"
+              :key="order.id"
               :value="order.id"
-              :label="order.name"
-            />
-            <el-option
+              :label="order.title"
+            /> -->
+            <!-- <el-option
+              v-for="k in value.options"
+              v-show="value.label==='商品来源'"
+              :key="k.name"
+              :value="k.id"
+              :label="k.name"
+            /> -->
+            <!-- <el-option
               v-for="order in value.options"
               v-show="value.label==='商品类型'"
               :key="order.name"
               :value="order.id"
               :label="order.name"
-            />
-            <el-option
+            />-->
+            <!-- <el-option
               v-for="item in value.options"
               v-show="value.label==='配送方式'"
               :key="item.name"
               :label="item.name"
               :value="item.id"
-            />
-            <el-option-group
+            /> -->
+            <!-- <el-option-group
               v-for="group in value.options"
               v-show="value.label==='店铺'"
               :key="group.title"
@@ -56,7 +63,7 @@
                 :label="item.title"
                 :value="item.value"
               />
-            </el-option-group>
+            </el-option-group> -->
           </component>
         </el-form-item>
       </div>
@@ -70,9 +77,9 @@
 
 <script>
 export default {
-  name: 'CustormerFrom',
+  name: "CustormerFrom",
   components: {},
-  props: ['froms', 'form'],
+  props: ["froms", "form"],
   // gradeLevel: {
   //   type: Array,
   //   default: function() {
@@ -80,17 +87,17 @@ export default {
   //   }
   // }
   data() {
-    return {}
+    return {};
   },
   methods: {
     search() {
-      this.$emit('handSearch', this.form)
+      this.$emit("handSearch", this.form);
     },
     reset() {
-      this.$emit('handlEmit'), this.form
+      this.$emit("handlEmit"), this.form;
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>

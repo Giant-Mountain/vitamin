@@ -19,14 +19,11 @@
             @handlEmit="handlrest"
           />
         </div>
-        <!-- <div class="add">
-          <span>+</span>
-        </div>-->
         <div class="tableList">
-          <CommityTabel :table-column="tableColumn[current]" :tablelist="tablelist" :multipleSelection="multipleSelection" @handleChange="handleSlect" :tableprops="tableprops"/>
+          <StackTable :table-column="tableColumn[current]" :tablelist="tablelist" :multipleSelection="multipleSelection" @handleChange="handleSlect"/>
         </div>
         <el-pagination
-          :current-page="currentpage4"
+          :current-page="pageSize"
           :page-sizes="[10,15,20,25,30]"
           :page-size="pagination.totalPages"
           layout="total, sizes, prev, pager, next, jumper"
@@ -42,14 +39,14 @@
 </template>
 <script>
 import CommityFrom from '@/components/CommityFrom'
-import CommityTabel from '@/components/CommityTabel'
+import StackTable from '@/components/StackTable'
 import NavHeader from '@/components/NavHeader'
 export default {
   name: 'MemberManger',
   components: {
     CommityFrom,
     NavHeader,
-    CommityTabel
+    StackTable
   },
   props: {
     title: {
@@ -65,11 +62,10 @@ export default {
     'form',
     'froms',
     'flag',
-    "tableprops",
     "pagination",
     "tableColumn",
-    "currentType",
-    "currentpage4",
+    "page",
+    "pageSize",
     'tablelist',
     "multipleSelection"
   ],
